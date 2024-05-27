@@ -12,3 +12,5 @@ The setup for the server part of this project required setting up `npm`, `NodeJS
 - `MySQL Workbench` is not necessary, `WebStorm` provides a better DB management tool.
 - `sequelize-cli` needed to be installed globally for the command `sequelize init` to work.
 - `Sequelize`'s DB setup requires the user and password to be stored in a text file, which is a clear security problem. The change to a .env approach was not straightforward.
+- Unintentionally committed `.env` and `.idea` files to `GitHub`. Recreating repository was easier than force-pushing changes.
+
