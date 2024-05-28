@@ -1,0 +1,47 @@
+.create-post-page {
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100vw;
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 500px;
+  height: auto;
+  padding: 20px;
+  border: 5px solid dodgerblue;
+  border-radius: 5px;
+}
+
+.form-container .input {
+  height: 40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 2px solid grey;
+  border-radius: 5px;
+  padding-left: 10px;
+  font-size: 20px;
+}
+
+.form-container button {
+  margin-top: 15px;
+  height: 40px;
+  border: none;
+  background-color: lightskyblue;
+  border-radius: 5px;
+  color: white;
+}
+
+.form-container button:hover {
+  cursor: pointer;
+  background-color: dodgerblue;
+}
+
+span {
+  color: red;
+}

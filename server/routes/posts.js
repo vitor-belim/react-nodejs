@@ -3,7 +3,7 @@ const router = express.Router();
 const { Posts: postsTable } = require("../models");
 
 router.get("/", async (req, res) => {
-  res.json(await postsTable.findAll());
+  res.json(await postsTable.findAll({ order: [["id", "DESC"]] }));
 });
 
 router.post("/", async (req, res) => {

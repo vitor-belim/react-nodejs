@@ -34,3 +34,17 @@ The client was setup using `React`, and `Axios` was used to request data from th
 - Turning on both client and server using `npm start` sometimes fails without a message, likely to be a problem with figuring out where the command should run.
 - The `cors` library had to be used as a middleware to be able to establish communication between the client and the server.
 - The client is firing the `GET /posts` request twice, even though it's wrapped in a `useEffect()`. This is a consequence of using `React.StrictMode` ([\<StrictMode\>](https://react.dev/reference/react/StrictMode#)), which is useful for identifying problems early-on in development.
+
+## Lesson 4 - Client routes and creation form
+
+Pages for listing all posts and creating new ones were created. Lesson focused creating and handling the "create post" form using `Formik` & `Yup`.
+
+### Notes
+
+- Libraries `react-router-dom`, `formik` and `yup` added to client project.
+- The `react-router-dom` routing setup was different since the tutorial was using an older version of the library.
+- WebStorm is not providing autocomplete for the `Yup` library. It likely works better with TypeScript.
+- (personal preference) List of posts sorted from newest to oldest.
+- (personal preference) Refactored project folder structure, created isolated components and moved css to component-specific css files.
+- (personal preference) Created different services to better manage API requests.
+- (personal preference) Adjusted css ids and classes.
