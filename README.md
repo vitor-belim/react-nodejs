@@ -33,4 +33,4 @@ The client was setup using `React`, and `Axios` was used to request data from th
 - `React` was setup using the command `npx create-react-app .`.
 - Turning on both client and server using `npm start` sometimes fails without a message, likely to be a problem with figuring out where the command should run.
 - The `cors` library had to be used as a middleware to be able to establish communication between the client and the server.
-
+- The client is firing the `GET /posts` request twice, even though it's wrapped in a `useEffect()`. This is a consequence of using `React.StrictMode` ([\<StrictMode\>](https://react.dev/reference/react/StrictMode#)), which is useful for identifying problems early-on in development.
