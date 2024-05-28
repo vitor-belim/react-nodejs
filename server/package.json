@@ -1,13 +1,14 @@
 {
   "name": "react-nodejs-server",
-  "version": "1.0.0",
+  "version": "0.0.1",
+  "private": true,
+  "author": "Vítor Belim",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
   },
-  "author": "Vítor Belim",
   "license": "ISC",
   "devDependencies": {
     "dotenv": "^16.4.5",

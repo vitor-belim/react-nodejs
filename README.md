@@ -24,3 +24,13 @@ This lesson was about setting up routes and requests. It was mostly around `Sequ
 - Configured `Postman` for API requests' management.
 - Created requests GET and POST for `/posts`. Used generated random data for the POST request.
 
+## Lesson 3 - Client setup and connection to server
+
+The client was setup using `React`, and `Axios` was used to request data from the server. A basic page setup was done to show the list of posts retrieved.
+
+### Notes
+
+- `React` was setup using the command `npx create-react-app .`.
+- Turning on both client and server using `npm start` sometimes fails without a message, likely to be a problem with figuring out where the command should run.
+- The `cors` library had to be used as a middleware to be able to establish communication between the client and the server.
+
