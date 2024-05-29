@@ -3,8 +3,11 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import "./CreatePost.css";
 import * as Yup from "yup";
 import PostsService from "../../../services/posts-service";
+import { useNavigate } from "react-router-dom";
 
 function CreatePost() {
+  const navigate = useNavigate();
+
   const initialValues = {
     title: "",
     postText: "",
@@ -20,10 +23,10 @@ function CreatePost() {
       .required("The author's username is required"),
   });
 
-  const onSubmit = (data, { resetForm }) => {
+  const onSubmit = (data) => {
     PostsService.createPost(data).then((response) => {
       console.log("Created a post!", response.data);
-      resetForm();
+      navigate(`/posts/${response.data.id}`);
     });
   };
 

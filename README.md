@@ -48,3 +48,14 @@ Pages for listing all posts and creating new ones were created. Lesson focused c
 - (personal preference) Refactored project folder structure, created isolated components and moved css to component-specific css files.
 - (personal preference) Created different services to better manage API requests.
 - (personal preference) Adjusted css ids and classes.
+
+## Lesson 5 - Details page
+
+Added a details page for each post, containing the post itself and a future comment section. The lesson focused URL parameters and `useHistory() / useNavigate()`.
+
+### Notes
+
+- The `useHistory()` hook has been deprecated in favour of the `useNavigate()` hook.
+- Chose to add a 'large' option to the `Post` component instead of copy-pasting it with different styles.
+- (personal preference) Created remaining CRUD methods in the server.
+- (personal preference) Refactored routes naming.

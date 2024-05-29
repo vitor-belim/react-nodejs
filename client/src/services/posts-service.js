@@ -10,6 +10,12 @@ class PostsService {
   createPost = (post) => {
     return ApiService.post(this.#URL, post);
   };
+
+  getPost(id) {
+    return ApiService.get(`${this.#URL}/${id}`);
+  }
 }
 
-export default new PostsService();
+const singleton = new PostsService();
+
+export default singleton;
