@@ -68,3 +68,13 @@ Created the comments table, created association between posts and comments and i
 
 - The `Sequelize` ORM creates capitalized foreign keys by default.
 - Although we're using `/comments/:postId`, I feel like `/posts/:id/comments` would be a better endpoint. Might change to it later.
+
+## Lesson 7 - Comments client setup
+
+Created the add comment and list comments components (although tutorial did not modularize them) and added functionality.
+
+### Notes
+
+- Had to organize everything into components because the tutorial project is getting messy.
+- (personal preference) Added a `<form>` around the add comment input and button to be able to submit when the enter key is pressed.
+- (personal preference) List of comments sorted from newest to oldest.

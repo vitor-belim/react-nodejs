@@ -4,7 +4,10 @@ const { Comments: commentsTable } = require("../models");
 
 router.get("/:postId", async (req, res) => {
   res.json(
-    await commentsTable.findAll({ where: { postId: req.params.postId } }),
+    await commentsTable.findAll({
+      where: { postId: req.params.postId },
+      order: [["id", "DESC"]],
+    }),
   );
 });
 

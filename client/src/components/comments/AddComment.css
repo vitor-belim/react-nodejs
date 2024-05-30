@@ -1,0 +1,16 @@
+.add-comment-container input,
+.add-comment-container button {
+  width: 200px;
+  height: 50px;
+  border-radius: 8px;
+  border: none;
+}
+
+.add-comment-container button {
+  background-color: dodgerblue;
+  color: white;
+}
+
+.add-comment-container input {
+  border: 2px solid dodgerblue;
+}
