@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const { Posts: postsTable } = require("../models");
 
+const entityNotFoundResponse = { message: "Entity not found" };
+const entityDeletedResponse = { message: "Entity deleted" };
+
 router.get("/", async (req, res) => {
   res.json(await postsTable.findAll({ order: [["id", "DESC"]] }));
 });
@@ -13,7 +16,7 @@ router.post("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const dbPost = await postsTable.findByPk(req.params.id);
   if (!dbPost) {
-    return res.json({ message: "Entity not found" });
+    return res.json(entityNotFoundResponse);
   }
   res.json(dbPost);
 });
@@ -21,7 +24,7 @@ router.get("/:id", async (req, res) => {
 router.put("/:id", async (req, res) => {
   const dbPost = await postsTable.findByPk(req.params.id);
   if (!dbPost) {
-    return res.json({ message: "Entity not found" });
+    return res.json(entityNotFoundResponse);
   }
   res.json(await dbPost.update(req.body));
 });
@@ -29,10 +32,10 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   const dbPost = await postsTable.findByPk(req.params.id);
   if (!dbPost) {
-    return res.json({ message: "Entity not found" });
+    return res.json(entityNotFoundResponse);
   }
   await dbPost.destroy();
-  res.json({ message: "Entity deleted" });
+  res.json(entityDeletedResponse);
 });
 
 module.exports = router;

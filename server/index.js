@@ -5,8 +5,8 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
-const postsRouter = require("./routes/Posts");
-app.use("/posts", postsRouter);
+app.use("/posts", require("./routes/Posts"));
+app.use("/comments", require("./routes/Comments"));
 
 const db = require("./models");
 db.sequelize.sync().then(() => {

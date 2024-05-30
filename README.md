@@ -59,3 +59,12 @@ Added a details page for each post, containing the post itself and a future comm
 - Chose to add a 'large' option to the `Post` component instead of copy-pasting it with different styles.
 - (personal preference) Created remaining CRUD methods in the server.
 - (personal preference) Refactored routes naming.
+
+## Lesson 6 - Comments server setup
+
+Created the comments table, created association between posts and comments and implemented create/get comments by post.
+
+### Notes
+
+- The `Sequelize` ORM creates capitalized foreign keys by default.
+- Although we're using `/comments/:postId`, I feel like `/posts/:id/comments` would be a better endpoint. Might change to it later.
