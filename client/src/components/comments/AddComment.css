@@ -1,17 +1,32 @@
-.add-comment-container input,
+.add-comment-container {
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-comment-container textarea,
 .add-comment-container button {
-  width: 200px;
-  height: 50px;
   border-radius: 8px;
   border: none;
 }
 
 .add-comment-container button {
+  width: 200px;
+  height: 40px;
   background-color: var(--color1);
   color: white;
   cursor: pointer;
 }
 
-.add-comment-container input {
+.add-comment-container textarea {
+  width: 100%;
+  max-width: 400px;
+  height: 80px;
   border: 2px solid var(--color1);
 }

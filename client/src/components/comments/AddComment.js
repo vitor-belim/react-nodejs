@@ -18,8 +18,7 @@ function AddComment({ postId, onAddComment = null }) {
   return (
     <div className="add-comment-container">
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
+        <textarea
           placeholder="Comment"
           autoComplete="off"
           required
