@@ -1,13 +1,12 @@
 .post {
   width: 400px;
-  height: 300px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  margin-top: 50px;
-  border: 1px solid lightgray;
-  font-family: Arial, Helvetica, sans-serif;
+  border: 1px solid var(--color2);
   box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+  overflow: hidden;
+  font-family: monospace;
 }
 
 .post:hover {
@@ -16,40 +15,47 @@
 }
 
 .post .title {
-  flex: 20%;
-  border-bottom: 1px solid lightgray;
-  background-color: dodgerblue;
+  font-weight: bold;
+  flex: 36px;
+  border-bottom: 1px solid var(--color2);
+  background-color: var(--color3);
   display: grid;
   place-content: center;
   color: white;
+  text-transform: uppercase;
 }
 
 .post .body {
   flex: 60%;
   display: grid;
   place-content: center;
+  padding: 20px;
+  font-family: fantasy;
 }
 
 .post .footer {
-  flex: 20%;
-  border-top: 1px solid lightgray;
+  flex: 28px;
+  border-top: 1px solid var(--color2);
   display: flex;
   align-items: center;
   padding-left: 15px;
-  background-color: dodgerblue;
+  background-color: var(--color2);
   color: white;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
 }
 
 .post.large {
   width: 600px;
-  height: 500px;
+  height: 400px;
 }
 
-.post.large .title,
+.post.large .title {
+  font-size: 28px;
+  flex: 60px;
+}
+
 .post.large .footer {
-  font-size: 30px;
+  font-size: 28px;
+  flex: 36px;
 }
 
 .post.large .body {

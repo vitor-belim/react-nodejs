@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Post from "../../../components/post/Post";
 import PostsService from "../../../services/posts-service";
+import "./ListPosts.css";
 
 function ListPosts() {
   const [posts, setPosts] = useState([]);
@@ -13,7 +14,7 @@ function ListPosts() {
   }, []);
 
   return (
-    <div>
+    <div className="posts">
       {posts.map((post) => (
         <Post key={post.id} post={post}></Post>
       ))}

@@ -2,6 +2,7 @@
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+  padding-top: 50px;
 }
 
 .container .column {
@@ -16,5 +17,4 @@
   display: grid;
   place-items: center;
   align-items: flex-start;
-  margin-top: 50px;
 }

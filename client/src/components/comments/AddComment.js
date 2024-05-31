@@ -22,6 +22,7 @@ function AddComment({ postId, onAddComment = null }) {
           type="text"
           placeholder="Comment"
           autoComplete="off"
+          required
           value={comment}
           onChange={(e) => setComment(e.target.value)}
         />

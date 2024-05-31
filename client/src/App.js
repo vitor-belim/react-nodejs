@@ -8,8 +8,10 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter basename="/">
-        <Link to="/">Home Page</Link>
-        <Link to="/posts/new">Create a Post</Link>
+        <div className="links">
+          <Link to="/">Home Page</Link>
+          <Link to="/posts/new">Create a Post</Link>
+        </div>
         <Routes>
           <Route exact path="/" Component={ListPosts} />
           <Route exact path="/posts/new" Component={CreatePost} />
