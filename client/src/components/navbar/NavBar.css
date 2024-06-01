@@ -1,0 +1,22 @@
+.links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background: var(--color1);
+  height: 60px;
+}
+
+.links a {
+  padding: 20px 28px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: monospace;
+  text-decoration: none;
+  color: white;
+}
+
+.links a:hover {
+  background: var(--color3);
+}
