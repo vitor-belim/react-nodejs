@@ -18,28 +18,40 @@
   border-radius: 5px;
 }
 
+.form-container label {
+  font-weight: bold;
+}
+
 .form-container .input {
   height: 40px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 4px;
+  margin-bottom: 12px;
   border: 2px solid var(--color2);
   border-radius: 5px;
   padding-left: 10px;
-  font-size: 20px;
+  font-size: 16px;
+}
+
+.form-container .textarea {
+  height: 120px;
 }
 
 .form-container button {
   margin-top: 15px;
   height: 40px;
   border: none;
-  background-color: var(--color1);
+  background-color: var(--color2);
   border-radius: 5px;
   color: white;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: bold;
 }
 
 .form-container button:hover {
-  cursor: pointer;
-  background-color: var(--color3);
+  background-color: var(--color1);
 }
 
 span {

@@ -3,10 +3,10 @@
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--color2);
   box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
   overflow: hidden;
   font-family: monospace;
+  word-break: break-word;
 }
 
 .post:hover {
@@ -17,12 +17,21 @@
 .post .title {
   font-weight: bold;
   flex: 36px;
-  border-bottom: 1px solid var(--color2);
-  background-color: var(--color3);
+  background-color: var(--color1);
   display: grid;
   place-content: center;
-  color: white;
   text-transform: uppercase;
+  padding: 4px 8px;
+}
+
+.post .title span {
+  color: white;
+}
+
+.post:not(.large) .title span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .post .body {
@@ -31,21 +40,32 @@
   place-content: center;
   padding: 20px;
   font-family: fantasy;
+  white-space: pre-wrap;
+}
+
+.post .body p {
+  margin: 0;
+}
+
+.post:not(.large) .body p {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
 }
 
 .post .footer {
   flex: 28px;
-  border-top: 1px solid var(--color2);
   display: flex;
   align-items: center;
-  padding-left: 15px;
-  background-color: var(--color2);
+  background-color: var(--color3);
   color: white;
+  padding: 4px 8px;
 }
 
 .post.large {
   width: 600px;
-  height: 400px;
+  min-height: 400px;
 }
 
 .post.large .title {

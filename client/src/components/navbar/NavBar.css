@@ -3,11 +3,13 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background: var(--color1);
+  background: var(--color2);
   height: 60px;
 }
 
 .links a {
+  height: 100%;
+  box-sizing: border-box;
   padding: 20px 28px;
   font-size: 16px;
   font-weight: bold;
@@ -18,5 +20,5 @@
 }
 
 .links a:hover {
-  background: var(--color3);
+  background: var(--color1);
 }

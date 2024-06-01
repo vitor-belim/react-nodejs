@@ -15,8 +15,8 @@ function CreatePost() {
   };
 
   const validationSchema = Yup.object().shape({
-    title: Yup.string().required("The title is required"),
-    postText: Yup.string().required("The post's text is required"),
+    title: Yup.string().max(40).required("The title is required"),
+    postText: Yup.string().max(1000).required("The post's text is required"),
     username: Yup.string()
       .min(3)
       .max(15)
@@ -38,7 +38,7 @@ function CreatePost() {
         validationSchema={validationSchema}
       >
         <Form className="form-container">
-          <label>Title: </label>
+          <label>Title</label>
           <ErrorMessage name="title" component="span" />
           <Field
             id="title"
@@ -48,17 +48,18 @@ function CreatePost() {
             autoComplete="off"
           />
 
-          <label>Post: </label>
+          <label>Post</label>
           <ErrorMessage name="postText" component="span" />
           <Field
+            as="textarea"
             id="post-text"
-            className="input"
+            className="input textarea"
             name="postText"
-            placeholder="(Ex.: Post...)"
+            placeholder="(Ex.: Lorem ipsum...)"
             autoComplete="off"
           />
 
-          <label>Username: </label>
+          <label>Username</label>
           <ErrorMessage name="username" component="span" />
           <Field
             id="username"

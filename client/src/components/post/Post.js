@@ -10,8 +10,12 @@ function Post({ post, large = false, canNavigate = true }) {
       className={`post ${large && "large"}`}
       onClick={() => canNavigate && navigate(`/posts/${post.id}`)}
     >
-      <div className="title">{post.title}</div>
-      <div className="body">{post.postText}</div>
+      <div className="title">
+        <span>{post.title}</span>
+      </div>
+      <div className="body">
+        <p>{post.postText}</p>
+      </div>
       <div className="footer">@{post.username}</div>
     </div>
   );

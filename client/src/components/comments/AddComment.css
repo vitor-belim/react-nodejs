@@ -19,14 +19,22 @@ form {
 .add-comment-container button {
   width: 200px;
   height: 40px;
-  background-color: var(--color1);
+  background-color: var(--color2);
   color: white;
   cursor: pointer;
+  text-transform: uppercase;
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.add-comment-container button:hover {
+  background-color: var(--color1);
 }
 
 .add-comment-container textarea {
   width: 100%;
   max-width: 400px;
   height: 80px;
-  border: 2px solid var(--color1);
+  border: 2px solid var(--color2);
 }
