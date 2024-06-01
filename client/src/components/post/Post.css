@@ -16,7 +16,7 @@
 
 .post .title {
   font-weight: bold;
-  flex: 36px;
+  flex: 36px 0;
   background-color: var(--color1);
   display: grid;
   place-content: center;
@@ -35,7 +35,7 @@
 }
 
 .post .body {
-  flex: 60%;
+  flex: 100% 1;
   display: grid;
   place-content: center;
   padding: 20px;
@@ -55,7 +55,7 @@
 }
 
 .post .footer {
-  flex: 28px;
+  flex: 28px 0;
   display: flex;
   align-items: center;
   background-color: var(--color3);
@@ -70,12 +70,12 @@
 
 .post.large .title {
   font-size: 28px;
-  flex: 60px;
+  flex: 60px 0;
 }
 
 .post.large .footer {
   font-size: 28px;
-  flex: 36px;
+  flex: 36px 0;
 }
 
 .post.large .body {
