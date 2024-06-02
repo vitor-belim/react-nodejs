@@ -7,6 +7,7 @@ app.use(cors());
 
 app.use("/posts", require("./routes/Posts"));
 app.use("/comments", require("./routes/Comments"));
+app.use("/auth", require("./routes/Auth"));
 
 const db = require("./models");
 db.sequelize.sync().then(() => {

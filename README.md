@@ -78,3 +78,12 @@ Created the add comment and list comments components (although tutorial did not 
 - Had to organize everything into components because the tutorial project is getting messy.
 - (personal preference) Added a `<form>` around the add comment input and button to be able to submit when the enter key is pressed.
 - (personal preference) List of comments sorted from newest to oldest.
+
+## Lesson 8 - Registration and login
+
+Added authentication server endpoints (`/auth/register` and `/auth/login`) and client pages (`/register` and `/login`). Actual authentication (using tokens) was not implemented yet.
+
+### Notes
+
+- Added library `bcrypt` for password hashing.
+- Authentication will be refactored after next lesson.
