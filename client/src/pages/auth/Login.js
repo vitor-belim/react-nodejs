@@ -1,9 +1,11 @@
 import React from "react";
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import AuthService from "../../services/auth-service";
-import "./Login.css";
+import "./Authentication.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 function Login() {
   const navigate = useNavigate();
@@ -15,15 +17,14 @@ function Login() {
   };
 
   const validationSchema = Yup.object().shape({
-    username: Yup.string().required("The username is required"),
-    password: Yup.string().required("The password is required"),
+    username: Yup.string().min(3).max(15).required("The username is required"),
+    password: Yup.string().min(4).required("The password is required"),
     result: Yup.string(),
   });
 
   const onSubmit = (data, { setFieldError }) => {
     AuthService.login(data)
-      .then((response) => {
-        console.log("Logged in!", response.data);
+      .then(() => {
         navigate(`/`);
       })
       .catch((error) => {
@@ -32,7 +33,8 @@ function Login() {
   };
 
   return (
-    <div className="login-page">
+    <div className="auth-page">
+      <h2>Sign in to your account</h2>
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
@@ -60,9 +62,16 @@ function Login() {
             autoComplete="off"
           />
 
-          <button type="submit">Login</button>
+          <button type="submit">
+            <FontAwesomeIcon icon={faUser} /> Login
+          </button>
 
           <ErrorMessage name="result" component="span" />
+
+          <div className="alternative-auth-container">
+            <span>Don't have an account?</span>
+            <Link to="/sign-up">Sign Up Now</Link>
+          </div>
         </Form>
       </Formik>
     </div>

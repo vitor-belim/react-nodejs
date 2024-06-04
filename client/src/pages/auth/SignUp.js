@@ -1,11 +1,13 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import AuthService from "../../services/auth-service";
-import "./Registration.css";
+import "./Authentication.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 
-function Registration() {
+function SignUp() {
   const navigate = useNavigate();
 
   const initialValues = {
@@ -16,14 +18,13 @@ function Registration() {
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().min(3).max(15).required("The username is required"),
-    password: Yup.string().required("The password is required"),
+    password: Yup.string().min(4).required("The password is required"),
     result: Yup.string(),
   });
 
   const onSubmit = (data, { setFieldError }) => {
-    AuthService.register(data)
-      .then((response) => {
-        console.log("Registered a new user!", response.data);
+    AuthService.signUp(data)
+      .then(() => {
         navigate(`/`);
       })
       .catch((error) => {
@@ -32,7 +33,8 @@ function Registration() {
   };
 
   return (
-    <div className="register-page">
+    <div className="auth-page">
+      <h2>Create a new account</h2>
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
@@ -60,13 +62,20 @@ function Registration() {
             autoComplete="off"
           />
 
-          <button type="submit">Register</button>
+          <button type="submit">
+            <FontAwesomeIcon icon={faUserPlus} /> Sign Up
+          </button>
 
           <ErrorMessage name="result" component="span" />
+
+          <div className="alternative-auth-container">
+            <span>Already have an account?</span>
+            <Link to="/login">Sign In Now</Link>
+          </div>
         </Form>
       </Formik>
     </div>
   );
 }
 
-export default Registration;
+export default SignUp;

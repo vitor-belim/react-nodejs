@@ -6,7 +6,6 @@ import {
   faHouse,
   faSquarePlus,
   faUser,
-  faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 
 function NavBar() {
@@ -17,9 +16,6 @@ function NavBar() {
       </Link>
       <Link to="/posts/new">
         <FontAwesomeIcon icon={faSquarePlus} /> Create Post
-      </Link>
-      <Link to="/register">
-        <FontAwesomeIcon icon={faUserPlus} /> Register
       </Link>
       <Link to="/login">
         <FontAwesomeIcon icon={faUser} /> Login

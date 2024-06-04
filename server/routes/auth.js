@@ -9,7 +9,7 @@ const userCreatedResponse = { message: "User successfully created!" };
 const invalidLoginResponse = { message: "Invalid username or password" };
 const loginSuccessResponse = { message: "Login successful" };
 
-router.post("/register", async (req, res) => {
+router.post("/sign-up", async (req, res) => {
   const { username, password } = req.body;
 
   let dbUser = await usersTable.findOne({ where: { username } });

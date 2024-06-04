@@ -3,8 +3,8 @@ import ApiService from "./api-service";
 class AuthService {
   #URL = "/auth";
 
-  register = (data) => {
-    return ApiService.post(`${this.#URL}/register`, data);
+  signUp = (data) => {
+    return ApiService.post(`${this.#URL}/sign-up`, data);
   };
 
   login = (data) => {

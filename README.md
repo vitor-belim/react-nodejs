@@ -81,9 +81,10 @@ Created the add comment and list comments components (although tutorial did not 
 
 ## Lesson 8 - Registration and login
 
-Added authentication server endpoints (`/auth/register` and `/auth/login`) and client pages (`/register` and `/login`). Actual authentication (using tokens) was not implemented yet.
+Added authentication server endpoints (`/auth/sign-up` and `/auth/login`) and client pages (`/sign-up` and `/login`). Actual authentication (using tokens) was not implemented yet.
 
 ### Notes
 
 - Added library `bcrypt` for password hashing.
 - Authentication will be refactored after next lesson.
+- (personal preference) Improved organization and styling of authentication pages.

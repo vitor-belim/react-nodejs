@@ -4,7 +4,7 @@ import ListPosts from "./pages/posts/list/ListPosts";
 import CreatePost from "./pages/posts/create/CreatePost";
 import DetailsPost from "./pages/posts/details/DetailsPost";
 import NavBar from "./components/navbar/NavBar";
-import Registration from "./pages/auth/Registration";
+import SignUp from "./pages/auth/SignUp";
 import Login from "./pages/auth/Login";
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
           <Route exact path="/" Component={ListPosts} />
           <Route exact path="/posts/new" Component={CreatePost} />
           <Route exact path="/posts/:id" Component={DetailsPost} />
-          <Route exact path="/register" Component={Registration} />
+          <Route exact path="/sign-up" Component={SignUp} />
           <Route exact path="/login" Component={Login} />
         </Routes>
       </BrowserRouter>
