@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Users = sequelize.define("Users", {
+  const Users = sequelize.define("users", {
     username: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -10,10 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  Users.associate = (models) => {
-    Users.hasMany(models.Posts, {
-      foreignKey: "userId",
-      onDelete: "CASCADE",
+  Users.associate = (_models) => {
+    Users.addScope("defaultScope", {
+      attributes: {
+        exclude: ["password", "createdAt", "updatedAt"],
+      },
     });
   };
 

@@ -9,7 +9,6 @@ function AddComment({ postId, onAddComment = null }) {
     e.preventDefault();
 
     CommentsService.addCommentToPost(postId, comment).then((response) => {
-      console.log(`Added a comment to post ${postId}!`, response.data);
       setComment("");
       onAddComment && onAddComment(response.data);
     });

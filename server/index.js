@@ -5,11 +5,12 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
+app.use("/auth", require("./routes/Auth"));
 app.use("/posts", require("./routes/Posts"));
 app.use("/comments", require("./routes/Comments"));
-app.use("/auth", require("./routes/Auth"));
 
 const db = require("./models");
+
 db.sequelize.sync().then(() => {
   const port = process.env.PORT || 3001;
 

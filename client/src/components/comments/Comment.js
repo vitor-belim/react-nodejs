@@ -23,7 +23,8 @@ const Comment = ({ comment }) => {
         paddingBottom: showViewMoreBtn && viewMore ? "50px" : "",
       }}
     >
-      {comment.commentBody}
+      <span className="body">{comment.commentBody}</span>
+      <span className="author">@{comment.user.username}</span>
       {showViewMoreBtn && (
         <div className="view-more" onClick={viewMoreHandler}>
           <span>{!viewMore ? "View more" : "View less"}</span>

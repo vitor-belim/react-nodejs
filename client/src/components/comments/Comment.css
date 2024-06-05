@@ -8,6 +8,19 @@
   white-space: pre-line;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.comment .body {
+  color: black;
+}
+
+.comment .author {
+  color: dimgray;
+  text-align: right;
+  font-size: 12px;
+  font-family: monospace;
 }
 
 .view-more {

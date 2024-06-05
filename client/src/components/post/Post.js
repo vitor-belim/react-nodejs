@@ -16,7 +16,7 @@ function Post({ post, large = false, canNavigate = true }) {
       <div className="body">
         <p>{post.postText}</p>
       </div>
-      <div className="footer">@{post.username}</div>
+      <div className="footer">@{post.user.username}</div>
     </div>
   );
 }

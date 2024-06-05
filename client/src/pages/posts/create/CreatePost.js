@@ -11,21 +11,15 @@ function CreatePost() {
   const initialValues = {
     title: "",
     postText: "",
-    username: "",
   };
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().max(40).required("The title is required"),
     postText: Yup.string().max(1000).required("The post's text is required"),
-    username: Yup.string()
-      .min(3)
-      .max(15)
-      .required("The author's username is required"),
   });
 
   const onSubmit = (data) => {
     PostsService.createPost(data).then((response) => {
-      console.log("Created a post!", response.data);
       navigate(`/posts/${response.data.id}`);
     });
   };
@@ -57,16 +51,6 @@ function CreatePost() {
             className="input textarea"
             name="postText"
             placeholder="(Ex.: Lorem ipsum...)"
-            autoComplete="off"
-          />
-
-          <label>Username</label>
-          <ErrorMessage name="username" component="span" />
-          <Field
-            id="username"
-            className="input"
-            name="username"
-            placeholder="(Ex.: Jhon123...)"
             autoComplete="off"
           />
 

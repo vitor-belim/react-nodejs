@@ -1,17 +1,35 @@
 import axios from "axios";
+import AuthApiService from "./auth/auth-api-service";
 
 class ApiService {
   #SERVER_URL = "http://localhost:3001";
 
-  get(url) {
-    return axios.get(this.#SERVER_URL + url);
+  get(path, options) {
+    return axios.get(
+      this.#SERVER_URL + path,
+      AuthApiService.addAuthenticationHeaders(options),
+    );
   }
 
-  post(url, body) {
-    return axios.post(this.#SERVER_URL + url, body);
+  post(path, body, options) {
+    return axios
+      .post(
+        this.#SERVER_URL + path,
+        body,
+        AuthApiService.addAuthenticationHeaders(options),
+      )
+      .catch((error) => {
+        if (error.response && error.response.status === 401) {
+          console.error("401 error", error);
+          AuthApiService.handle401Error();
+          return false;
+        }
+
+        throw error;
+      });
   }
 }
 
-const singleton = new ApiService();
+let apiService = new ApiService();
 
-export default singleton;
+export default apiService;

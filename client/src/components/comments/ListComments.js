@@ -8,10 +8,9 @@ const ListComments = ({ postId, lastRefresh = new Date() }) => {
 
   useEffect(() => {
     CommentsService.getComments(postId).then((response) => {
-      console.log(`Retrieved all comments for post ${postId}!`, response.data);
       setComments(response.data);
     });
-  }, [lastRefresh]);
+  }, [postId, lastRefresh]);
 
   return (
     <div className="list-comments-container">

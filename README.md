@@ -88,3 +88,17 @@ Added authentication server endpoints (`/auth/sign-up` and `/auth/login`) and cl
 - Added library `bcrypt` for password hashing.
 - Authentication will be refactored after next lesson.
 - (personal preference) Improved organization and styling of authentication pages.
+
+## Lesson 9 - JWT authentication
+
+Added JWT authentication/middleware and corresponding changes in front-end to support it.
+
+### Notes
+
+- Added library `jsonwebtoken` for JWT token handling.
+- Associating an entity to multiple other entities has to be within the same `associate` function.
+- Added a default scope definition to allow the retrieval of associated entities on all requests. It needs to be done within the `associate` function to make sure all models have been defined already.
+- The definition of capitalized sequelize models (e.g. `define('Posts', ...)`) introduced problems with foreign key automatic generation (foreign key as `PostId` instead of `postId`) and associated entities binding (e.g. in posts, returning field `User` instead of `user`). Changed sequelize models to lowercase and adapted code where needed.
+- Removed the `username` field from the add post page because it is no longer needed.
+- (personal preference) Excluded `createdAt` and `updatedAt` fields from being returned.
+- (personal preference) Added redirect to `/login` when a 401 error occurs, keeping track of initial page to redirect back to once authentication is successful.

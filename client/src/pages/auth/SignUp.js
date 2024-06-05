@@ -1,14 +1,15 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import * as Yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import AuthService from "../../services/auth-service";
 import "./Authentication.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import AuthRequestsService from "../../services/auth/auth-requests-service";
 
 function SignUp() {
   const navigate = useNavigate();
+  let [searchParams] = useSearchParams();
 
   const initialValues = {
     username: "",
@@ -23,9 +24,12 @@ function SignUp() {
   });
 
   const onSubmit = (data, { setFieldError }) => {
-    AuthService.signUp(data)
+    AuthRequestsService.signUp({
+      username: data.username,
+      password: data.password,
+    })
       .then(() => {
-        navigate(`/`);
+        navigate(searchParams.get("from") || "/");
       })
       .catch((error) => {
         setFieldError("result", error.response.data.message);
@@ -70,7 +74,9 @@ function SignUp() {
 
           <div className="alternative-auth-container">
             <span>Already have an account?</span>
-            <Link to="/login">Sign In Now</Link>
+            <Link to={{ pathname: "/login", search: window.location.search }}>
+              Sign In Now
+            </Link>
           </div>
         </Form>
       </Formik>

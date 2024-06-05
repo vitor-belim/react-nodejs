@@ -14,7 +14,6 @@ function DetailsPost() {
 
   useEffect(() => {
     PostsService.getPost(id).then((response) => {
-      console.log(`Retrieved post with id ${id}!`, response.data);
       setPost(response.data);
     });
   }, [id]);

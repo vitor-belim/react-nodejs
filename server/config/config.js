@@ -3,7 +3,7 @@ require("dotenv").config();
 module.exports = {
   development: {
     username: "root",
-    password: process.env.LOCAL_PASSWORD,
+    password: process.env.LOCAL_DB_PASSWORD,
     database: "react-nodejs",
     host: "127.0.0.1",
     dialect: "mysql",

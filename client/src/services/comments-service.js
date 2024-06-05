@@ -1,17 +1,17 @@
 import ApiService from "./api-service";
 
 class CommentsService {
-  #URL = "/comments";
+  #PATH = "/comments";
 
-  getComments = (postId) => {
-    return ApiService.get(`${this.#URL}/${postId}`);
-  };
+  getComments(postId, options = {}) {
+    return ApiService.get(`${this.#PATH}/${postId}`, options);
+  }
 
-  addCommentToPost = (postId, comment) => {
-    return ApiService.post(`${this.#URL}/${postId}`, { commentBody: comment });
-  };
+  addCommentToPost(postId, commentBody, options = {}) {
+    return ApiService.post(`${this.#PATH}/${postId}`, { commentBody }, options);
+  }
 }
 
-const singleton = new CommentsService();
+let commentsService = new CommentsService();
 
-export default singleton;
+export default commentsService;

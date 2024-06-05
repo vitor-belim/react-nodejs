@@ -8,7 +8,6 @@ function ListPosts() {
 
   useEffect(() => {
     PostsService.getAllPosts().then((response) => {
-      console.log("Retrieved all posts!", response.data);
       setPosts(response.data);
     });
   }, []);

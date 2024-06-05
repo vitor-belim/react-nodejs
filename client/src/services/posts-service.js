@@ -1,21 +1,21 @@
 import ApiService from "./api-service";
 
 class PostsService {
-  #URL = "/posts";
+  #PATH = "/posts";
 
-  getAllPosts = () => {
-    return ApiService.get(this.#URL);
-  };
+  getAllPosts(options = {}) {
+    return ApiService.get(this.#PATH, options);
+  }
 
-  createPost = (post) => {
-    return ApiService.post(this.#URL, post);
-  };
+  createPost(post, options = {}) {
+    return ApiService.post(this.#PATH, post, options);
+  }
 
-  getPost(id) {
-    return ApiService.get(`${this.#URL}/${id}`);
+  getPost(id, options = {}) {
+    return ApiService.get(`${this.#PATH}/${id}`, options);
   }
 }
 
-const singleton = new PostsService();
+const postsService = new PostsService();
 
-export default singleton;
+export default postsService;
