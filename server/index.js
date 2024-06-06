@@ -5,9 +5,9 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
-app.use("/auth", require("./routes/Auth"));
-app.use("/posts", require("./routes/Posts"));
-app.use("/comments", require("./routes/Comments"));
+app.use("/auth", require("./routes/auth"));
+app.use("/posts", require("./routes/posts"));
+app.use("/comments", require("./routes/comments"));
 
 const db = require("./models");
 

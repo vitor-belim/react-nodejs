@@ -19,8 +19,9 @@ class ApiService {
         AuthApiService.addAuthenticationHeaders(options),
       )
       .catch((error) => {
+        console.error("request error", error);
+
         if (error.response && error.response.status === 401) {
-          console.error("401 error", error);
           AuthApiService.handle401Error();
           return false;
         }
