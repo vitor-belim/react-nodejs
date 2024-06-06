@@ -2,6 +2,12 @@
 
 This project is based off of the [Full Stack Web Development Course - ReactJS, Node.js, Express, MySQL](https://youtube.com/playlist?list=PLpPqplz6dKxUaZ630TY1BFIo5nP-_x-nL&si=XVJfbOLg0zes3G2F) YouTube tutorial by [Pedro Tech](https://www.youtube.com/@PedroTechnologies).
 
+### Quick-start instructions
+
+- Start the MySQL service: `/usr/local/mysql/support-files/mysql.server start`
+- Start the Node.js app: `cd $PROJECT_URL/server && npm start`
+- Start the React app: `cd $PROJECT_URL/client && npm start`
+
 ## Lesson 1 - Project introduction and server setup
 
 The setup for the server part of this project required setting up `npm`, `NodeJS`, `Nodemon`, `MySQL` and `Sequelize`. At the end, the `NodeJS` app was up and running, while synchronizing changes to the DB schema automatically.
