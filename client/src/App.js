@@ -6,20 +6,34 @@ import DetailsPost from "./pages/posts/details/DetailsPost";
 import NavBar from "./components/navbar/NavBar";
 import SignUp from "./pages/auth/SignUp";
 import Login from "./pages/auth/Login";
+import { AuthContext } from "./helpers/auth-context";
+import { useEffect, useState } from "react";
+import AuthRequestsService from "./services/auth/auth-requests-service";
+import AuthStorageService from "./services/auth/auth-storage-service";
 
 function App() {
+  const [authenticated, setAuthenticated] = useState(false);
+
+  useEffect(() => {
+    if (AuthStorageService.getAccessToken()) {
+      AuthRequestsService.refresh().then(() => setAuthenticated(true));
+    }
+  }, []);
+
   return (
     <div className="App">
-      <BrowserRouter basename="/">
-        <NavBar />
-        <Routes>
-          <Route exact path="/" Component={ListPosts} />
-          <Route exact path="/posts/new" Component={CreatePost} />
-          <Route exact path="/posts/:id" Component={DetailsPost} />
-          <Route exact path="/sign-up" Component={SignUp} />
-          <Route exact path="/login" Component={Login} />
-        </Routes>
-      </BrowserRouter>
+      <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
+        <BrowserRouter basename="/">
+          <NavBar />
+          <Routes>
+            <Route exact path="/" Component={ListPosts} />
+            <Route exact path="/posts/new" Component={CreatePost} />
+            <Route exact path="/posts/:id" Component={DetailsPost} />
+            <Route exact path="/sign-up" Component={SignUp} />
+            <Route exact path="/login" Component={Login} />
+          </Routes>
+        </BrowserRouter>
+      </AuthContext.Provider>
     </div>
   );
 }

@@ -19,10 +19,13 @@ class AuthApiService {
     };
   }
 
-  handle401Error() {
+  handle401Error(prevent401Redirect = false) {
     AuthStorageService.clearAccessToken();
-    // redirect to /login and redirect back to current path when authenticated
-    window.location.href = "/login?from=" + window.location.pathname;
+
+    if (!prevent401Redirect) {
+      // redirect to /login and redirect back to current path when authenticated
+      window.location.href = "/login?from=" + window.location.pathname;
+    }
   }
 }
 

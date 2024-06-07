@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import * as Yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
@@ -6,10 +6,12 @@ import "./Authentication.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import AuthRequestsService from "../../services/auth/auth-requests-service";
+import { AuthContext } from "../../helpers/auth-context";
 
 function Login() {
   const navigate = useNavigate();
   let [searchParams] = useSearchParams();
+  const { setAuthenticated } = useContext(AuthContext);
 
   const initialValues = {
     username: "",
@@ -29,6 +31,7 @@ function Login() {
       password: data.password,
     })
       .then(() => {
+        setAuthenticated(true);
         navigate(searchParams.get("from") || "/");
       })
       .catch((error) => {

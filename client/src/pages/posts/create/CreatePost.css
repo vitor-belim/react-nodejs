@@ -36,6 +36,7 @@
 
 .form-container .textarea {
   height: 120px;
+  font-family: sans-serif;
 }
 
 .form-container button {

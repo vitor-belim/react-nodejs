@@ -21,6 +21,13 @@ class AuthRequestsService {
       return res;
     });
   }
+
+  refresh(options = {}) {
+    return ApiService.get(`${this.#PATH}/refresh`, {
+      ...options,
+      prevent401Redirect: true,
+    });
+  }
 }
 
 let authRequestsService = new AuthRequestsService();

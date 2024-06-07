@@ -4,11 +4,23 @@ import AuthApiService from "./auth/auth-api-service";
 class ApiService {
   #SERVER_URL = "http://localhost:3001";
 
+  #handleError(error, options) {
+    console.error("request error", error);
+
+    if (error.response && error.response.status === 401) {
+      AuthApiService.handle401Error(options.prevent401Redirect);
+    }
+
+    throw error;
+  }
+
   get(path, options) {
-    return axios.get(
-      this.#SERVER_URL + path,
-      AuthApiService.addAuthenticationHeaders(options),
-    );
+    return axios
+      .get(
+        this.#SERVER_URL + path,
+        AuthApiService.addAuthenticationHeaders(options),
+      )
+      .catch((error) => this.#handleError(error, options));
   }
 
   post(path, body, options) {
@@ -18,16 +30,7 @@ class ApiService {
         body,
         AuthApiService.addAuthenticationHeaders(options),
       )
-      .catch((error) => {
-        console.error("request error", error);
-
-        if (error.response && error.response.status === 401) {
-          AuthApiService.handle401Error();
-          return false;
-        }
-
-        throw error;
-      });
+      .catch((error) => this.#handleError(error, options));
   }
 }
 

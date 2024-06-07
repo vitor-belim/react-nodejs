@@ -3,6 +3,7 @@ const router = express.Router();
 const { users: usersTable } = require("../models");
 const bcrypt = require("bcrypt");
 const { sign } = require("jsonwebtoken");
+const { validateToken } = require("../middleware/auth-mw");
 
 const usernameExistsResponse = { message: "Username is already in use" };
 const userCreatedResponse = { message: "User successfully created!" };
@@ -60,6 +61,14 @@ router.post("/login", async (req, res) => {
   }
 
   res.status(400).json(invalidLoginResponse);
+});
+
+router.get("/refresh", validateToken, async (req, res) => {
+  if (!req.user) {
+    return res.status(401).send({ message: "Invalid access token" });
+  }
+
+  res.json({ message: "OK", user: req.user });
 });
 
 module.exports = router;

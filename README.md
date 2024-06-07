@@ -108,3 +108,16 @@ Added JWT authentication/middleware and corresponding changes in front-end to su
 - Removed the `username` field from the add post page because it is no longer needed.
 - (personal preference) Excluded `createdAt` and `updatedAt` fields from being returned.
 - (personal preference) Added redirect to `/login` when a 401 error occurs, keeping track of initial page to redirect back to once authentication is successful.
+
+## Lesson 10 - Authentication in the client
+
+Lesson was mostly focused on adding a consistent authentication state in the client using the `createContext` and `useContext` hooks.
+
+### Notes
+
+- The tutorial added a `username` property to the `comments` table, to keep track of which user created the comment (a terrible solution IMO). Since I had already implemented the one-to-many relationship between a user and a comment, I didn't have to change anything.
+- The session storage was changed to local storage. Since I did a separate service for it, the changes were contained to 3 lines in 1 single file.
+- Added a new server route `/auth/refresh`, currently used to check if the access token is still valid but should be refactored in the future to extend the access token's duration (hence its current name).
+- Protected `NavBar` routes according to the `authenticated` state. 
+- (personal preference) Refactored the `AuthContext` implementation to better reflect what is being stored.
+- (future work) The `Login` and `SignUp` components need to be refactored soon, there's too much code repetition.
