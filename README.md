@@ -121,3 +121,13 @@ Lesson was mostly focused on adding a consistent authentication state in the cli
 - Protected `NavBar` routes according to the `authenticated` state. 
 - (personal preference) Refactored the `AuthContext` implementation to better reflect what is being stored.
 - (future work) The `Login` and `SignUp` components need to be refactored soon, there's too much code repetition.
+
+## Lesson 11 - Logging out (in the client)
+
+The first part of this lesson focused on changing the client's auth context to include the user object.
+
+### Notes
+
+- Server authentication endpoints changed to include user object.
+- (personal preference) Refactored some code in both the server and the client.
+- TO BE CONTINUED

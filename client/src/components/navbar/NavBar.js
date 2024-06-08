@@ -11,11 +11,11 @@ import { AuthContext } from "../../helpers/auth-context";
 import AuthStorageService from "../../services/auth/auth-storage-service";
 
 function NavBar() {
-  const { authenticated, setAuthenticated } = useContext(AuthContext);
+  const { auth, setAuth } = useContext(AuthContext);
 
   const logout = () => {
     AuthStorageService.clearAccessToken();
-    setAuthenticated(false);
+    setAuth({ user: null, status: false });
   };
 
   return (
@@ -24,18 +24,18 @@ function NavBar() {
         <FontAwesomeIcon icon={faHouse} /> Home
       </Link>
 
-      {authenticated && (
+      {auth.status && (
         <>
           <Link to="/posts/new">
             <FontAwesomeIcon icon={faSquarePlus} /> Create Post
           </Link>
           <Link onClick={logout} to="/">
-            <FontAwesomeIcon icon={faUser} /> Logout
+            <FontAwesomeIcon icon={faUser} /> Logout from {auth.user.username}
           </Link>
         </>
       )}
 
-      {!authenticated && (
+      {!auth.status && (
         <Link to="/login">
           <FontAwesomeIcon icon={faUser} /> Login
         </Link>

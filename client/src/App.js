@@ -12,17 +12,22 @@ import AuthRequestsService from "./services/auth/auth-requests-service";
 import AuthStorageService from "./services/auth/auth-storage-service";
 
 function App() {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [auth, setAuth] = useState({
+    user: null,
+    status: false,
+  });
 
   useEffect(() => {
     if (AuthStorageService.getAccessToken()) {
-      AuthRequestsService.refresh().then(() => setAuthenticated(true));
+      AuthRequestsService.refresh().then((response) =>
+        setAuth({ user: response.data.user, status: true }),
+      );
     }
   }, []);
 
   return (
     <div className="App">
-      <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
+      <AuthContext.Provider value={{ auth, setAuth }}>
         <BrowserRouter basename="/">
           <NavBar />
           <Routes>

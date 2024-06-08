@@ -11,7 +11,7 @@ import { AuthContext } from "../../helpers/auth-context";
 function SignUp() {
   const navigate = useNavigate();
   let [searchParams] = useSearchParams();
-  const { setAuthenticated } = useContext(AuthContext);
+  const { setAuth } = useContext(AuthContext);
 
   const initialValues = {
     username: "",
@@ -30,8 +30,8 @@ function SignUp() {
       username: data.username,
       password: data.password,
     })
-      .then(() => {
-        setAuthenticated(true);
+      .then((response) => {
+        setAuth({ user: response.data.user, status: true });
         navigate(searchParams.get("from") || "/");
       })
       .catch((error) => {
