@@ -23,6 +23,24 @@
   font-family: monospace;
 }
 
+.comment .delete {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  padding: 0;
+  background: none;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.comment button.delete:hover {
+  background: lightgray;
+}
+
 .view-more {
   position: absolute;
   bottom: 0;

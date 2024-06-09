@@ -32,6 +32,15 @@ class ApiService {
       )
       .catch((error) => this.#handleError(error, options));
   }
+
+  delete(path, options) {
+    return axios
+      .delete(
+        this.#SERVER_URL + path,
+        AuthApiService.addAuthenticationHeaders(options),
+      )
+      .catch((error) => this.#handleError(error, options));
+  }
 }
 
 let apiService = new ApiService();

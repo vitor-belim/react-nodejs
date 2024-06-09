@@ -124,10 +124,12 @@ Lesson was mostly focused on adding a consistent authentication state in the cli
 
 ## Lesson 11 - Logging out (in the client)
 
-The first part of this lesson focused on changing the client's auth context to include the user object.
+The first part of this lesson focused on changing the client's auth context to include the user object, and using that information to show the logged-in user's username in the nav bar. The second part was adding the delete comment functionality to both the server and the client.
 
 ### Notes
 
 - Server authentication endpoints changed to include user object.
+- Logged-in user's username added to nav-bar's "logout" button.
+- Delete comment functionality added to server and client.
 - (personal preference) Refactored some code in both the server and the client.
-- TO BE CONTINUED
+- (personal preference) Created a `ResponseHelper` class in the server to handle generic responses.

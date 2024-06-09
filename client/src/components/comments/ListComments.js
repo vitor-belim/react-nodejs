@@ -12,10 +12,20 @@ const ListComments = ({ postId, lastRefresh = new Date() }) => {
     });
   }, [postId, lastRefresh]);
 
+  const handleCommentDeleted = (deletedComment) => {
+    setComments((comments) =>
+      comments.filter((comment) => comment.id !== deletedComment.id),
+    );
+  };
+
   return (
     <div className="list-comments-container">
       {comments.map((comment) => (
-        <Comment key={comment.id} comment={comment} />
+        <Comment
+          key={comment.id}
+          comment={comment}
+          onDelete={handleCommentDeleted}
+        />
       ))}
     </div>
   );

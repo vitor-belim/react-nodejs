@@ -2,11 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { posts: postsTable } = require("../models");
 const { validateToken } = require("../middleware/auth-mw");
-
-const notFoundResponse = (res) =>
-  res.status(400).json({ message: "Entity not found" });
-const notOwnedResponse = (res) =>
-  res.status(403).json({ message: "Entity not owned" });
+const ResponseHelper = require("../helpers/response-helper");
 
 router.get("/", async (req, res) => {
   res.json(await postsTable.findAll({ order: [["id", "DESC"]] }));
@@ -21,7 +17,7 @@ router.get("/:id", async (req, res) => {
   const dbPost = await postsTable.findByPk(req.params.id);
 
   if (!dbPost) {
-    return notFoundResponse(res);
+    return ResponseHelper.entityNotFound(res);
   }
 
   res.json(dbPost);
@@ -31,10 +27,10 @@ router.put("/:id", validateToken, async (req, res) => {
   const dbPost = await postsTable.findByPk(req.params.id);
 
   if (!dbPost) {
-    return notFoundResponse(res);
+    return ResponseHelper.entityNotFound(res);
   }
-  if (dbPost.userId !== req.user.id) {
-    return notOwnedResponse(res);
+  if (dbPost.user.id !== req.user.id) {
+    return ResponseHelper.entityNotOwned(res);
   }
 
   res.json(await dbPost.update(req.body));
@@ -44,14 +40,14 @@ router.delete("/:id", validateToken, async (req, res) => {
   const dbPost = await postsTable.findByPk(req.params.id);
 
   if (!dbPost) {
-    return notFoundResponse(res);
+    return ResponseHelper.entityNotFound(res);
   }
-  if (dbPost.userId !== req.user.id) {
-    return notOwnedResponse(res);
+  if (dbPost.user.id !== req.user.id) {
+    return ResponseHelper.entityNotOwned(res);
   }
 
   await dbPost.destroy();
-  res.json({ message: "Entity deleted" });
+  ResponseHelper.entityDeleted(res);
 });
 
 module.exports = router;

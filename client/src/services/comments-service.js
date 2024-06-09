@@ -10,6 +10,10 @@ class CommentsService {
   addCommentToPost(postId, commentBody, options = {}) {
     return ApiService.post(`${this.#PATH}/${postId}`, { commentBody }, options);
   }
+
+  deleteComment(commentId, options = {}) {
+    return ApiService.delete(`${this.#PATH}/${commentId}`, options);
+  }
 }
 
 let commentsService = new CommentsService();
