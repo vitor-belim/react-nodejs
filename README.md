@@ -122,7 +122,7 @@ Lesson was mostly focused on adding a consistent authentication state in the cli
 - (personal preference) Refactored the `AuthContext` implementation to better reflect what is being stored.
 - (future work) The `Login` and `SignUp` components need to be refactored soon, there's too much code repetition.
 
-## Lesson 11 - Logging out (in the client)
+## Lesson 11 - Logging out + delete comment
 
 The first part of this lesson focused on changing the client's auth context to include the user object, and using that information to show the logged-in user's username in the nav bar. The second part was adding the delete comment functionality to both the server and the client.
 
