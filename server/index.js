@@ -8,6 +8,7 @@ app.use(cors());
 app.use("/auth", require("./routes/auth"));
 app.use("/posts", require("./routes/posts"));
 app.use("/comments", require("./routes/comments"));
+app.use("/likes", require("./routes/likes"));
 
 const db = require("./models");
 

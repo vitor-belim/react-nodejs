@@ -133,3 +133,12 @@ The first part of this lesson focused on changing the client's auth context to i
 - Delete comment functionality added to server and client.
 - (personal preference) Refactored some code in both the server and the client.
 - (personal preference) Created a `ResponseHelper` class in the server to handle generic responses.
+
+## Lesson 12 - Adding likes
+
+The first part of this lesson focused on adding a like system to the server.
+
+### Notes
+
+- Implemented a liking system for posts on the endpoint `/likes/:postId`. The same endpoint can be used to like and unlike.
+- TO BE CONTINUED
