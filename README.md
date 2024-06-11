@@ -141,4 +141,6 @@ The first part of this lesson focused on adding a like system to the server.
 ### Notes
 
 - Implemented a liking system for posts on the endpoint `/likes/:postId`. The same endpoint can be used to like and unlike.
+- I attempted to implement a field `likes` in the `post` model that would reflect the count of all likes a given post has. I also attempted to do the same with a `liked` field, this time to return a boolean signaling if the logged-in user had liked the given post. After I finally achieved both (although for `liked` I was not able to convert the field to a boolean), it was such a "customized" solution that I decided against using it (see [here](https://sequelize.org/docs/v6/other-topics/sub-queries/#using-sub-queries-for-complex-ordering) for proposed solution). It took me about 2 minutes to manually write the needed SQL query, and 3-4 hours attempting to make it work using sequelize commands, options and functions.
+- (personal preference) Added logging to `Sequelize` queries for easier debugging.
 - TO BE CONTINUED
