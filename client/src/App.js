@@ -19,9 +19,9 @@ function App() {
 
   useEffect(() => {
     if (AuthStorageService.getAccessToken()) {
-      AuthRequestsService.refresh().then((response) =>
-        setAuth({ user: response.data.user, status: true }),
-      );
+      AuthRequestsService.refresh()
+        .then((response) => setAuth({ user: response.data.user, status: true }))
+        .catch((err) => err);
     }
   }, []);
 

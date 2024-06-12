@@ -8,10 +8,12 @@ function AddComment({ postId, onAddComment = null }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    CommentsService.addCommentToPost(postId, comment).then((response) => {
-      setComment("");
-      onAddComment && onAddComment(response.data);
-    });
+    CommentsService.addCommentToPost(postId, comment)
+      .then((response) => {
+        setComment("");
+        onAddComment && onAddComment(response.data);
+      })
+      .catch((err) => err);
   };
 
   return (

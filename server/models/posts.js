@@ -14,11 +14,17 @@ module.exports = (sequelize, DataTypes) => {
     Posts.belongsTo(models.users, {
       onDelete: "CASCADE",
     });
+    Posts.hasMany(models.likes, {
+      onDelete: "CASCADE",
+    });
 
     Posts.addScope("defaultScope", {
       include: [
         {
           model: models.users,
+        },
+        {
+          model: models.likes,
         },
       ],
       attributes: {

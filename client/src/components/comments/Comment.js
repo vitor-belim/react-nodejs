@@ -20,9 +20,11 @@ const Comment = ({ comment, onDelete }) => {
   };
 
   const deleteHandler = () => {
-    CommentsService.deleteComment(comment.id).then(() => {
-      onDelete && onDelete(comment);
-    });
+    CommentsService.deleteComment(comment.id)
+      .then(() => {
+        onDelete && onDelete(comment);
+      })
+      .catch((err) => err);
   };
 
   return (
@@ -37,7 +39,7 @@ const Comment = ({ comment, onDelete }) => {
       <span className="body">{comment.commentBody}</span>
       <span className="author">@{comment.user.username}</span>
 
-      {comment.user.id === auth.user.id && (
+      {auth.status && comment.user.id === auth.user.id && (
         <button className="delete" onClick={deleteHandler}>
           <FontAwesomeIcon icon={faTrash} />
         </button>

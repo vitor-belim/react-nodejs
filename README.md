@@ -136,11 +136,13 @@ The first part of this lesson focused on changing the client's auth context to i
 
 ## Lesson 12 - Adding likes
 
-The first part of this lesson focused on adding a like system to the server.
+This lesson focused on adding a like system to both the server and the client.
 
 ### Notes
 
 - Implemented a liking system for posts on the endpoint `/likes/:postId`. The same endpoint can be used to like and unlike.
 - I attempted to implement a field `likes` in the `post` model that would reflect the count of all likes a given post has. I also attempted to do the same with a `liked` field, this time to return a boolean signaling if the logged-in user had liked the given post. After I finally achieved both (although for `liked` I was not able to convert the field to a boolean), it was such a "customized" solution that I decided against using it (see [here](https://sequelize.org/docs/v6/other-topics/sub-queries/#using-sub-queries-for-complex-ordering) for proposed solution). It took me about 2 minutes to manually write the needed SQL query, and 3-4 hours attempting to make it work using sequelize commands, options and functions.
+- Linked posts to likes on the server via their models, so all posts will automatically have a `likes` array field, with each only containing the like id and the user who triggered it.
+- The client implementation was quite simple since it only required creating a new `LikesService` and adding the needed changes to the `Post` component.
+- (personal preference) Added empty catch statements to requests that require authentication, allowing the `ApiService` to handle 401 errors but still throw the error. Rethrowing is required because otherwise the initial request's `.then()` runs as if an exception never happened in the first place. There's likely a better way to do this, so I'll investigate deeper in the future.
 - (personal preference) Added logging to `Sequelize` queries for easier debugging.
-- TO BE CONTINUED

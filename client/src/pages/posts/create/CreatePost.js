@@ -19,9 +19,11 @@ function CreatePost() {
   });
 
   const onSubmit = (data) => {
-    PostsService.createPost(data).then((response) => {
-      navigate(`/posts/${response.data.id}`);
-    });
+    PostsService.createPost(data)
+      .then((response) => {
+        navigate(`/posts/${response.data.id}`);
+      })
+      .catch((err) => err);
   };
 
   return (

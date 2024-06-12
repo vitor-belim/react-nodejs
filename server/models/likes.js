@@ -14,14 +14,6 @@ module.exports = (sequelize, _DataTypes) => {
         {
           model: models.users,
         },
-        {
-          model: models.posts,
-          include: [
-            {
-              model: models.users,
-            },
-          ],
-        },
       ],
       attributes: {
         exclude: ["userId", "postId", "createdAt", "updatedAt"],
