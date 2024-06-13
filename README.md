@@ -146,3 +146,13 @@ This lesson focused on adding a like system to both the server and the client.
 - The client implementation was quite simple since it only required creating a new `LikesService` and adding the needed changes to the `Post` component.
 - (personal preference) Added empty catch statements to requests that require authentication, allowing the `ApiService` to handle 401 errors but still throw the error. Rethrowing is required because otherwise the initial request's `.then()` runs as if an exception never happened in the first place. There's likely a better way to do this, so I'll investigate deeper in the future.
 - (personal preference) Added logging to `Sequelize` queries for easier debugging.
+
+## Lesson 13 - Page not found
+
+Most of this lesson focused on adding material UI icons and updating the like button to use different shades according to the user-associated state. A smaller part of it was dedicated to implementing a "page not found" route and component.
+
+### Notes
+
+- I did not add `MaterialUI` to the project, since I am already using `FontAwesome`.
+- The current implementation of the liking system is already done in a way that allows for everything that was discussed in this lesson regarding the like/unlike feature, hence there were no changes.
+- Implemented a very simple `PageNotFound` component.
