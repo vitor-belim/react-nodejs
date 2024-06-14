@@ -156,3 +156,19 @@ Most of this lesson focused on adding material UI icons and updating the like bu
 - I did not add `MaterialUI` to the project, since I am already using `FontAwesome`.
 - The current implementation of the liking system is already done in a way that allows for everything that was discussed in this lesson regarding the like/unlike feature, hence there were no changes.
 - Implemented a very simple `PageNotFound` component.
+
+## Lesson 14 - Delete a post
+
+In this lesson, there were a couple of different features implemented:
+- A sort of authentication guard to redirect the user to `/login` when not authenticated, for both home and create post pages.
+- Authentication validation for nav-bar buttons.
+- Changed the "create post" form to not require the field `username`, and instead extract the username from the authentication info in the server.
+- A "delete post" button in the client, along with a `DELETE /posts/:id` endpoint in the server.
+
+### Notes
+
+- Had already implemented the authentication guard for pages that require login, the authentication validation for nav-bar buttons and changed the post's username to not be required, instead using a table association between `posts` and `users`.
+- Implemented the "delete post" button on the header of the `Post` component. The server endpoint was already implemented previously.
+- Refactored some styling in the `Post` component to adjust to the new feature.
+- (personal preference) Added a new `AuthContext` field called `checked`, to be able to know when the authentication state has been confirmed by any `/auth` requests. This can eventually be refactored into a 3-state status: `unchecked`, `logged-in` and `logged-out`.
+- (personal preference) Added a "no posts yet" message on the home page when no posts are available.

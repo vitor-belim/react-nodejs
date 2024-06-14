@@ -15,7 +15,7 @@ function NavBar() {
 
   const logout = () => {
     AuthStorageService.clearAccessToken();
-    setAuth({ user: null, status: false });
+    setAuth({ user: null, status: false, checked: true });
   };
 
   return (

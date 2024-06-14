@@ -14,6 +14,10 @@ class PostsService {
   getPost(id, options = {}) {
     return ApiService.get(`${this.#PATH}/${id}`, options);
   }
+
+  deletePost(id, options = {}) {
+    return ApiService.delete(`${this.#PATH}/${id}`, options);
+  }
 }
 
 const postsService = new PostsService();

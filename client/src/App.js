@@ -16,14 +16,22 @@ function App() {
   const [auth, setAuth] = useState({
     user: null,
     status: false,
+    checked: false,
   });
 
   useEffect(() => {
-    if (AuthStorageService.getAccessToken()) {
-      AuthRequestsService.refresh()
-        .then((response) => setAuth({ user: response.data.user, status: true }))
-        .catch((err) => err);
+    if (!AuthStorageService.getAccessToken()) {
+      setAuth({ ...auth, checked: true });
+      return;
     }
+
+    AuthRequestsService.refresh()
+      .then((response) =>
+        setAuth({ user: response.data.user, status: true, checked: true }),
+      )
+      .catch((_err) => {
+        setAuth({ ...auth, checked: true });
+      });
   }, []);
 
   return (

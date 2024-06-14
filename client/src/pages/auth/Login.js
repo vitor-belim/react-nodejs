@@ -31,7 +31,7 @@ function Login() {
       password: data.password,
     })
       .then((response) => {
-        setAuth({ user: response.data.user, status: true });
+        setAuth({ user: response.data.user, status: true, checked: true });
         navigate(searchParams.get("from") || "/");
       })
       .catch((error) => {

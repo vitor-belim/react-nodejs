@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import "./CreatePost.css";
 import * as Yup from "yup";
 import PostsService from "../../../services/posts-service";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../helpers/auth-context";
 
 function CreatePost() {
   const navigate = useNavigate();
+  const { auth } = useContext(AuthContext);
 
   const initialValues = {
     title: "",
@@ -25,6 +27,12 @@ function CreatePost() {
       })
       .catch((err) => err);
   };
+
+  useEffect(() => {
+    if (auth.checked && !auth.status) {
+      navigate("/login?from=" + window.location.pathname);
+    }
+  }, [auth]);
 
   return (
     <div className="create-post-page">

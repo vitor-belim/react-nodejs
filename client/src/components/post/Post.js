@@ -2,11 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import "./Post.css";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp, faTrash } from "@fortawesome/free-solid-svg-icons";
 import LikesService from "../../services/likes-service";
 import { AuthContext } from "../../helpers/auth-context";
+import PostsService from "../../services/posts-service";
 
-function Post({ post, large = false, canNavigate = true }) {
+function Post({ post, large = false, canNavigate = true, onDelete }) {
   let navigate = useNavigate();
   const { auth } = useContext(AuthContext);
 
@@ -35,6 +36,22 @@ function Post({ post, large = false, canNavigate = true }) {
       .catch((err) => err);
   };
 
+  const handleDelete = (e) => {
+    e.stopPropagation();
+
+    let confirmation = window.confirm(
+      "Are you sure you want to delete this post?",
+    );
+
+    if (confirmation) {
+      PostsService.deletePost(post.id)
+        .then(() => {
+          onDelete && onDelete(post);
+        })
+        .catch((err) => err);
+    }
+  };
+
   return (
     <div
       className={`post ${large && "large"}`}
@@ -42,6 +59,11 @@ function Post({ post, large = false, canNavigate = true }) {
     >
       <div className="title">
         <span>{post.title}</span>
+        {auth.status && auth.user.id === post.user.id && (
+          <div className="delete-post" onClick={handleDelete}>
+            <FontAwesomeIcon icon={faTrash} />
+          </div>
+        )}
       </div>
       <div className="body">
         <p>{post.postText}</p>

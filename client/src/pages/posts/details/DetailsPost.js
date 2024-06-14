@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Post from "../../../components/post/Post";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PostsService from "../../../services/posts-service";
 import "./DetailsPost.css";
 import ListComments from "../../../components/comments/ListComments";
@@ -9,13 +9,15 @@ import AddComment from "../../../components/comments/AddComment";
 function DetailsPost() {
   const [post, setPost] = useState();
   const [lastRefresh, setLastRefresh] = useState(new Date());
-
   const { id } = useParams();
+  let navigate = useNavigate();
 
   useEffect(() => {
-    PostsService.getPost(id).then((response) => {
-      setPost(response.data);
-    });
+    PostsService.getPost(id)
+      .then((response) => {
+        setPost(response.data);
+      })
+      .catch(() => navigate("/"));
   }, [id]);
 
   if (!post) {
@@ -25,7 +27,12 @@ function DetailsPost() {
   return (
     <div className="container">
       <div className="column">
-        <Post post={post} canNavigate={false} large />
+        <Post
+          post={post}
+          canNavigate={false}
+          large
+          onDelete={() => navigate("/")}
+        />
       </div>
       <div className="column">
         <div className="comments-container">

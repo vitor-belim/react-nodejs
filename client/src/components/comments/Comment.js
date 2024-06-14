@@ -15,16 +15,22 @@ const Comment = ({ comment, onDelete }) => {
     setShowViewMoreBtn(ref.current.clientHeight > 96);
   }, []);
 
-  const viewMoreHandler = () => {
-    setViewMore((val) => !val);
+  const deleteHandler = () => {
+    let confirmation = window.confirm(
+      "Are you sure you want to delete this comment?",
+    );
+
+    if (confirmation) {
+      CommentsService.deleteComment(comment.id)
+        .then(() => {
+          onDelete && onDelete(comment);
+        })
+        .catch((err) => err);
+    }
   };
 
-  const deleteHandler = () => {
-    CommentsService.deleteComment(comment.id)
-      .then(() => {
-        onDelete && onDelete(comment);
-      })
-      .catch((err) => err);
+  const viewMoreHandler = () => {
+    setViewMore((val) => !val);
   };
 
   return (
