@@ -11,14 +11,12 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  height: 100%;
 }
 
 .links > div > h2 {
-  color: lightgray;
-  font-family: monospace;
-  text-transform: uppercase;
-  margin-right: 20px;
-  font-size: 18px;
+  color: white;
+  margin-right: 28px;
 }
 
 .links > div > a {
