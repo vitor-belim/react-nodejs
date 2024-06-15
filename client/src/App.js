@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import AuthRequestsService from "./services/auth/auth-requests-service";
 import AuthStorageService from "./services/auth/auth-storage-service";
 import PageNotFound from "./pages/PageNotFound";
+import Profile from "./pages/users/Profile";
 
 function App() {
   const [auth, setAuth] = useState({
@@ -45,6 +46,7 @@ function App() {
             <Route exact path="/posts/:id" Component={DetailsPost} />
             <Route exact path="/sign-up" Component={SignUp} />
             <Route exact path="/login" Component={Login} />
+            <Route exact path="/profile/:id" Component={Profile} />
             <Route exact path="*" Component={PageNotFound} />
           </Routes>
         </BrowserRouter>

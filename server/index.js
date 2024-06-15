@@ -9,6 +9,7 @@ app.use("/auth", require("./routes/auth"));
 app.use("/posts", require("./routes/posts"));
 app.use("/comments", require("./routes/comments"));
 app.use("/likes", require("./routes/likes"));
+app.use("/users", require("./routes/users"));
 
 const db = require("./models");
 

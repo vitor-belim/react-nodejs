@@ -172,3 +172,14 @@ In this lesson, there were a couple of different features implemented:
 - Refactored some styling in the `Post` component to adjust to the new feature.
 - (personal preference) Added a new `AuthContext` field called `checked`, to be able to know when the authentication state has been confirmed by any `/auth` requests. This can eventually be refactored into a 3-state status: `unchecked`, `logged-in` and `logged-out`.
 - (personal preference) Added a "no posts yet" message on the home page when no posts are available.
+
+## Lesson 15 - Profile page
+
+This lesson focused on adding a profile page for users, with a basic info section and a posts section.
+
+### Notes
+
+- Created the `/users/:id` and the `/users/:id/posts` endpoints in the server.
+- Created the `Profile` page in the `/profile/:id` route in the client.
+- Added a `Link` in the post's username to navigate to that user's profile.
+- (personal preference) Refactored the nav-bar to better separate routes.

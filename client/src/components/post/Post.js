@@ -52,6 +52,11 @@ function Post({ post, large = false, canNavigate = true, onDelete }) {
     }
   };
 
+  const handleProfileClick = (e) => {
+    e.stopPropagation();
+    navigate(`/profile/${post.user.id}`);
+  };
+
   return (
     <div
       className={`post ${large && "large"}`}
@@ -65,11 +70,13 @@ function Post({ post, large = false, canNavigate = true, onDelete }) {
           </div>
         )}
       </div>
+
       <div className="body">
         <p>{post.postText}</p>
       </div>
+
       <div className="footer">
-        @{post.user.username}
+        <span onClick={handleProfileClick}>@{post.user.username}</span>
         <div
           className={"likes" + (liked ? " active" : "")}
           onClick={handleLike}

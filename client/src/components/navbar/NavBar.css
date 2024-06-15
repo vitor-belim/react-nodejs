@@ -2,12 +2,26 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   background: var(--color2);
   height: 60px;
 }
 
-.links a {
+.links > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.links > div > h2 {
+  color: lightgray;
+  font-family: monospace;
+  text-transform: uppercase;
+  margin-right: 20px;
+  font-size: 18px;
+}
+
+.links > div > a {
   height: 100%;
   box-sizing: border-box;
   padding: 20px 28px;
@@ -19,6 +33,6 @@
   color: white;
 }
 
-.links a:hover {
+.links > div > a:hover {
   background: var(--color1);
 }
