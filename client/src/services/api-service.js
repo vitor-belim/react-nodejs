@@ -41,6 +41,16 @@ class ApiService {
       )
       .catch((error) => this.#handleError(error, options));
   }
+
+  put(path, body, options) {
+    return axios
+      .put(
+        this.#SERVER_URL + path,
+        body,
+        AuthApiService.addAuthenticationHeaders(options),
+      )
+      .catch((error) => this.#handleError(error, options));
+  }
 }
 
 let apiService = new ApiService();

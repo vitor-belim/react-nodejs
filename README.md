@@ -183,3 +183,13 @@ This lesson focused on adding a profile page for users, with a basic info sectio
 - Created the `Profile` page in the `/profile/:id` route in the client.
 - Added a `Link` in the post's username to navigate to that user's profile.
 - (personal preference) Refactored the nav-bar to better separate routes.
+
+## Lesson 16 - Edit post + update password
+
+The first part of this lesson focused on adding the "edit post" functionality.
+
+### Notes
+
+- The tutorial implemented the edit functionality by clicking on either the title or the body to directly change it using a `window.prompt()` dialog. Although it works for the most part, this approach completely bypasses form validation, so I decided against it.
+- Added an edit button to the `Post` component, visible only when the user is the post's owner.
+- Added an `EditPost` component, along with the post's edit route `/posts/:id/edit`. Implemented guards to validate that the post exists, the user is logged in and the user is the post's owner. The server endpoint to update a post was already done previously, so there was no need for changes there.

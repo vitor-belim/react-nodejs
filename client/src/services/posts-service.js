@@ -18,6 +18,10 @@ class PostsService {
   deletePost(id, options = {}) {
     return ApiService.delete(`${this.#PATH}/${id}`, options);
   }
+
+  editPost(id, post, options = {}) {
+    return ApiService.put(`${this.#PATH}/${id}`, post, options);
+  }
 }
 
 const postsService = new PostsService();

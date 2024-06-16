@@ -2,7 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import "./Post.css";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbsUp, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPencil,
+  faThumbsUp,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import LikesService from "../../services/likes-service";
 import { AuthContext } from "../../helpers/auth-context";
 import PostsService from "../../services/posts-service";
@@ -57,6 +61,11 @@ function Post({ post, large = false, canNavigate = true, onDelete }) {
     navigate(`/profile/${post.user.id}`);
   };
 
+  const handleEdit = (e) => {
+    e.stopPropagation();
+    navigate(`/posts/${post.id}/edit`);
+  };
+
   return (
     <div
       className={`post ${large && "large"}`}
@@ -65,8 +74,13 @@ function Post({ post, large = false, canNavigate = true, onDelete }) {
       <div className="title">
         <span>{post.title}</span>
         {auth.status && auth.user.id === post.user.id && (
-          <div className="delete-post" onClick={handleDelete}>
-            <FontAwesomeIcon icon={faTrash} />
+          <div className="actions">
+            <div className="action" onClick={handleEdit}>
+              <FontAwesomeIcon icon={faPencil} />
+            </div>
+            <div className="action" onClick={handleDelete}>
+              <FontAwesomeIcon icon={faTrash} />
+            </div>
           </div>
         )}
       </div>

@@ -31,7 +31,12 @@
   color: white;
 }
 
-.post .title .delete-post {
+.post .title .actions {
+  display: flex;
+  align-items: center;
+}
+
+.post .title .actions .action {
   width: 14px;
   height: 14px;
   padding: 4px;
@@ -40,7 +45,7 @@
   text-align: center;
 }
 
-.post.large .title .delete-post {
+.post.large .title .actions .action {
   width: 20px;
   height: 20px;
   padding: 10px;
@@ -48,7 +53,7 @@
   margin-left: 4px;
 }
 
-.post .title .delete-post:hover {
+.post .title .actions .action:hover {
   background-color: var(--color2);
 }
 
