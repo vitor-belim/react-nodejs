@@ -1,20 +1,16 @@
-import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import "./CreatePost.css";
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { AuthContext } from "../../../helpers/auth-context";
-import PostsService from "../../../services/posts-service";
+import "./PostForm.css";
 
-function CreatePost() {
+const PostForm = ({ title, submitText, submitIcon, onSubmit, post = null }) => {
   const navigate = useNavigate();
-  const { auth } = useContext(AuthContext);
 
   const initialValues = {
-    title: "",
-    postText: "",
+    title: post?.title || "",
+    postText: post?.postText || "",
   };
 
   const validationSchema = Yup.object().shape({
@@ -22,27 +18,21 @@ function CreatePost() {
     postText: Yup.string().max(1000).required("The post's text is required"),
   });
 
-  const onSubmit = (data) => {
-    PostsService.createPost(data)
+  const handleSubmit = (data) => {
+    onSubmit(data)
       .then((response) => {
         navigate(`/posts/${response.data.id}`);
       })
       .catch((err) => err);
   };
 
-  useEffect(() => {
-    if (auth.checked && !auth.status) {
-      navigate("/login?from=" + window.location.pathname);
-    }
-  }, [auth]);
-
   return (
-    <div className="create-post-page">
-      <h2>Create a new post</h2>
+    <div className="post-form-page">
+      <h2>{title}</h2>
       <Formik
         initialValues={initialValues}
-        onSubmit={onSubmit}
         validationSchema={validationSchema}
+        onSubmit={handleSubmit}
       >
         <Form className="form-container">
           <label>Title</label>
@@ -67,12 +57,12 @@ function CreatePost() {
           />
 
           <button type="submit">
-            <FontAwesomeIcon icon={faSquarePlus} /> Create Post
+            <FontAwesomeIcon icon={submitIcon} /> {submitText}
           </button>
         </Form>
       </Formik>
     </div>
   );
-}
+};
 
-export default CreatePost;
+export default PostForm;
