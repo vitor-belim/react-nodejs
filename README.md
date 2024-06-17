@@ -194,3 +194,4 @@ The first part of this lesson focused on adding the "edit post" functionality. T
 - Added an edit button to the `Post` component, visible only when the user is the post's owner.
 - Added an `EditPost` component, along with the post's edit route `/posts/:id/edit`. Implemented guards to validate that the post exists, the user is logged in and the user is the post's owner. The server endpoint to update a post was already done previously, so there was no need for changes there.
 - Added an `UpdatePassword` component, along with the client route `/change-password`. Implemented the server endpoint `/auth/update-password`.
+- (personal preference) Refactored `SignUp` and `Login` components' shared code into a single `Authentication` component. Did some other minor adjustments.

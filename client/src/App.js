@@ -13,7 +13,7 @@ import AuthStorageService from "./services/auth/auth-storage-service";
 import PageNotFound from "./pages/PageNotFound";
 import Profile from "./pages/users/Profile";
 import EditPost from "./pages/posts/edit/EditPost";
-import UpdatePassword from "./pages/auth/UpdatePassword";
+import UpdatePassword from "./pages/users/UpdatePassword";
 
 function App() {
   const [auth, setAuth] = useState({

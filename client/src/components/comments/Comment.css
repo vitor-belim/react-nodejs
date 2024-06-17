@@ -23,7 +23,7 @@
   font-family: monospace;
 }
 
-.comment .delete {
+.comment > .delete {
   position: absolute;
   top: 2px;
   right: 2px;
@@ -37,7 +37,7 @@
   cursor: pointer;
 }
 
-.comment button.delete:hover {
+.comment > .delete:hover {
   background: lightgray;
 }
 
