@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Post from "../../../components/post/Post";
+import { AuthContext } from "../../../helpers/auth-context";
 import PostsService from "../../../services/posts-service";
 import "./ListPosts.css";
-import { Link } from "react-router-dom";
-import { AuthContext } from "../../../helpers/auth-context";
 
 function ListPosts() {
   const [posts, setPosts] = useState([]);

@@ -1,9 +1,9 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useContext } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { AuthContext } from "../../helpers/auth-context";
 import * as Yup from "yup";
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AuthContext } from "../../helpers/auth-context";
 import "./Authentication.css";
 
 const Authentication = ({

@@ -1,8 +1,8 @@
-import React from "react";
+import { faSadCry } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./PageNotFound.css";
-import { faSadCry } from "@fortawesome/free-regular-svg-icons";
 
 const PageNotFound = () => {
   return (

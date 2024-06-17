@@ -1,5 +1,5 @@
-import AuthStorageService from "./auth-storage-service";
 import ApiService from "../api-service";
+import AuthStorageService from "./auth-storage-service";
 
 class AuthRequestsService {
   #PATH = "/auth";

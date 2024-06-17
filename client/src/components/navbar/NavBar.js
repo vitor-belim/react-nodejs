@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
-import "./NavBar.css";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRightFromBracket,
   faHouse,
   faSquarePlus,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useContext } from "react";
+import "./NavBar.css";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../helpers/auth-context";
 import AuthStorageService from "../../services/auth/auth-storage-service";
 

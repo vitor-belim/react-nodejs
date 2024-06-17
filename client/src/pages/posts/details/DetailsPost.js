@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Post from "../../../components/post/Post";
 import { useNavigate, useParams } from "react-router-dom";
+import AddComment from "../../../components/comments/AddComment";
+import ListComments from "../../../components/comments/ListComments";
+import Post from "../../../components/post/Post";
 import PostsService from "../../../services/posts-service";
 import "./DetailsPost.css";
-import ListComments from "../../../components/comments/ListComments";
-import AddComment from "../../../components/comments/AddComment";
 
 function DetailsPost() {
   const [post, setPost] = useState();

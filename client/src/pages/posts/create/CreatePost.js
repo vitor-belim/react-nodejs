@@ -1,12 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import "./CreatePost.css";
-import * as Yup from "yup";
-import PostsService from "../../../services/posts-service";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
 import { AuthContext } from "../../../helpers/auth-context";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
+import PostsService from "../../../services/posts-service";
 
 function CreatePost() {
   const navigate = useNavigate();

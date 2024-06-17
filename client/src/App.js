@@ -1,19 +1,19 @@
 import "./App.css";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ListPosts from "./pages/posts/list/ListPosts";
+import NavBar from "./components/navbar/NavBar";
+import { AuthContext } from "./helpers/auth-context";
+import Login from "./pages/auth/Login";
+import SignUp from "./pages/auth/SignUp";
+import PageNotFound from "./pages/PageNotFound";
 import CreatePost from "./pages/posts/create/CreatePost";
 import DetailsPost from "./pages/posts/details/DetailsPost";
-import NavBar from "./components/navbar/NavBar";
-import SignUp from "./pages/auth/SignUp";
-import Login from "./pages/auth/Login";
-import { AuthContext } from "./helpers/auth-context";
-import { useEffect, useState } from "react";
+import EditPost from "./pages/posts/edit/EditPost";
+import ListPosts from "./pages/posts/list/ListPosts";
+import Profile from "./pages/users/Profile";
+import UpdatePassword from "./pages/users/UpdatePassword";
 import AuthRequestsService from "./services/auth/auth-requests-service";
 import AuthStorageService from "./services/auth/auth-storage-service";
-import PageNotFound from "./pages/PageNotFound";
-import Profile from "./pages/users/Profile";
-import EditPost from "./pages/posts/edit/EditPost";
-import UpdatePassword from "./pages/users/UpdatePassword";
 
 function App() {
   const [auth, setAuth] = useState({

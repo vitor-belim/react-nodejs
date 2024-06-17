@@ -1,5 +1,5 @@
-import React from "react";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
 import AuthRequestsService from "../../services/auth/auth-requests-service";
 import Authentication from "./Authentication";
 

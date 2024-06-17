@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
-import "./Post.css";
-import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPencil,
   faThumbsUp,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
-import LikesService from "../../services/likes-service";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useContext, useEffect, useState } from "react";
+import "./Post.css";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../helpers/auth-context";
+import LikesService from "../../services/likes-service";
 import PostsService from "../../services/posts-service";
 
 function Post({ post, large = false, canNavigate = true, onDelete }) {

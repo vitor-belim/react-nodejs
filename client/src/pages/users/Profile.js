@@ -1,11 +1,11 @@
+import { faKey } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import UsersService from "../../services/users-service";
 import Post from "../../components/post/Post";
 import "./Profile.css";
 import { AuthContext } from "../../helpers/auth-context";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faKey } from "@fortawesome/free-solid-svg-icons";
+import UsersService from "../../services/users-service";
 
 const Profile = () => {
   let params = useParams();

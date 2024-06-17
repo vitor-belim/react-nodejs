@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from "react";
-import * as Yup from "yup";
-import AuthRequestsService from "../../services/auth/auth-requests-service";
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
 import { AuthContext } from "../../helpers/auth-context";
+import AuthRequestsService from "../../services/auth/auth-requests-service";
 
 const UpdatePassword = () => {
   const navigate = useNavigate();

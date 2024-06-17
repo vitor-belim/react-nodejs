@@ -1,6 +1,6 @@
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import AuthRequestsService from "../../services/auth/auth-requests-service";
-import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import Authentication from "./Authentication";
 
 function SignUp() {

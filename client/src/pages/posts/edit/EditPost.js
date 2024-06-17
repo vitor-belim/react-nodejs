@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import { faFloppyDisk } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import "./EditPost.css";
-import * as Yup from "yup";
-import PostsService from "../../../services/posts-service";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import * as Yup from "yup";
 import { AuthContext } from "../../../helpers/auth-context";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFloppyDisk } from "@fortawesome/free-regular-svg-icons";
+import PostsService from "../../../services/posts-service";
 
 function EditPost() {
   const navigate = useNavigate();
