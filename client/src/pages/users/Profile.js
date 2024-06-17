@@ -4,6 +4,8 @@ import UsersService from "../../services/users-service";
 import Post from "../../components/post/Post";
 import "./Profile.css";
 import { AuthContext } from "../../helpers/auth-context";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
 
 const Profile = () => {
   let params = useParams();
@@ -44,6 +46,15 @@ const Profile = () => {
         <p>
           <b>Username:</b> {user.username}
         </p>
+
+        {auth.status && auth.user.id === userId && (
+          <button
+            className="action-btn"
+            onClick={() => navigate("/change-password")}
+          >
+            <FontAwesomeIcon icon={faKey} /> Update Password
+          </button>
+        )}
       </div>
 
       <div className="posts-container">
@@ -60,7 +71,7 @@ const Profile = () => {
         {posts.length > 0 && (
           <div className="posts">
             {posts.map((post) => (
-              <Post post={post} onDelete={handlePostDelete} />
+              <Post key={post.id} post={post} onDelete={handlePostDelete} />
             ))}
           </div>
         )}

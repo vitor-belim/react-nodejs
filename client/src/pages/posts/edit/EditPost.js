@@ -5,6 +5,8 @@ import * as Yup from "yup";
 import PostsService from "../../../services/posts-service";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../../helpers/auth-context";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFloppyDisk } from "@fortawesome/free-regular-svg-icons";
 
 function EditPost() {
   const navigate = useNavigate();
@@ -85,7 +87,9 @@ function EditPost() {
             autoComplete="off"
           />
 
-          <button type="submit">Save Post</button>
+          <button type="submit">
+            <FontAwesomeIcon icon={faFloppyDisk} /> Save Post
+          </button>
         </Form>
       </Formik>
     </div>

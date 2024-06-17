@@ -28,6 +28,10 @@ class AuthRequestsService {
       prevent401Redirect: true,
     });
   }
+
+  updatePassword(data, options = {}) {
+    return ApiService.post(`${this.#PATH}/update-password`, data, options);
+  }
 }
 
 let authRequestsService = new AuthRequestsService();

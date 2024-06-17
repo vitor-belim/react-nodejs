@@ -13,6 +13,7 @@ import AuthStorageService from "./services/auth/auth-storage-service";
 import PageNotFound from "./pages/PageNotFound";
 import Profile from "./pages/users/Profile";
 import EditPost from "./pages/posts/edit/EditPost";
+import UpdatePassword from "./pages/auth/UpdatePassword";
 
 function App() {
   const [auth, setAuth] = useState({
@@ -49,6 +50,7 @@ function App() {
             <Route exact path="/sign-up" Component={SignUp} />
             <Route exact path="/login" Component={Login} />
             <Route exact path="/profile/:id" Component={Profile} />
+            <Route exact path="/change-password" Component={UpdatePassword} />
             <Route exact path="*" Component={PageNotFound} />
           </Routes>
         </BrowserRouter>

@@ -32,7 +32,7 @@ This lesson was about setting up routes and requests. It was mostly around `Sequ
 
 ## Lesson 3 - Client setup and connection to server
 
-The client was setup using `React`, and `Axios` was used to request data from the server. A basic page setup was done to show the list of posts retrieved.
+The client was set up using `React`, and `Axios` was used to request data from the server. A basic page setup was done to show the list of posts retrieved.
 
 ### Notes
 
@@ -186,10 +186,11 @@ This lesson focused on adding a profile page for users, with a basic info sectio
 
 ## Lesson 16 - Edit post + update password
 
-The first part of this lesson focused on adding the "edit post" functionality.
+The first part of this lesson focused on adding the "edit post" functionality. The second part focused on implementing the "update password" functionality.
 
 ### Notes
 
 - The tutorial implemented the edit functionality by clicking on either the title or the body to directly change it using a `window.prompt()` dialog. Although it works for the most part, this approach completely bypasses form validation, so I decided against it.
 - Added an edit button to the `Post` component, visible only when the user is the post's owner.
 - Added an `EditPost` component, along with the post's edit route `/posts/:id/edit`. Implemented guards to validate that the post exists, the user is logged in and the user is the post's owner. The server endpoint to update a post was already done previously, so there was no need for changes there.
+- Added an `UpdatePassword` component, along with the client route `/change-password`. Implemented the server endpoint `/auth/update-password`.

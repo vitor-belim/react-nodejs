@@ -22,6 +22,8 @@ const passwordEncryptionFailedResponse = (res, error) =>
   res.status(400).json({ message: "Password encryption failed", error });
 const invalidAuthResponse = (res) =>
   res.status(400).json({ message: "Invalid username or password" });
+const invalidPasswordResponse = (res) =>
+  res.status(400).json({ message: "Invalid password" });
 
 router.post("/sign-up", async (req, res) => {
   const { username, password } = req.body;
@@ -63,6 +65,29 @@ router.post("/login", async (req, res) => {
 
 router.get("/refresh", validateToken, async (req, res) => {
   successAuthResponse(res, "Access token is valid", req.user);
+});
+
+router.post("/update-password", validateToken, async (req, res) => {
+  const { password, newPassword } = req.body;
+
+  let dbUser = await usersTable.findByPk(req.user.id, {
+    attributes: { include: ["password"] },
+  });
+
+  const saltRes = await bcrypt.compare(password, dbUser.password);
+  if (!saltRes) {
+    return invalidPasswordResponse(res);
+  }
+
+  await bcrypt
+    .hash(newPassword, parseInt(process.env.LOCAL_PASSWORD_SALT))
+    .then(async (hashedPassword) => {
+      await dbUser.update({ password: hashedPassword });
+      successAuthResponse(res, "Password successfully updated", dbUser);
+    })
+    .catch((error) => {
+      passwordEncryptionFailedResponse(error);
+    });
 });
 
 module.exports = router;

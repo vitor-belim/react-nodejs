@@ -76,7 +76,7 @@ function SignUp() {
           <ErrorMessage name="result" component="span" />
 
           <div className="alternative-auth-container">
-            <span>Already have an account?</span>
+            <span className="description">Already have an account?</span>
             <Link to={{ pathname: "/login", search: window.location.search }}>
               Sign In Now
             </Link>

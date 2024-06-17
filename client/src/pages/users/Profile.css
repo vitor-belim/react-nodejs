@@ -12,3 +12,19 @@
 .profile-container .posts-container .posts {
   padding-top: 0;
 }
+
+.action-btn {
+  background: var(--color2);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  font-family: monospace;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.action-btn:hover {
+  cursor: pointer;
+  background: var(--color1);
+}

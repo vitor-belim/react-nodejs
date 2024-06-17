@@ -5,6 +5,8 @@ import * as Yup from "yup";
 import PostsService from "../../../services/posts-service";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../helpers/auth-context";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 
 function CreatePost() {
   const navigate = useNavigate();
@@ -64,7 +66,9 @@ function CreatePost() {
             autoComplete="off"
           />
 
-          <button type="submit">Create Post</button>
+          <button type="submit">
+            <FontAwesomeIcon icon={faSquarePlus} /> Create Post
+          </button>
         </Form>
       </Formik>
     </div>
