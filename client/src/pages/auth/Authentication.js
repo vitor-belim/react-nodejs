@@ -43,7 +43,7 @@ const Authentication = ({
   };
 
   return (
-    <div className="auth-page">
+    <div className="form-page">
       <h2>{title}</h2>
       <Formik
         initialValues={initialValues}

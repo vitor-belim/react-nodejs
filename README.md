@@ -252,4 +252,4 @@ the "update password" functionality.
   endpoint `/auth/update-password`.
 - (personal preference) Refactored `SignUp` and `Login` components' shared code into a single `Authentication`.
   component. Refactored `CreatePost` and `EditPost` components' shared code into a single `PostForm`.
-  component. Did some other minor adjustments.
+  component. Moved form-related CSS into `Form.css` to avoid code duplication. Did some other minor adjustments.

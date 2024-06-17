@@ -3,7 +3,6 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import "./PostForm.css";
 
 const PostForm = ({ title, submitText, submitIcon, onSubmit, post = null }) => {
   const navigate = useNavigate();
@@ -27,7 +26,7 @@ const PostForm = ({ title, submitText, submitIcon, onSubmit, post = null }) => {
   };
 
   return (
-    <div className="post-form-page">
+    <div className="form-page">
       <h2>{title}</h2>
       <Formik
         initialValues={initialValues}

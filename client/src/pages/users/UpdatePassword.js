@@ -55,7 +55,7 @@ const UpdatePassword = () => {
   };
 
   return (
-    <div className="auth-page">
+    <div className="form-page">
       <h2>Change password</h2>
       <Formik
         initialValues={initialValues}

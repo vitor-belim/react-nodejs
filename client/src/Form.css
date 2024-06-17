@@ -1,4 +1,4 @@
-.post-form-page {
+.form-page {
   font-family: Arial, Helvetica, sans-serif;
   width: 100vw;
   display: flex;
@@ -8,7 +8,7 @@
   padding-top: 50px;
 }
 
-.post-form-page .form-container {
+.form-page .form-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,11 +20,11 @@
   border-radius: 5px;
 }
 
-.post-form-page .form-container label {
+.form-page .form-container label {
   font-weight: bold;
 }
 
-.post-form-page .form-container .input {
+.form-page .form-container .input {
   height: 40px;
   margin-top: 4px;
   margin-bottom: 12px;
@@ -34,12 +34,12 @@
   font-size: 16px;
 }
 
-.post-form-page .form-container .textarea {
+.form-page .form-container .textarea {
   height: 120px;
   font-family: sans-serif;
 }
 
-.post-form-page .form-container button {
+.form-page .form-container button {
   margin-top: 15px;
   height: 40px;
   border: none;
@@ -52,10 +52,10 @@
   font-weight: bold;
 }
 
-.post-form-page .form-container button:hover {
+.form-page .form-container button:hover {
   background-color: var(--color1);
 }
 
-.post-form-page .form-container span {
+.form-page .form-container span {
   color: red;
 }

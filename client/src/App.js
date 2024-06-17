@@ -1,4 +1,3 @@
-import "./App.css";
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavBar from "./components/navbar/NavBar";
@@ -14,6 +13,8 @@ import Profile from "./pages/users/Profile";
 import UpdatePassword from "./pages/users/UpdatePassword";
 import AuthRequestsService from "./services/auth/auth-requests-service";
 import AuthStorageService from "./services/auth/auth-storage-service";
+import "./App.css";
+import "./Form.css";
 
 function App() {
   const [auth, setAuth] = useState({
