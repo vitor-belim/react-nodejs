@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavBar from "./components/navbar/NavBar";
 import { AuthContext } from "./helpers/auth-context";
 import Login from "./pages/auth/Login";
@@ -41,7 +41,7 @@ function App() {
   return (
     <div className="App">
       <AuthContext.Provider value={{ auth, setAuth }}>
-        <HashRouter basename="/">
+        <BrowserRouter basename="/">
           <NavBar />
           <Routes>
             <Route exact path="/" Component={ListPosts} />
@@ -54,7 +54,7 @@ function App() {
             <Route exact path="/change-password" Component={UpdatePassword} />
             <Route exact path="*" Component={PageNotFound} />
           </Routes>
-        </HashRouter>
+        </BrowserRouter>
       </AuthContext.Provider>
     </div>
   );
