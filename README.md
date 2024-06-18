@@ -261,9 +261,19 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
 ### Notes
 
 - Client deployment:
-    - Although the tutorial split the repo into 2 separate client and server repos, I was able to configure Netlify to
+    - Although the tutorial split the repo into 2 separate client and server repos, I was able to configure `Netlify` to
       use the correct folder within the main project.
+    - Updated the `#SERVER_URL` in `api-service.js` to be environment-specific (variable `REACT_APP_API_URL`).
+    - Added a `netlify.toml` file to prevent a 404 error when refreshing on paths other than `/`.
+    - The build configuration needed in `Netlify`:
+        - Base directory: `/client`
+        - Build command: `CI= npm run build`
+        - Publish directory: `/client/build`
+    - The deployment is currently automatic when changes are pushed to the master branch of the current repo.
 - Server deployment:
     - Created a new repo [react-nodejs-server](https://github.com/vitor-belim/react-nodejs-server) to hold only the
       server code because `Heroku` does not allow path customization.
-    - The deployment is issued using the `Heroku CLI`.
+    - Moved DB settings to environment variables.
+    - Created a new `start-dev` script for development, since `npm start` needs to use `node` instead of `nodemon`.
+    - The deployment is currently automatic when changes are pushed to the master branch of the server repo. It can also
+      be manually issued using the `Heroku CLI`.
