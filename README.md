@@ -253,3 +253,17 @@ the "update password" functionality.
 - (personal preference) Refactored `SignUp` and `Login` components' shared code into a single `Authentication`.
   component. Refactored `CreatePost` and `EditPost` components' shared code into a single `PostForm`.
   component. Moved form-related CSS into `Form.css` to avoid code duplication. Did some other minor adjustments.
+
+## Lesson 17 - Deployment
+
+This lesson focused on deploying the client code to `Netlify` and the server code to `Heroku`.
+
+### Notes
+
+- Client deployment:
+    - Although the tutorial split the repo into 2 separate client and server repos, I was able to configure Netlify to
+      use the correct folder within the main project.
+- Server deployment:
+    - Created a new repo [react-nodejs-server](https://github.com/vitor-belim/react-nodejs-server) to hold only the
+      server code because `Heroku` does not allow path customization.
+    - The deployment is issued using the `Heroku CLI`.
