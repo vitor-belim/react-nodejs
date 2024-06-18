@@ -4,6 +4,7 @@
   "private": true,
   "author": "Vítor Belim",
   "description": "",
+  "homepage": "/client",
   "scripts": {
     "build": "react-scripts build",
     "eject": "react-scripts eject",

@@ -36,7 +36,7 @@ function App() {
       .catch((_err) => {
         setAuth({ ...auth, checked: true });
       });
-  }, []);
+  }, [auth]);
 
   return (
     <div className="App">

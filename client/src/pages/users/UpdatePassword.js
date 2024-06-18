@@ -15,7 +15,7 @@ const UpdatePassword = () => {
     if (auth.checked && !auth.status) {
       navigate("/login?from=" + window.location.pathname);
     }
-  }, [auth]);
+  }, [auth, navigate]);
 
   if (!auth.checked) {
     return <div>Loading...</div>;

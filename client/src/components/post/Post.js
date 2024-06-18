@@ -22,7 +22,7 @@ function Post({ post, large = false, canNavigate = true, onDelete }) {
     setLiked(
       auth.status && post.likes.find((like) => like.user.id === auth.user.id),
     );
-  }, [auth]);
+  }, [auth, post.likes]);
 
   const handleLike = (e) => {
     e.stopPropagation();

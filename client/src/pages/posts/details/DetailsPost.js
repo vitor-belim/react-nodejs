@@ -18,7 +18,7 @@ function DetailsPost() {
         setPost(response.data);
       })
       .catch(() => navigate("/"));
-  }, [id]);
+  }, [id, navigate]);
 
   if (!post) {
     return <div>Loading...</div>;

@@ -26,7 +26,7 @@ const Profile = () => {
         });
       })
       .catch(() => navigate("/"));
-  }, [userId]);
+  }, [userId, navigate]);
 
   const handlePostDelete = (deletedPost) => {
     setPosts(posts.filter((post) => post.id !== deletedPost.id));
