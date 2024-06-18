@@ -25,7 +25,7 @@ function App() {
 
   useEffect(() => {
     if (!AuthStorageService.getAccessToken()) {
-      setAuth({ ...auth, checked: true });
+      setAuth((auth) => ({ ...auth, checked: true }));
       return;
     }
 
@@ -34,9 +34,9 @@ function App() {
         setAuth({ user: response.data.user, status: true, checked: true }),
       )
       .catch((_err) => {
-        setAuth({ ...auth, checked: true });
+        setAuth((auth) => ({ ...auth, checked: true }));
       });
-  }, [auth]);
+  }, []);
 
   return (
     <div className="App">
