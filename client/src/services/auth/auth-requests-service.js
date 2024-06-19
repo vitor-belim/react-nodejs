@@ -4,29 +4,33 @@ import AuthStorageService from "./auth-storage-service";
 class AuthRequestsService {
   #PATH = "/auth";
 
+  #storeAccessToken(res) {
+    AuthStorageService.setAccessToken(
+      res.data.accessToken,
+      res.data.expiration,
+    );
+    return res;
+  }
+
   signUp(data, options = {}) {
     AuthStorageService.clearAccessToken();
     return ApiService.post(`${this.#PATH}/sign-up`, data, options).then(
-      (res) => {
-        AuthStorageService.setAccessToken(res.data.accessToken);
-        return res;
-      },
+      this.#storeAccessToken,
     );
   }
 
   login(data, options = {}) {
     AuthStorageService.clearAccessToken();
-    return ApiService.post(`${this.#PATH}/login`, data, options).then((res) => {
-      AuthStorageService.setAccessToken(res.data.accessToken);
-      return res;
-    });
+    return ApiService.post(`${this.#PATH}/login`, data, options).then(
+      this.#storeAccessToken,
+    );
   }
 
   refresh(options = {}) {
     return ApiService.get(`${this.#PATH}/refresh`, {
       ...options,
       prevent401Redirect: true,
-    });
+    }).then(this.#storeAccessToken);
   }
 
   updatePassword(data, options = {}) {

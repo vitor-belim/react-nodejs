@@ -277,3 +277,7 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
     - Created a new `start-dev` script for development, since `npm start` needs to use `node` instead of `nodemon`.
     - The deployment is currently automatic when changes are pushed to the master branch of the server repo. It can also
       be manually issued using the `Heroku CLI`.
+
+## Improvements
+
+- [2024-06-19] Implemented token expiration in both client and server.

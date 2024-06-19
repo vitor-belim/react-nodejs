@@ -2,11 +2,32 @@ class AuthStorageService {
   #SESSION_STORAGE_KEY = "access-token";
 
   getAccessToken() {
-    return localStorage.getItem(this.#SESSION_STORAGE_KEY);
+    let parsedSession;
+
+    try {
+      parsedSession = JSON.parse(
+        localStorage.getItem(this.#SESSION_STORAGE_KEY),
+      );
+    } catch (e) {}
+
+    if (
+      !parsedSession ||
+      !parsedSession.accessToken ||
+      !parsedSession.expiration ||
+      new Date(parsedSession.expiration) < new Date()
+    ) {
+      this.clearAccessToken();
+      return null;
+    }
+
+    return parsedSession.accessToken;
   }
 
-  setAccessToken(accessToken) {
-    localStorage.setItem(this.#SESSION_STORAGE_KEY, accessToken);
+  setAccessToken(accessToken, expiration) {
+    localStorage.setItem(
+      this.#SESSION_STORAGE_KEY,
+      JSON.stringify({ accessToken, expiration }),
+    );
   }
 
   clearAccessToken() {
