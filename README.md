@@ -281,3 +281,4 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
 ## Improvements
 
 - [2024-06-19] Implemented token expiration in both client and server.
+- [2024-06-20] Refactored styling to be responsive.

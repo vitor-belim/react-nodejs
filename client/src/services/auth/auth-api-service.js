@@ -23,7 +23,7 @@ class AuthApiService {
     AuthStorageService.clearAccessToken();
 
     if (!prevent401Redirect) {
-      // redirect to /login and redirect back to current path when authenticated
+      // redirect to /login with reference to redirect back to current path when authenticated
       window.location.href = "/login?from=" + window.location.pathname;
     }
   }

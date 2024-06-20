@@ -18,6 +18,10 @@ const ListComments = ({ postId, lastRefresh = new Date() }) => {
     );
   };
 
+  if (comments.length === 0) {
+    return null;
+  }
+
   return (
     <div className="list-comments-container">
       {comments.map((comment) => (

@@ -5,6 +5,10 @@
   --color3: #5a81af;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .App {
   display: flex;
   width: 100%;

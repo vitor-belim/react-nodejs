@@ -1,9 +1,10 @@
 .posts {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 400px);
+  grid-auto-rows: auto;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 400px));
   grid-gap: 2rem;
   justify-content: center;
-  padding: 48px 0;
+  padding: 48px 24px;
 }
 
 .no-posts {

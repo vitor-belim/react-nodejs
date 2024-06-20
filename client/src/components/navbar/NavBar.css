@@ -4,7 +4,6 @@
   align-items: center;
   justify-content: space-between;
   background: var(--color2);
-  height: 60px;
 }
 
 .links > div {
@@ -16,13 +15,12 @@
 
 .links > div > h2 {
   color: white;
-  margin-right: 28px;
+  margin: 0 28px 0 0;
 }
 
 .links > div > a {
   height: 100%;
-  box-sizing: border-box;
-  padding: 20px 28px;
+  padding: 16px 24px;
   font-size: 16px;
   font-weight: bold;
   text-transform: uppercase;
@@ -33,4 +31,20 @@
 
 .links > div > a:hover {
   background: var(--color1);
+}
+
+@media all and (max-width: 768px) {
+  .links > div > a {
+    padding: 16px;
+  }
+
+  .links > div > a > span {
+    display: none;
+  }
+}
+
+@media all and (max-width: 480px) {
+  .links > div > h2 {
+    display: none;
+  }
 }

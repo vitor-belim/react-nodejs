@@ -2,14 +2,17 @@
   width: 100%;
   display: flex;
   justify-content: space-evenly;
-  padding-top: 50px;
+  flex-wrap: wrap;
+  padding: 48px 24px;
 }
 
 .container .column {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  flex: 1;
+  flex: 1 1;
+  min-width: 300px;
+  margin-bottom: 48px;
 }
 
 .container .comments-container {

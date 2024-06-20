@@ -23,13 +23,13 @@ function NavBar() {
     <div className="links">
       <div className="left">
         <Link to="/">
-          <FontAwesomeIcon icon={faHouse} /> Home
+          <FontAwesomeIcon icon={faHouse} /> <span>Home</span>
         </Link>
 
         {auth.status && (
           <>
             <Link to="/posts/new">
-              <FontAwesomeIcon icon={faSquarePlus} /> Create Post
+              <FontAwesomeIcon icon={faSquarePlus} /> <span>Create Post</span>
             </Link>
           </>
         )}
@@ -42,15 +42,16 @@ function NavBar() {
               <i>Welcome {auth.user.username}!</i>
             </h2>
             <Link to={"/profile/" + auth.user.id}>
-              <FontAwesomeIcon icon={faUser} /> Profile
+              <FontAwesomeIcon icon={faUser} /> <span>Profile</span>
             </Link>
             <Link onClick={logout} to="/">
-              <FontAwesomeIcon icon={faArrowRightFromBracket} /> Logout
+              <FontAwesomeIcon icon={faArrowRightFromBracket} />{" "}
+              <span>Logout</span>
             </Link>
           </>
         ) : (
           <Link to="/login">
-            <FontAwesomeIcon icon={faUser} /> Login
+            <FontAwesomeIcon icon={faUser} /> <span>Login</span>
           </Link>
         )}
       </div>
