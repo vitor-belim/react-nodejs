@@ -5,6 +5,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import * as Yup from "yup";
 import { AuthContext } from "../../helpers/auth-context";
 import "./Authentication.css";
+import { LoadingContext } from "../../helpers/loading-context";
 
 const Authentication = ({
   authRequest,
@@ -18,6 +19,7 @@ const Authentication = ({
   const navigate = useNavigate();
   let [searchParams] = useSearchParams();
   const { setAuth } = useContext(AuthContext);
+  const { setIsLoading } = useContext(LoadingContext);
 
   const initialValues = {
     username: "",
@@ -32,6 +34,8 @@ const Authentication = ({
   });
 
   const onSubmit = (data, { setFieldError }) => {
+    setIsLoading(true);
+
     authRequest(data)
       .then((response) => {
         setAuth({ user: response.data.user, status: true, checked: true });
@@ -39,7 +43,8 @@ const Authentication = ({
       })
       .catch((error) => {
         setFieldError("result", error.response.data.message);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (

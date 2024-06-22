@@ -4,6 +4,10 @@
   text-align: center;
 }
 
+.profile-container .posts-container {
+  position: relative;
+}
+
 .profile-container .basic-info,
 .profile-container .posts-container {
   margin-top: 50px;

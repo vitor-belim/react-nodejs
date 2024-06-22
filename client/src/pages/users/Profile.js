@@ -4,35 +4,45 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Post from "../../components/post/Post";
 import "./Profile.css";
+import Spinner from "../../components/spinner/Spinner";
 import { AuthContext } from "../../helpers/auth-context";
+import { LoadingContext } from "../../helpers/loading-context";
 import UsersService from "../../services/users-service";
 
 const Profile = () => {
-  let params = useParams();
-  let navigate = useNavigate();
-  let { auth } = useContext(AuthContext);
   const [user, setUser] = useState();
   const [posts, setPosts] = useState([]);
+  const [isLoadingPosts, setIsLoadingPosts] = useState(true);
+  let { auth } = useContext(AuthContext);
+  const { isLoading, setIsLoading } = useContext(LoadingContext);
+  let params = useParams();
+  let navigate = useNavigate();
 
   const userId = +params.id;
 
   useEffect(() => {
+    setIsLoading(true);
+
     UsersService.getUser(userId)
       .then((response) => {
         setUser(response.data);
+        setIsLoadingPosts(true);
 
-        UsersService.getPostsByUser(userId).then((response) => {
-          setPosts(response.data);
-        });
+        UsersService.getPostsByUser(userId)
+          .then((response) => {
+            setPosts(response.data);
+          })
+          .finally(() => setIsLoadingPosts(false));
       })
-      .catch(() => navigate("/"));
+      .catch(() => navigate("/"))
+      .finally(() => setIsLoading(false));
   }, [userId, navigate]);
 
   const handlePostDelete = (deletedPost) => {
     setPosts(posts.filter((post) => post.id !== deletedPost.id));
   };
 
-  if (!user) return <div>Loading...</div>;
+  if (!user || isLoading) return null;
 
   return (
     <div className="profile-container">
@@ -63,17 +73,24 @@ const Profile = () => {
         ) : (
           <h2>Posts by {user.username}</h2>
         )}
+        {isLoadingPosts ? (
+          <Spinner isLoading={true} height={200} />
+        ) : (
+          <>
+            {posts.length === 0 && (
+              <div className="no-posts">
+                This user hasn't made any posts yet.
+              </div>
+            )}
 
-        {posts.length === 0 && (
-          <div className="no-posts">This user hasn't made any posts yet.</div>
-        )}
-
-        {posts.length > 0 && (
-          <div className="posts">
-            {posts.map((post) => (
-              <Post key={post.id} post={post} onDelete={handlePostDelete} />
-            ))}
-          </div>
+            {posts.length > 0 && (
+              <div className="posts">
+                {posts.map((post) => (
+                  <Post key={post.id} post={post} onDelete={handlePostDelete} />
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

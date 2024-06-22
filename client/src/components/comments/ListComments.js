@@ -1,36 +1,20 @@
-import React, { useEffect, useState } from "react";
-import CommentsService from "../../services/comments-service";
+import React from "react";
 import "./ListComments.css";
+import Spinner from "../spinner/Spinner";
 import Comment from "./Comment";
 
-const ListComments = ({ postId, lastRefresh = new Date() }) => {
-  const [comments, setComments] = useState([]);
-
-  useEffect(() => {
-    CommentsService.getComments(postId).then((response) => {
-      setComments(response.data);
-    });
-  }, [postId, lastRefresh]);
-
-  const handleCommentDeleted = (deletedComment) => {
-    setComments((comments) =>
-      comments.filter((comment) => comment.id !== deletedComment.id),
-    );
-  };
-
-  if (comments.length === 0) {
-    return null;
-  }
-
+const ListComments = ({ comments, onDeleteComment, isLoading = false }) => {
   return (
     <div className="list-comments-container">
       {comments.map((comment) => (
         <Comment
           key={comment.id}
           comment={comment}
-          onDelete={handleCommentDeleted}
+          onDelete={(comment) => onDeleteComment && onDeleteComment(comment)}
         />
       ))}
+
+      <Spinner isLoading={isLoading} height={250} />
     </div>
   );
 };

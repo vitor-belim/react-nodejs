@@ -1,6 +1,7 @@
 .add-comment-container {
   width: 100%;
   padding: 0 20px;
+  position: relative;
 }
 
 form {
@@ -13,6 +14,13 @@ form {
 .add-comment-container button {
   border-radius: 8px;
   border: none;
+}
+
+.add-comment-container textarea {
+  width: 100%;
+  max-width: 400px;
+  height: 80px;
+  border: 2px solid var(--color2);
 }
 
 .add-comment-container button {
@@ -29,11 +37,4 @@ form {
 
 .add-comment-container button:hover {
   background-color: var(--color1);
-}
-
-.add-comment-container textarea {
-  width: 100%;
-  max-width: 400px;
-  height: 80px;
-  border: 2px solid var(--color2);
 }

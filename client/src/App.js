@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavBar from "./components/navbar/NavBar";
+import Spinner from "./components/spinner/Spinner";
 import { AuthContext } from "./helpers/auth-context";
+import { LoadingContext } from "./helpers/loading-context";
 import Login from "./pages/auth/Login";
 import SignUp from "./pages/auth/SignUp";
 import PageNotFound from "./pages/PageNotFound";
@@ -22,6 +24,7 @@ function App() {
     status: false,
     checked: false,
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!AuthStorageService.getAccessToken()) {
@@ -29,33 +32,46 @@ function App() {
       return;
     }
 
+    setIsLoading(true);
     AuthRequestsService.refresh()
       .then((response) =>
         setAuth({ user: response.data.user, status: true, checked: true }),
       )
       .catch((_err) => {
         setAuth((auth) => ({ ...auth, checked: true }));
-      });
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   return (
     <div className="App">
-      <AuthContext.Provider value={{ auth, setAuth }}>
-        <BrowserRouter basename="/">
-          <NavBar />
-          <Routes>
-            <Route exact path="/" Component={ListPosts} />
-            <Route exact path="/posts/new" Component={CreatePost} />
-            <Route exact path="/posts/:id" Component={DetailsPost} />
-            <Route exact path="/posts/:id/edit" Component={EditPost} />
-            <Route exact path="/sign-up" Component={SignUp} />
-            <Route exact path="/login" Component={Login} />
-            <Route exact path="/profile/:id" Component={Profile} />
-            <Route exact path="/change-password" Component={UpdatePassword} />
-            <Route exact path="*" Component={PageNotFound} />
-          </Routes>
-        </BrowserRouter>
-      </AuthContext.Provider>
+      <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
+        <AuthContext.Provider value={{ auth, setAuth }}>
+          <BrowserRouter basename="/">
+            <div className="content">
+              <Routes>
+                <Route exact path="/" Component={ListPosts} />
+                <Route exact path="/posts/new" Component={CreatePost} />
+                <Route exact path="/posts/:id" Component={DetailsPost} />
+                <Route exact path="/posts/:id/edit" Component={EditPost} />
+                <Route exact path="/sign-up" Component={SignUp} />
+                <Route exact path="/login" Component={Login} />
+                <Route exact path="/profile/:id" Component={Profile} />
+                <Route
+                  exact
+                  path="/change-password"
+                  Component={UpdatePassword}
+                />
+                <Route exact path="*" Component={PageNotFound} />
+              </Routes>
+
+              <Spinner isLoading={isLoading} size="full-page" />
+            </div>
+
+            <NavBar />
+          </BrowserRouter>
+        </AuthContext.Provider>
+      </LoadingContext.Provider>
     </div>
   );
 }

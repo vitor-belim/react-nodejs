@@ -1,0 +1,58 @@
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  min-height: 50px;
+  transition: opacity 400ms;
+  opacity: 1;
+}
+
+.loader-container.full-page {
+  position: fixed;
+  top: var(--nav-bar-height);
+  bottom: unset;
+  height: calc(100vh - var(--nav-bar-height));
+  background: #b2b2b2;
+}
+
+.loader-container.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loader {
+  width: 40px;
+  padding: 6px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--color2);
+  /*noinspection CssInvalidFunction*/
+  --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
+  -webkit-mask: var(--_m);
+  mask: var(--_m);
+  -webkit-mask-composite: source-out;
+  mask-composite: subtract;
+  animation: l3 1s infinite linear;
+}
+
+.loader.full-page {
+  width: 50px;
+  padding: 8px;
+}
+
+.loader.small {
+  width: 30px;
+  padding: 4px;
+}
+
+@keyframes l3 {
+  to {
+    transform: rotate(1turn);
+  }
+}

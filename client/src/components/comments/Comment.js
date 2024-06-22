@@ -4,12 +4,14 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Comment.css";
 import { AuthContext } from "../../helpers/auth-context";
 import CommentsService from "../../services/comments-service";
+import Spinner from "../spinner/Spinner";
 
 const Comment = ({ comment, onDelete }) => {
-  const ref = useRef(null);
   const [showViewMoreBtn, setShowViewMoreBtn] = useState(false);
   const [viewMore, setViewMore] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   let { auth } = useContext(AuthContext);
+  const ref = useRef(null);
 
   useEffect(() => {
     setShowViewMoreBtn(ref.current.clientHeight > 96);
@@ -21,11 +23,14 @@ const Comment = ({ comment, onDelete }) => {
     );
 
     if (confirmation) {
+      setIsLoading(true);
+
       CommentsService.deleteComment(comment.id)
         .then(() => {
           onDelete && onDelete(comment);
         })
-        .catch((err) => err);
+        .catch((err) => err)
+        .finally(() => setIsLoading(false));
     }
   };
 
@@ -56,6 +61,8 @@ const Comment = ({ comment, onDelete }) => {
           <span>{!viewMore ? "View more" : "View less"}</span>
         </div>
       )}
+
+      <Spinner isLoading={isLoading} size="small" />
     </div>
   );
 };

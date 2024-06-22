@@ -27,17 +27,21 @@ function Post({ post, large = false, canNavigate = true, onDelete }) {
   const handleLike = (e) => {
     e.stopPropagation();
 
-    LikesService.like(post.id)
-      .then((res) => {
-        if (res.data.id) {
-          setLikes([...likes, res.data]);
-          setLiked(true);
-        } else {
-          setLikes(likes.filter((like) => like.user.id !== auth.user.id));
-          setLiked(false);
-        }
-      })
-      .catch((err) => err);
+    setLiked((liked) => {
+      if (liked) {
+        // remove like
+        setLikes(likes.filter((like) => like.user.id !== auth.user.id));
+        return false;
+      }
+
+      // add like
+      setLikes([...likes, { user: auth.user }]);
+      return true;
+    });
+
+    LikesService.like(post.id).catch(() => {
+      setLiked((liked) => !liked);
+    });
   };
 
   const handleDelete = (e) => {
