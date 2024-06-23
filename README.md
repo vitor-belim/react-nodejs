@@ -284,3 +284,4 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
 - [2024-06-20] Refactored styling to be responsive.
 - [2024-06-21] Implemented the `Spinner` component.
 - [2024-06-22] Started adding spinners to actions that require an API call.
+- [2024-06-23] Finished adding spinners to actions that require an API call.

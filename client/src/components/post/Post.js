@@ -8,12 +8,14 @@ import React, { useContext, useEffect, useState } from "react";
 import "./Post.css";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../helpers/auth-context";
+import { LoadingContext } from "../../helpers/loading-context";
 import LikesService from "../../services/likes-service";
 import PostsService from "../../services/posts-service";
 
 function Post({ post, large = false, canNavigate = true, onDelete }) {
-  let navigate = useNavigate();
   const { auth } = useContext(AuthContext);
+  const { setIsLoading } = useContext(LoadingContext);
+  let navigate = useNavigate();
 
   const [likes, setLikes] = useState(post.likes);
   const [liked, setLiked] = useState(false);
@@ -52,11 +54,14 @@ function Post({ post, large = false, canNavigate = true, onDelete }) {
     );
 
     if (confirmation) {
+      setIsLoading(true);
+
       PostsService.deletePost(post.id)
         .then(() => {
           onDelete && onDelete(post);
         })
-        .catch((err) => err);
+        .catch((err) => err)
+        .finally(() => setIsLoading(false));
     }
   };
 

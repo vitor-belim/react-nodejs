@@ -1,10 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import Spinner from "../../../components/spinner/Spinner";
 
 const PostForm = ({ title, submitText, submitIcon, onSubmit, post = null }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const initialValues = {
@@ -18,11 +20,14 @@ const PostForm = ({ title, submitText, submitIcon, onSubmit, post = null }) => {
   });
 
   const handleSubmit = (data) => {
+    setIsLoading(true);
+
     onSubmit(data)
       .then((response) => {
         navigate(`/posts/${response.data.id}`);
       })
-      .catch((err) => err);
+      .catch((err) => err)
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -58,6 +63,8 @@ const PostForm = ({ title, submitText, submitIcon, onSubmit, post = null }) => {
           <button type="submit">
             <FontAwesomeIcon icon={submitIcon} /> {submitText}
           </button>
+
+          <Spinner isLoading={isLoading} />
         </Form>
       </Formik>
     </div>

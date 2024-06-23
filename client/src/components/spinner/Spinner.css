@@ -18,7 +18,7 @@
   top: var(--nav-bar-height);
   bottom: unset;
   height: calc(100vh - var(--nav-bar-height));
-  background: #b2b2b2;
+  background: #d4d4d4;
 }
 
 .loader-container.hidden {

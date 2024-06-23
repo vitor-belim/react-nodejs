@@ -1,15 +1,17 @@
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import Spinner from "../../components/spinner/Spinner";
 import { AuthContext } from "../../helpers/auth-context";
 import AuthRequestsService from "../../services/auth/auth-requests-service";
 
 const UpdatePassword = () => {
-  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const { auth } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (auth.checked && !auth.status) {
@@ -18,7 +20,7 @@ const UpdatePassword = () => {
   }, [auth, navigate]);
 
   if (!auth.checked) {
-    return <div>Loading...</div>;
+    return null;
   }
 
   const initialValues = {
@@ -41,6 +43,8 @@ const UpdatePassword = () => {
   });
 
   const onSubmit = (data, { setFieldError, resetForm }) => {
+    setIsLoading(true);
+
     AuthRequestsService.updatePassword({
       password: data.oldPassword,
       newPassword: data.newPassword,
@@ -51,7 +55,8 @@ const UpdatePassword = () => {
       })
       .catch((error) => {
         setFieldError("result", error.response.data.message);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -101,6 +106,8 @@ const UpdatePassword = () => {
           </button>
 
           <ErrorMessage name="result" component="span" />
+
+          <Spinner isLoading={isLoading} />
         </Form>
       </Formik>
     </div>
