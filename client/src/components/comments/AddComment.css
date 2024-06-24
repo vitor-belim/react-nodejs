@@ -35,6 +35,15 @@ form {
   font-weight: bold;
 }
 
+.add-comment-container button[disabled] {
+  background-color: dimgray;
+}
+
 .add-comment-container button:hover {
   background-color: var(--color1);
+}
+
+.add-comment-container button[disabled]:hover {
+  background-color: dimgray;
+  cursor: not-allowed;
 }

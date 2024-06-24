@@ -5,15 +5,20 @@ import CommentsService from "../../services/comments-service";
 import "./AddComment.css";
 import Spinner from "../spinner/Spinner";
 
-function AddComment({ postId, onAddComment = null }) {
+function AddComment({ post, onAddComment = null }) {
   const [comment, setComment] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!post.allowComments) {
+      return;
+    }
+
     setIsLoading(true);
 
-    CommentsService.addCommentToPost(postId, comment)
+    CommentsService.addCommentToPost(post.id, comment)
       .then((response) => {
         setComment("");
         onAddComment && onAddComment(response.data);
@@ -26,14 +31,19 @@ function AddComment({ postId, onAddComment = null }) {
     <div className="add-comment-container">
       <form onSubmit={handleSubmit}>
         <textarea
-          placeholder="Comment"
+          placeholder={
+            post.allowComments
+              ? "Add a comment..."
+              : "Comments are not allowed in this post."
+          }
+          disabled={!post.allowComments}
           autoComplete="off"
           required
           value={comment}
           onChange={(e) => setComment(e.target.value)}
         />
         &nbsp;
-        <button type="submit">
+        <button type="submit" disabled={!post.allowComments}>
           <FontAwesomeIcon icon={faMessage} /> Add Comment
         </button>
       </form>

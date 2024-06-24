@@ -6,7 +6,7 @@ import { AuthContext } from "../../helpers/auth-context";
 import CommentsService from "../../services/comments-service";
 import Spinner from "../spinner/Spinner";
 
-const Comment = ({ comment, onDelete }) => {
+const Comment = ({ post, comment, onDelete }) => {
   const [showViewMoreBtn, setShowViewMoreBtn] = useState(false);
   const [viewMore, setViewMore] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -38,6 +38,10 @@ const Comment = ({ comment, onDelete }) => {
     setViewMore((val) => !val);
   };
 
+  const loggedUserOwnsPostOrComment =
+    auth.status &&
+    (post.user.id === auth.user.id || comment.user.id === auth.user.id);
+
   return (
     <div
       className="comment"
@@ -50,7 +54,7 @@ const Comment = ({ comment, onDelete }) => {
       <span className="body">{comment.commentBody}</span>
       <span className="author">@{comment.user.username}</span>
 
-      {auth.status && comment.user.id === auth.user.id && (
+      {loggedUserOwnsPostOrComment && (
         <button className="delete" onClick={deleteHandler}>
           <FontAwesomeIcon icon={faTrash} />
         </button>

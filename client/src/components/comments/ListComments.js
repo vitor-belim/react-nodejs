@@ -3,12 +3,18 @@ import "./ListComments.css";
 import Spinner from "../spinner/Spinner";
 import Comment from "./Comment";
 
-const ListComments = ({ comments, onDeleteComment, isLoading = false }) => {
+const ListComments = ({
+  post,
+  comments,
+  onDeleteComment,
+  isLoading = false,
+}) => {
   return (
     <div className="list-comments-container">
       {comments.map((comment) => (
         <Comment
           key={comment.id}
+          post={post}
           comment={comment}
           onDelete={(comment) => onDeleteComment && onDeleteComment(comment)}
         />

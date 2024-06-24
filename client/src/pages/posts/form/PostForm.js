@@ -4,19 +4,29 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import Spinner from "../../../components/spinner/Spinner";
+import Toggle from "../../../components/toggle/Toggle";
 
 const PostForm = ({ title, submitText, submitIcon, onSubmit, post = null }) => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const initialValues = {
-    title: post?.title || "",
-    postText: post?.postText || "",
+  let initialValues = {
+    title: "",
+    postText: "",
+    allowComments: true,
   };
+  if (post) {
+    initialValues = {
+      title: post.title,
+      postText: post.postText,
+      allowComments: post.allowComments,
+    };
+  }
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().max(40).required("The title is required"),
     postText: Yup.string().max(1000).required("The post's text is required"),
+    allowComments: Yup.boolean().required(""),
   });
 
   const handleSubmit = (data) => {
@@ -59,6 +69,18 @@ const PostForm = ({ title, submitText, submitIcon, onSubmit, post = null }) => {
             placeholder="(Ex.: Lorem ipsum...)"
             autoComplete="off"
           />
+
+          <label>Allow Comments</label>
+          <ErrorMessage name="allowComments" component="span" />
+          <Toggle>
+            <Field
+              type="checkbox"
+              id="allow-comments"
+              className="checkbox"
+              name="allowComments"
+              autoComplete="off"
+            />
+          </Toggle>
 
           <button type="submit">
             <FontAwesomeIcon icon={submitIcon} /> {submitText}
