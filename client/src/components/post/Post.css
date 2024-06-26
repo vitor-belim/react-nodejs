@@ -67,11 +67,41 @@
 .post .body {
   flex: 100% 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px;
   font-family: fantasy;
   white-space: pre-wrap;
+}
+
+.post .body .tags {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  align-items: center;
+  gap: 12px;
+}
+
+.post .body .tags .tag {
+  text-decoration: none;
+}
+
+.post .body .tags .tag {
+  color: var(--color1);
+  font-weight: bold;
+}
+
+.post .body .tags .tag:hover {
+  color: var(--color3);
+  cursor: pointer;
+}
+
+.post .body .post-text {
+  display: flex;
+  flex: 100% 1;
+  align-items: center;
 }
 
 .post .body p {
@@ -83,6 +113,10 @@
   display: -webkit-box;
   -webkit-line-clamp: 6;
   -webkit-box-orient: vertical;
+}
+
+.post:not(.large) .body .tags + .post-text p {
+  -webkit-line-clamp: 5;
 }
 
 .post .footer {

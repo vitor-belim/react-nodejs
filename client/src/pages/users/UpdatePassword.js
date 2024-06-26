@@ -69,7 +69,7 @@ const UpdatePassword = () => {
       >
         <Form className="form-container">
           <label>Old Password</label>
-          <ErrorMessage name="oldPassword" component="span" />
+          <ErrorMessage name="oldPassword" component="span" className="error" />
           <Field
             id="old-password"
             className="input"
@@ -80,7 +80,7 @@ const UpdatePassword = () => {
           />
 
           <label>New Password</label>
-          <ErrorMessage name="newPassword" component="span" />
+          <ErrorMessage name="newPassword" component="span" className="error" />
           <Field
             id="new-password"
             className="input"
@@ -91,7 +91,11 @@ const UpdatePassword = () => {
           />
 
           <label>Confirm Password</label>
-          <ErrorMessage name="newPasswordConfirm" component="span" />
+          <ErrorMessage
+            name="newPasswordConfirm"
+            component="span"
+            className="error"
+          />
           <Field
             id="new-password-confirm"
             className="input"
@@ -105,7 +109,7 @@ const UpdatePassword = () => {
             <FontAwesomeIcon icon={faUser} /> Update Password
           </button>
 
-          <ErrorMessage name="result" component="span" />
+          <ErrorMessage name="result" component="span" className="error" />
 
           <Spinner isLoading={isLoading} />
         </Form>

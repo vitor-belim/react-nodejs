@@ -15,6 +15,7 @@
   width: var(--toggle-width);
   height: var(--toggle-height);
   margin-top: 4px;
+  margin-bottom: 12px;
 }
 
 .toggle-container input {

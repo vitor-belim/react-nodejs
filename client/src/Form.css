@@ -57,6 +57,6 @@
   background-color: var(--color1);
 }
 
-.form-page .form-container span {
+.form-page .form-container .error {
   color: red;
 }

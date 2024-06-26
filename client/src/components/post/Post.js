@@ -75,6 +75,11 @@ function Post({ post, large = false, canNavigate = true, onDelete }) {
     navigate(`/posts/${post.id}/edit`);
   };
 
+  const handleTagClick = (e, tag) => {
+    e.stopPropagation();
+    navigate(`/search/${tag.name}`);
+  };
+
   return (
     <div
       className={`post ${large && "large"}`}
@@ -95,7 +100,23 @@ function Post({ post, large = false, canNavigate = true, onDelete }) {
       </div>
 
       <div className="body">
-        <p>{post.postText}</p>
+        <div className="post-text">
+          <p>{post.postText}</p>
+        </div>
+
+        {post.tags.length > 0 && (
+          <div className="tags">
+            {post.tags.map((tag) => (
+              <span
+                onClick={(e) => handleTagClick(e, tag)}
+                key={tag.id}
+                className="tag"
+              >
+                #{tag.name}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="footer">

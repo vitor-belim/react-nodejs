@@ -289,9 +289,9 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
     - New business rule - the owner of a post can delete any of its comments.
     - New feature - post owners can allow or block comments for each post individually.
 - [2024-06-25] Created `tags` table and added it to posts.
+- [2024-06-26] Implemented the `TagsField` component and added tags to the `Post` component.
 
 ## Ideas for the future
 
-- Add tags to posts.
 - Implement a search feature.
 - Add ChatGPT integration to generate tags.

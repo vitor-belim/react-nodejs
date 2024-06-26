@@ -57,7 +57,7 @@ const Authentication = ({
       >
         <Form className="form-container">
           <label>Username</label>
-          <ErrorMessage name="username" component="span" />
+          <ErrorMessage name="username" component="span" className="error" />
           <Field
             id="username"
             className="input"
@@ -67,7 +67,7 @@ const Authentication = ({
           />
 
           <label>Password</label>
-          <ErrorMessage name="password" component="span" />
+          <ErrorMessage name="password" component="span" className="error" />
           <Field
             id="post-text"
             className="input"
@@ -81,7 +81,7 @@ const Authentication = ({
             <FontAwesomeIcon icon={submitIcon} /> {submitText}
           </button>
 
-          <ErrorMessage name="result" component="span" />
+          <ErrorMessage name="result" component="span" className="error" />
 
           <div className="alternative-auth-container">
             <span className="description">{otherAuthDescription}</span>

@@ -1,0 +1,28 @@
+.tags-field-container .tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.tags-field-container .tags-container .tag {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px 4px 12px;
+  background: var(--color3);
+  border-radius: 16px;
+  margin: 4px 4px 4px 0;
+}
+
+.tags-field-container .tags-container .tag span {
+  color: white;
+}
+
+.tags-field-container .tags-container .tag .icon {
+  padding: 2px 2px;
+  margin-left: 4px;
+}
+
+.tags-field-container .tags-container .tag .icon:hover {
+  cursor: pointer;
+}
