@@ -1,0 +1,23 @@
+.tag-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 8px 4px 12px;
+  background: var(--color3);
+  border-radius: 16px;
+  margin: 4px 4px 4px 0;
+}
+
+.tag-container .tag-text {
+  color: white;
+}
+
+.tag-container .tag-text + .tag-icon {
+  color: black;
+  padding: 2px 2px;
+  margin-left: 4px;
+}
+
+.tag-container .tag-text + .tag-icon:hover {
+  cursor: pointer;
+}

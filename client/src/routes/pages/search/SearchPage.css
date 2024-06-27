@@ -1,0 +1,23 @@
+.search-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-page .search-container {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.search-page .search-container .tag-container {
+  margin-top: 8px;
+  align-self: center;
+}
+
+.search-page .posts {
+  align-self: stretch;
+}

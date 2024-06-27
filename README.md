@@ -290,6 +290,9 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
     - New feature - post owners can allow or block comments for each post individually.
 - [2024-06-25] Created `tags` table and added it to posts.
 - [2024-06-26] Implemented the `TagsField` component and added tags to the `Post` component.
+- [2024-06-27] Added:
+    - New feature - a search page that allows post searching posts by title/text and tags.
+    - Refactor - a new structure for folders and files in the client.
 
 ## Ideas for the future
 

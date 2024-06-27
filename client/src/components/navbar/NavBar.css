@@ -48,7 +48,7 @@
   }
 }
 
-@media all and (max-width: 480px) {
+@media all and (max-width: 1024px) {
   .links > div > h2 {
     display: none;
   }
