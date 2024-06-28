@@ -293,7 +293,8 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
 - [2024-06-27] Added:
     - New feature - a search page that allows searching posts by title/text and tags.
     - Refactor - a new structure for folders and files in the client.
+- [2024-06-27] Added Typescript to the server.
 
 ## Ideas for the future
 
-- Add ChatGPT integration to generate tags.
+- Convert client to TypeScript.
