@@ -293,7 +293,8 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
 - [2024-06-27] Added:
     - New feature - a search page that allows searching posts by title/text and tags.
     - Refactor - a new structure for folders and files in the client.
-- [2024-06-27] Added Typescript to the server.
+- [2024-06-28] Added Typescript to the server.
+- [2024-07-01] Added types to server objects and started fixing tsc errors.
 
 ## Ideas for the future
 
