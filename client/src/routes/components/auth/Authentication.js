@@ -50,7 +50,6 @@ const Authentication = ({
 
   return (
     <FormPage title={title}>
-      <h2>{title}</h2>
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
