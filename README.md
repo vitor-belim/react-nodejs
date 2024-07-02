@@ -294,7 +294,10 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
     - New feature - a search page that allows searching posts by title/text and tags.
     - Refactor - a new structure for folders and files in the client.
 - [2024-06-28] Added Typescript to the server.
-- [2024-07-01] Added types to server objects and started fixing tsc errors.
+- [2024-07-01] Added types to server objects and started fixing `tsc` errors.
+- [2024-07-02] Finished fixing `tsc` errors.
+    - Notes: Due to Sequelize types being completely messed up, I had to ignore the `src/models/index.ts` file and
+      use `any` types on the `src/models/**` files.
 
 ## Ideas for the future
 
