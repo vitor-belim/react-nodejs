@@ -301,7 +301,10 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
     - Notes: Due to Sequelize types being completely messed up, I had to ignore the `src/models/index.ts` file and
       use `any` types on the `src/models/**` files.
 - [2024-07-03] Added Typescript to the client and started adding types everywhere.
+- [2024-07-04] Finished adding types in the client, fixed all TypeScript warnings/errors, reordered CSS properties and
+  refactored some parts of the application.
 
 ## Ideas for the future
 
+- Implement SCSS/SASS.
 - Restyle the application.

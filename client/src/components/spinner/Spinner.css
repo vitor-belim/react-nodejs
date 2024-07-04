@@ -1,12 +1,12 @@
 .loader-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   position: absolute;
   top: 0;
-  left: 0;
   right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   height: 100%;
   min-height: 50px;
   transition: opacity 400ms;
@@ -22,23 +22,23 @@
 }
 
 .loader-container.hidden {
-  opacity: 0;
   pointer-events: none;
+  opacity: 0;
 }
 
 .loader {
   width: 40px;
   padding: 6px;
-  aspect-ratio: 1;
+  animation: l3 1s infinite linear;
   border-radius: 50%;
   background: var(--color2);
-  /*noinspection CssInvalidFunction*/
-  --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
+  aspect-ratio: 1;
+  --_m: conic-gradient(#0000 10%, #000),
+    linear-gradient(#000 0 0, #000 0 0) content-box;
   -webkit-mask: var(--_m);
   mask: var(--_m);
   -webkit-mask-composite: source-out;
   mask-composite: subtract;
-  animation: l3 1s infinite linear;
 }
 
 .loader.full-page {

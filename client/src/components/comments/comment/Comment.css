@@ -1,15 +1,15 @@
 .comment {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
   width: 70%;
   height: auto;
+  margin-top: 20px;
   padding: 12px;
+  white-space: pre-line;
   border: 1px solid var(--color1);
   border-radius: 5px;
-  margin-top: 20px;
-  white-space: pre-line;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
 }
 
 .comment .body {
@@ -17,27 +17,27 @@
 }
 
 .comment .author {
-  color: dimgray;
-  text-align: right;
-  font-size: 12px;
   font-family: monospace;
+  font-size: 12px;
+  text-align: right;
+  color: dimgray;
 }
 
 .comment > .delete {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-size: 12px;
   position: absolute;
   top: 2px;
   right: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 24px;
   height: 24px;
-  border-radius: 50%;
   padding: 0;
-  background: none;
-  border: none;
-  font-size: 12px;
   cursor: pointer;
+  border: none;
+  border-radius: 50%;
+  background: none;
 }
 
 .comment > .delete:hover {
@@ -46,28 +46,28 @@
 
 .view-more {
   position: absolute;
+  right: 0;
   bottom: 0;
   left: 0;
-  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 50px;
   margin: auto;
+  cursor: pointer;
   background: rgb(0, 0, 0);
   background: linear-gradient(
     0deg,
     rgb(205, 205, 205) 0%,
     rgba(255, 255, 255, 1) 100%
   );
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .view-more span {
-  text-align: center;
-  color: var(--color1);
-  font-weight: bold;
   font-family: monospace;
-  text-transform: uppercase;
   font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--color1);
 }

@@ -2,10 +2,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 4px 8px 4px 12px;
-  background: var(--color3);
-  border-radius: 16px;
   margin: 4px 4px 4px 0;
+  padding: 4px 8px 4px 12px;
+  border-radius: 16px;
+  background: var(--color3);
 }
 
 .tag-container .tag-text {
@@ -13,9 +13,9 @@
 }
 
 .tag-container .tag-text + .tag-icon {
-  color: black;
-  padding: 2px 2px;
   margin-left: 4px;
+  padding: 2px 2px;
+  color: black;
 }
 
 .tag-container .tag-text + .tag-icon:hover {

@@ -1,9 +1,9 @@
 .list-comments-container {
-  flex: 80%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px 0;
   position: relative;
+  display: flex;
+  align-items: center;
+  flex: 80%;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px 0;
 }
