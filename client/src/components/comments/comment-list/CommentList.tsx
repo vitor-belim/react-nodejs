@@ -3,7 +3,7 @@ import CommentModel from "../../../models/comment-model";
 import PostModel from "../../../models/post-model";
 import Spinner from "../../spinner/Spinner";
 import CommentAdd from "../comment/Comment";
-import "./CommentList.css";
+import "./CommentList.scss";
 
 interface CommentListProps {
   post: PostModel;
@@ -19,7 +19,7 @@ const CommentList = ({
   isLoading = false,
 }: CommentListProps) => {
   return (
-    <div className="list-comments-container">
+    <div className="comment-list-container">
       {comments.map((comment) => (
         <CommentAdd
           key={comment.id}

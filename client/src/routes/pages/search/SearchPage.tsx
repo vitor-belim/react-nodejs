@@ -1,22 +1,21 @@
 import { faBroom } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { KeyboardEvent, useContext, useEffect, useState } from "react";
+import React, { KeyboardEvent, useEffect, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import PostList from "../../../components/posts/post-list/PostList";
+import Spinner from "../../../components/spinner/Spinner";
 import Tag from "../../../components/tag/Tag";
-import { LoadingContext } from "../../../contexts/loading-context";
 import PostModel from "../../../models/post-model";
 import TagModel from "../../../models/tag-model";
 import PostsService from "../../../services/posts/posts-service";
-import "./SearchPage.css";
+import "./SearchPage.scss";
 
 const SearchPage = () => {
   const [searchOptions, setSearchOptions] = useState<Record<string, string>>(
     {},
   );
   const [posts, setPosts] = useState<PostModel[]>([]);
-  const [isReady, setIsReady] = useState(false);
-  const { isLoading, setIsLoading } = useContext(LoadingContext);
+  const [isLoading, setIsLoading] = useState(true);
   let params = useParams();
   let [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -42,7 +41,6 @@ const SearchPage = () => {
         setPosts(dbPosts);
       })
       .finally(() => {
-        setIsReady(true);
         setIsLoading(false);
       });
   }, [query, searchParams, setIsLoading]);
@@ -61,10 +59,6 @@ const SearchPage = () => {
       });
     }, 600);
   };
-
-  if (!isReady || isLoading) {
-    return null;
-  }
 
   return (
     <div className="search-page">
@@ -88,11 +82,18 @@ const SearchPage = () => {
         )}
       </div>
 
-      <PostList posts={posts}>
-        <button onClick={() => navigate("/search")}>
-          <FontAwesomeIcon icon={faBroom} /> Clear filters
-        </button>
-      </PostList>
+      <div className="results-container">
+        <Spinner isLoading={isLoading} height={300} />
+
+        <div className="posts-results" style={{ opacity: isLoading ? 0 : 1 }}>
+          <PostList posts={posts}>
+            <p>No posts were found.</p>
+            <button onClick={() => navigate("/search")}>
+              <FontAwesomeIcon icon={faBroom} /> Clear filters
+            </button>
+          </PostList>
+        </div>
+      </div>
     </div>
   );
 };

@@ -9,7 +9,7 @@ import CommentModel from "../../../../models/comment-model";
 import PostModel from "../../../../models/post-model";
 import CommentsService from "../../../../services/comments/comments-service";
 import PostsService from "../../../../services/posts/posts-service";
-import "./DetailsPostPage.css";
+import "./DetailsPostPage.scss";
 
 function DetailsPostPage() {
   const [post, setPost] = useState<PostModel>();
@@ -65,7 +65,7 @@ function DetailsPostPage() {
   const loggedUserIsPostOwner = auth.status && post.user.id === auth.user?.id;
 
   return (
-    <div className="container">
+    <div className="details-post-page">
       <div className="column">
         <Post
           post={post}

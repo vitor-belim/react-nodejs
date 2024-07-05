@@ -1,0 +1,23 @@
+.authentication-container {
+  .form-page {
+    .alternative-auth-container {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      margin-top: 24px;
+
+      .description {
+        color: gray;
+      }
+
+      a {
+        font-weight: bold;
+        margin-top: 4px;
+        margin-left: 5px;
+        color: black;
+      }
+    }
+  }
+}

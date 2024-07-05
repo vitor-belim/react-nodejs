@@ -2,14 +2,14 @@ import { faKey } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Post from "../../../../components/posts/post/Post";
+import PostList from "../../../../components/posts/post-list/PostList";
 import Spinner from "../../../../components/spinner/Spinner";
 import { AuthContext } from "../../../../contexts/auth-context";
 import { LoadingContext } from "../../../../contexts/loading-context";
 import PostModel from "../../../../models/post-model";
 import UserModel from "../../../../models/user-model";
 import UsersService from "../../../../services/users/users-service";
-import "./ProfilePage.css";
+import "./ProfilePage.scss";
 
 const ProfilePage = () => {
   const [user, setUser] = useState<UserModel>();
@@ -23,6 +23,8 @@ const ProfilePage = () => {
   const userId = parseInt(params.id || "");
 
   useEffect(() => {
+    setIsLoading(true);
+
     UsersService.getUser(userId)
       .then((dbUser) => {
         setUser(dbUser);
@@ -47,7 +49,7 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="profile-container">
+    <div className="profile-page">
       <h1>Profile Page</h1>
 
       <div className="basic-info">
@@ -79,21 +81,9 @@ const ProfilePage = () => {
         {isLoadingPosts ? (
           <Spinner isLoading={true} height={200} />
         ) : (
-          <>
-            {posts.length === 0 && (
-              <div className="no-posts">
-                This user hasn't made any posts yet.
-              </div>
-            )}
-
-            {posts.length > 0 && (
-              <div className="posts">
-                {posts.map((post) => (
-                  <Post post={post} onDelete={handlePostDelete} key={post.id} />
-                ))}
-              </div>
-            )}
-          </>
+          <PostList posts={posts} onDelete={handlePostDelete}>
+            <p>This user hasn't made any posts yet.</p>
+          </PostList>
         )}
       </div>
     </div>

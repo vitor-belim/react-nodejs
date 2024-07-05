@@ -13,7 +13,7 @@ import PostModel from "../../../models/post-model";
 import TagModel from "../../../models/tag-model";
 import LikesService from "../../../services/likes/likes-service";
 import PostsService from "../../../services/posts/posts-service";
-import "./Post.css";
+import "./Post.scss";
 
 interface PostProps {
   post: PostModel;
@@ -103,7 +103,7 @@ function Post({
 
   return (
     <div
-      className={`post ${large && "large"}`}
+      className={`post-container ${large && "large"}`}
       onClick={() => canNavigate && navigate(`/posts/${post.id}`)}
     >
       <div className="title">
@@ -122,7 +122,9 @@ function Post({
 
       <div className="body">
         <div className="post-text">
-          <p>{post.postText}</p>
+          <p className={post.tags.length > 0 ? "has-tags" : ""}>
+            {post.postText}
+          </p>
         </div>
 
         {post.tags.length > 0 && (

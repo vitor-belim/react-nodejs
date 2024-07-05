@@ -3,33 +3,32 @@ form {
   align-items: center;
   flex-direction: column;
   justify-content: center;
+
+  .error {
+    color: red;
+  }
 }
 
 label {
   font-weight: bold;
 }
 
-input {
+@mixin typing-element() {
   font-size: 16px;
-  height: 40px;
   margin-top: 4px;
   margin-bottom: 12px;
   padding-left: 10px;
   border: 2px solid var(--color2);
   border-radius: 5px;
+}
+
+input {
+  @include typing-element();
+  height: 40px;
 }
 
 textarea {
+  @include typing-element();
   font-family: sans-serif;
-  font-size: 16px;
   height: 120px;
-  margin-top: 4px;
-  margin-bottom: 12px;
-  padding-left: 10px;
-  border: 2px solid var(--color2);
-  border-radius: 5px;
-}
-
-form .error {
-  color: red;
 }

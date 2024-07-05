@@ -2,7 +2,7 @@ import { FieldArray, FieldArrayRenderProps } from "formik";
 import React, { FocusEvent, KeyboardEvent } from "react";
 import TagModel from "../../../models/tag-model";
 import Tag from "../../tag/Tag";
-import "./TagsField.css";
+import "./TagsField.scss";
 
 interface TagsFieldProps {
   name: string;
@@ -79,38 +79,36 @@ const TagsField = ({ name }: TagsFieldProps) => {
     arrayHelpers.remove(index);
   };
 
-  return (
-    <div className="tags-field-container" style={{ width: "100%" }}>
-      <FieldArray
-        name={name}
-        render={(arrayHelpers) => {
-          return (
-            <>
-              <div className="tags-container">
-                {arrayHelpers.form.values[name].map(
-                  (tag: TagModel, index: number) => (
-                    <Tag
-                      key={index}
-                      tag={tag}
-                      canRemove={true}
-                      onRemove={() => handleTagDelete(index, arrayHelpers)}
-                    />
-                  ),
-                )}
-              </div>
-
-              <input
-                style={{ width: "100%" }}
-                type="text"
-                onKeyDown={handleKeyDown}
-                onBlur={(e) => handleOnBlur(e, arrayHelpers)}
-                onKeyUp={(e) => handleOnKeyUp(e, arrayHelpers)}
-                placeholder="(Ex.: Food, Travel, Technology...)"
+  const onRender = (arrayHelpers: FieldArrayRenderProps) => {
+    return (
+      <>
+        <div className="tags-container">
+          {arrayHelpers.form.values[name].map(
+            (tag: TagModel, index: number) => (
+              <Tag
+                key={index}
+                tag={tag}
+                canRemove={true}
+                onRemove={() => handleTagDelete(index, arrayHelpers)}
               />
-            </>
-          );
-        }}
-      />
+            ),
+          )}
+        </div>
+
+        <input
+          type="text"
+          onKeyDown={handleKeyDown}
+          onBlur={(e) => handleOnBlur(e, arrayHelpers)}
+          onKeyUp={(e) => handleOnKeyUp(e, arrayHelpers)}
+          placeholder="(Ex.: Food, Travel, Technology...)"
+        />
+      </>
+    );
+  };
+
+  return (
+    <div className="tags-field-container">
+      <FieldArray name={name} render={onRender} />
     </div>
   );
 };

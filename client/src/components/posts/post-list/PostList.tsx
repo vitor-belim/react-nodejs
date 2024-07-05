@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import PostModel from "../../../models/post-model";
 import Post from "../post/Post";
-import "./PostList.css";
+import "./PostList.scss";
 
 interface PostListProps {
   posts: PostModel[];
@@ -12,16 +12,11 @@ interface PostListProps {
 function PostList({
   posts,
   onDelete = undefined,
-  children = undefined,
+  children = <p>No posts were found.</p>,
 }: PostListProps) {
   return (
-    <>
-      {posts.length === 0 && (
-        <div className="no-posts">
-          <p>No posts were found.</p>
-          {children}
-        </div>
-      )}
+    <div className="post-list-container">
+      {posts.length === 0 && <div className="no-posts">{children}</div>}
 
       {posts.length > 0 && (
         <div className="posts">
@@ -34,7 +29,7 @@ function PostList({
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 }
 

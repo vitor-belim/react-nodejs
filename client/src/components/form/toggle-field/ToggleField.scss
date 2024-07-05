@@ -1,0 +1,64 @@
+// Widget config
+$toggle-field-width: 56px;
+$toggle-field-height: 28px;
+$toggle-field-slider-gap: 3px;
+$toggle-field-transition-speed: 400ms;
+
+// Calculated variables
+$toggle-field-slider-size: $toggle-field-height - 2 * $toggle-field-slider-gap;
+$toggle-field-slider-translate: $toggle-field-width - $toggle-field-height;
+
+.toggle-field-container {
+  position: relative;
+  display: inline-block;
+  width: $toggle-field-width;
+  height: $toggle-field-height;
+  margin-top: 4px;
+  margin-bottom: 12px;
+
+  input {
+    width: 0;
+    height: 0;
+    opacity: 0;
+
+    &:focus + .slider {
+      box-shadow: 0 0 2px var(--color3);
+    }
+
+    &:checked + .slider {
+      background-color: var(--color3);
+
+      &:before {
+        -ms-transform: translateX($toggle-field-slider-translate);
+        -webkit-transform: translateX($toggle-field-slider-translate);
+        transform: translateX($toggle-field-slider-translate);
+      }
+    }
+  }
+
+  .slider {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    cursor: pointer;
+    -webkit-transition: $toggle-field-transition-speed;
+    transition: $toggle-field-transition-speed;
+    border-radius: $toggle-field-height;
+    background-color: dimgray;
+
+    &:before {
+      position: absolute;
+      bottom: $toggle-field-slider-gap;
+      left: $toggle-field-slider-gap;
+      width: $toggle-field-slider-size;
+      height: $toggle-field-slider-size;
+      content: "";
+      -webkit-transition: $toggle-field-transition-speed;
+      transition: $toggle-field-transition-speed;
+      border-radius: 50%;
+      background-color: white;
+    }
+  }
+}

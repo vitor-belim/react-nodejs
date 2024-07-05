@@ -1,6 +1,6 @@
 import { Field } from "formik";
 import React from "react";
-import "./ToggleField.css";
+import "./ToggleField.scss";
 
 interface ToggleFieldProps {
   name: string;
@@ -8,7 +8,7 @@ interface ToggleFieldProps {
 
 const ToggleField = ({ name }: ToggleFieldProps) => {
   return (
-    <label className="toggle-container">
+    <label className="toggle-field-container">
       <Field
         type="checkbox"
         className="checkbox"

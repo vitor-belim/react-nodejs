@@ -9,7 +9,7 @@ import { LoadingContext } from "../../../contexts/loading-context";
 import AuthParams from "../../../models/auth/auth-params";
 import AuthResponse from "../../../models/auth/auth-response";
 import FormPage from "../forms/form/FormPage";
-import "./Authentication.css";
+import "./Authentication.scss";
 
 interface AuthenticationProps {
   authRequest: (authParams: AuthParams) => Promise<AuthResponse>;
@@ -71,52 +71,54 @@ const Authentication = ({
   };
 
   return (
-    <FormPage title={title}>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={onSubmit}
-        validationSchema={validationSchema}
-      >
-        <Form className="form-container">
-          <label>Username</label>
-          <ErrorMessage name="username" component="span" className="error" />
-          <Field
-            id="username"
-            name="username"
-            placeholder="(Ex.: Jhon123...)"
-            autoComplete="off"
-          />
+    <div className="authentication-container">
+      <FormPage title={title}>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={onSubmit}
+          validationSchema={validationSchema}
+        >
+          <Form className="form-container">
+            <label>Username</label>
+            <ErrorMessage name="username" component="span" className="error" />
+            <Field
+              id="username"
+              name="username"
+              placeholder="(Ex.: Jhon123...)"
+              autoComplete="off"
+            />
 
-          <label>Password</label>
-          <ErrorMessage name="password" component="span" className="error" />
-          <Field
-            id="post-text"
-            name="password"
-            type="password"
-            placeholder="(Ex.: Lorem ipsum...)"
-            autoComplete="off"
-          />
+            <label>Password</label>
+            <ErrorMessage name="password" component="span" className="error" />
+            <Field
+              id="post-text"
+              name="password"
+              type="password"
+              placeholder="(Ex.: Lorem ipsum...)"
+              autoComplete="off"
+            />
 
-          <button type="submit">
-            <FontAwesomeIcon icon={submitIcon} /> {submitText}
-          </button>
+            <button type="submit">
+              <FontAwesomeIcon icon={submitIcon} /> {submitText}
+            </button>
 
-          <ErrorMessage name="result" component="span" className="error" />
+            <ErrorMessage name="result" component="span" className="error" />
 
-          <div className="alternative-auth-container">
-            <span className="description">{otherAuthDescription}</span>
-            <Link
-              to={{
-                pathname: otherAuthLinkPath,
-                search: window.location.search,
-              }}
-            >
-              {otherAuthLinkText}
-            </Link>
-          </div>
-        </Form>
-      </Formik>
-    </FormPage>
+            <div className="alternative-auth-container">
+              <span className="description">{otherAuthDescription}</span>
+              <Link
+                to={{
+                  pathname: otherAuthLinkPath,
+                  search: window.location.search,
+                }}
+              >
+                {otherAuthLinkText}
+              </Link>
+            </div>
+          </Form>
+        </Formik>
+      </FormPage>
+    </div>
   );
 };
 

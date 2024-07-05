@@ -1,0 +1,30 @@
+:root {
+  --color1: #062c58;
+  --color2: #1d5190;
+  --color3: #5a81af;
+
+  --nav-bar-height: 51px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+
+  .app {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+
+    .content {
+      position: relative;
+      padding-top: var(--nav-bar-height);
+    }
+  }
+}

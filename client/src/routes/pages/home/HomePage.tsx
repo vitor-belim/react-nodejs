@@ -32,6 +32,7 @@ const HomePage = () => {
   return (
     <div className="home-page">
       <PostList posts={posts}>
+        <p>There are no posts yet.</p>
         {auth.status && (
           <Link to="/posts/new">Create the first post ever!</Link>
         )}

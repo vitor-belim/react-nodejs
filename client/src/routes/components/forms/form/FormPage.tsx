@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import "./FormPage.css";
+import "./FormPage.scss";
 
 interface FormPageProps {
   title: string;

@@ -5,12 +5,11 @@ import {
   faSquarePlus,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/auth-context";
 import AuthStorageService from "../../services/auth/auth-storage-service";
-import "./NavBar.css";
+import NavBarLink from "./nav-bar-link/NavBarLink";
+import "./NavBar.scss";
 
 function NavBar() {
   const { auth, setAuth } = useContext(AuthContext);
@@ -21,43 +20,41 @@ function NavBar() {
   };
 
   return (
-    <div className="links">
-      <div className="left">
-        <Link to="/">
-          <FontAwesomeIcon icon={faHouse} /> <span>Home</span>
-        </Link>
+    <div className="nav-bar-container">
+      <div className="column left">
+        <NavBarLink link="/" icon={faHouse} text="Home" />
 
         {auth.status && (
-          <>
-            <Link to="/posts/new">
-              <FontAwesomeIcon icon={faSquarePlus} /> <span>Create Post</span>
-            </Link>
-          </>
+          <NavBarLink
+            link="/posts/new"
+            icon={faSquarePlus}
+            text="Create Post"
+          />
         )}
 
-        <Link to="/search">
-          <FontAwesomeIcon icon={faMagnifyingGlass} /> <span>Search</span>
-        </Link>
+        <NavBarLink link="/search" icon={faMagnifyingGlass} text="Search" />
       </div>
 
-      <div className="right">
+      <div className="column right">
         {auth.status && auth.user ? (
           <>
-            <h2>
+            <h2 className="welcome-msg">
               <i>Welcome {auth.user.username}!</i>
             </h2>
-            <Link to={"/profile/" + auth.user.id}>
-              <FontAwesomeIcon icon={faUser} /> <span>Profile</span>
-            </Link>
-            <Link onClick={logout} to="/">
-              <FontAwesomeIcon icon={faArrowRightFromBracket} />{" "}
-              <span>Logout</span>
-            </Link>
+            <NavBarLink
+              link={"/profile/" + auth.user.id}
+              icon={faUser}
+              text="Profile"
+            />
+            <NavBarLink
+              onClick={logout}
+              link="/"
+              icon={faArrowRightFromBracket}
+              text="Logout"
+            />
           </>
         ) : (
-          <Link to="/login">
-            <FontAwesomeIcon icon={faUser} /> <span>Login</span>
-          </Link>
+          <NavBarLink link="/login" icon={faUser} text="Login" />
         )}
       </div>
     </div>

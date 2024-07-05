@@ -2,11 +2,11 @@ import { faSadCry } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
-import "./NotFoundPage.css";
+import "./NotFoundPage.scss";
 
 const NotFoundPage = () => {
   return (
-    <div className="page-not-found">
+    <div className="not-found-page">
       <h1>
         Page Not Found <FontAwesomeIcon icon={faSadCry} />
       </h1>

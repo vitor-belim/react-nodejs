@@ -18,8 +18,10 @@ import ProfilePage from "./routes/pages/users/profile/ProfilePage";
 import UpdatePasswordPage from "./routes/pages/users/update-password/UpdatePasswordPage";
 import AuthRequestsService from "./services/auth/auth-requests-service";
 import AuthStorageService from "./services/auth/auth-storage-service";
-import "./App.css";
-import "./Form.css";
+import "./App.scss";
+import "./styles/breakpoint-mixins.scss";
+import "./styles/buttons.scss";
+import "./styles/form-elements.scss";
 
 function App() {
   const [auth, setAuth] = useState<AuthModel>({

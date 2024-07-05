@@ -1,0 +1,58 @@
+.spinner-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  min-height: 50px;
+  transition: opacity 400ms;
+  opacity: 1;
+
+  &.full-page {
+    position: fixed;
+    top: var(--nav-bar-height);
+    bottom: unset;
+    height: calc(100vh - var(--nav-bar-height));
+    background: #d4d4d4;
+  }
+
+  &.hidden {
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .spinner {
+    width: 40px;
+    padding: 6px;
+    animation: spinning-animation 1s infinite linear;
+    border-radius: 50%;
+    background: var(--color2);
+    aspect-ratio: 1;
+    --_m: conic-gradient(#0000 10%, #000),
+    linear-gradient(#000 0 0, #000 0 0) content-box;
+    -webkit-mask: var(--_m);
+    mask: var(--_m);
+    -webkit-mask-composite: source-out;
+    mask-composite: subtract;
+
+    &.small {
+      width: 30px;
+      padding: 4px;
+    }
+
+    &.full-page {
+      width: 50px;
+      padding: 8px;
+    }
+  }
+}
+
+@keyframes spinning-animation {
+  to {
+    transform: rotate(1turn);
+  }
+}

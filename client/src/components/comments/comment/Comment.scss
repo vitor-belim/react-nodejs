@@ -1,0 +1,73 @@
+.comment-container {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  width: 70%;
+  height: auto;
+  margin-top: 20px;
+  padding: 12px;
+  white-space: pre-line;
+  border: 1px solid var(--color1);
+  border-radius: 5px;
+
+  .body {
+    color: black;
+  }
+
+  .author {
+    font-family: monospace;
+    font-size: 12px;
+    text-align: right;
+    color: dimgray;
+  }
+
+  .delete {
+    font-size: 12px;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    cursor: pointer;
+    border: none;
+    border-radius: 50%;
+    background: none;
+
+    &:hover {
+      background: lightgray;
+    }
+  }
+
+  .view-more {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    margin: auto;
+    cursor: pointer;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(
+                    0deg,
+                    rgb(205, 205, 205) 0%,
+                    rgba(255, 255, 255, 1) 100%
+    );
+
+    span {
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+      text-transform: uppercase;
+      color: var(--color1);
+    }
+  }
+}

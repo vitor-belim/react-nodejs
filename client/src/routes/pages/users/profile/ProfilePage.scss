@@ -1,0 +1,30 @@
+.profile-page {
+  h1,
+  h2,
+  .basic-info {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    p {
+      margin: 8px 0;
+    }
+
+    button {
+      margin-top: 8px;
+    }
+  }
+
+  .basic-info,
+  .posts-container {
+    margin-top: 50px;
+  }
+
+  .posts-container {
+    position: relative;
+
+    .posts {
+      padding-top: 0;
+    }
+  }
+}

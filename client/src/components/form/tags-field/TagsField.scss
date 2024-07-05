@@ -1,0 +1,13 @@
+.tags-field-container {
+  width: 100%;
+
+  .tags-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  input {
+    width: 100%;
+  }
+}

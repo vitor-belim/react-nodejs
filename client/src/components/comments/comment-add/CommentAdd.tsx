@@ -6,7 +6,7 @@ import PostModel from "../../../models/post-model";
 import SpinnerSize from "../../../models/spinner-size";
 import CommentsService from "../../../services/comments/comments-service";
 import Spinner from "../../spinner/Spinner";
-import "./CommentAdd.css";
+import "./CommentAdd.scss";
 
 interface CommentAddProps {
   post: PostModel;
@@ -36,7 +36,7 @@ function CommentAdd({ post, onAddComment = undefined }: CommentAddProps) {
   };
 
   return (
-    <div className="add-comment-container">
+    <div className="comment-add-container">
       <form onSubmit={handleSubmit}>
         <textarea
           placeholder={
@@ -50,6 +50,7 @@ function CommentAdd({ post, onAddComment = undefined }: CommentAddProps) {
           value={comment}
           onChange={(e) => setComment(e.target.value)}
         />
+
         <button type="submit" disabled={!post.allowComments}>
           <FontAwesomeIcon icon={faMessage} /> Add Comment
         </button>

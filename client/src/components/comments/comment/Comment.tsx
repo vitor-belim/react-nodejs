@@ -7,7 +7,7 @@ import PostModel from "../../../models/post-model";
 import SpinnerSize from "../../../models/spinner-size";
 import CommentsService from "../../../services/comments/comments-service";
 import Spinner from "../../spinner/Spinner";
-import "./Comment.css";
+import "./Comment.scss";
 
 interface CommentAddProps {
   post: PostModel;
@@ -56,7 +56,7 @@ const CommentAdd = ({ post, comment, onDelete }: CommentAddProps) => {
 
   return (
     <div
-      className="comment"
+      className="comment-container"
       ref={ref}
       style={{
         maxHeight: showViewMoreBtn && !viewMore ? "72px" : "",

@@ -1,6 +1,6 @@
 import React, { CSSProperties } from "react";
 import SpinnerSize from "../../models/spinner-size";
-import "./Spinner.css";
+import "./Spinner.scss";
 
 interface SpinnerProps {
   isLoading: boolean;
@@ -13,17 +13,17 @@ const Spinner = ({
   height = undefined,
   size = SpinnerSize.NORMAL,
 }: SpinnerProps) => {
-  let containerClasses = ["loader-container"];
+  let containerClasses = "spinner-container";
   if (!isLoading) {
-    containerClasses.push("hidden");
+    containerClasses += " hidden";
   }
   if (size === SpinnerSize.FULL_PAGE) {
-    containerClasses.push(SpinnerSize.FULL_PAGE);
+    containerClasses += " " + SpinnerSize.FULL_PAGE;
   }
 
-  let loaderClasses = ["loader"];
+  let loaderClasses = "spinner";
   if (size && size !== SpinnerSize.NORMAL) {
-    loaderClasses.push(size);
+    loaderClasses += " " + size;
   }
 
   const style: CSSProperties = {};
@@ -32,8 +32,8 @@ const Spinner = ({
   }
 
   return (
-    <div className={containerClasses.join(" ")} style={style}>
-      <div className={loaderClasses.join(" ")}></div>
+    <div className={containerClasses} style={style}>
+      <div className={loaderClasses}></div>
     </div>
   );
 };

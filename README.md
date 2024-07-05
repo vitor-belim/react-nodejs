@@ -303,8 +303,9 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
 - [2024-07-03] Added Typescript to the client and started adding types everywhere.
 - [2024-07-04] Finished adding types in the client, fixed all TypeScript warnings/errors, reordered CSS properties and
   refactored some parts of the application.
+- [2024-07-05] Added `sass` library to client, converted all `.css` files to `.scss` and refactored styles throughout
+  the application.
 
 ## Ideas for the future
 
-- Implement SCSS/SASS.
-- Restyle the application.
+- Restyle the client.
