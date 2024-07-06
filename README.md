@@ -305,6 +305,7 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
   refactored some parts of the application.
 - [2024-07-05] Added `sass` library to client, converted all `.css` files to `.scss` and refactored styles throughout
   the application.
+- [2024-07-06] Corrected server production build.
 
 ## Ideas for the future
 
