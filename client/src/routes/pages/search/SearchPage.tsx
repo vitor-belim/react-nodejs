@@ -37,9 +37,10 @@ const SearchPage = () => {
     setSearchOptions(searchOptionsObj);
 
     PostsService.getAllPosts(searchOptionsObj)
-      .then((dbPosts) => {
-        setPosts(dbPosts);
+      .then((apiResponse) => {
+        setPosts(apiResponse.data);
       })
+      .catch((err) => err)
       .finally(() => {
         setIsLoading(false);
       });

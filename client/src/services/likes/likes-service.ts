@@ -1,11 +1,16 @@
 import { AxiosRequestConfig } from "axios";
+import LikeModel from "../../models/like-model";
 import ApiService from "../api-service";
 
 class LikesService {
   private readonly PATH = "/likes";
 
-  like(postId: number, options: AxiosRequestConfig<void> = {}) {
-    return ApiService.post(`${this.PATH}/${postId}`, null, options);
+  toggleLike(postId: number, options: AxiosRequestConfig<void> = {}) {
+    return ApiService.post<void, LikeModel | null>(
+      `${this.PATH}/${postId}`,
+      undefined,
+      options,
+    );
   }
 }
 

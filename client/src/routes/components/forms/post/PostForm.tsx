@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import TagsField from "../../../../components/form/tags-field/TagsField";
 import ToggleField from "../../../../components/form/toggle-field/ToggleField";
 import Spinner from "../../../../components/spinner/Spinner";
+import ApiResponse from "../../../../models/api/api-response";
 import PostModel from "../../../../models/post-model";
 import TagModel from "../../../../models/tag-model";
 import FormPage from "../form/FormPage";
@@ -15,7 +16,7 @@ interface PostFormProps {
   title: string;
   submitText: string;
   submitIcon: IconProp;
-  onSubmit: (post: PostModel) => Promise<PostModel>;
+  onSubmit: (post: PostModel) => Promise<ApiResponse<PostModel>>;
   post?: PostModel;
 }
 
@@ -71,8 +72,8 @@ const PostForm = ({
     setIsLoading(true);
 
     onSubmit(data as PostModel)
-      .then((dbPost) => {
-        navigate(`/posts/${dbPost.id}`);
+      .then((apiResponse) => {
+        navigate(`/posts/${apiResponse.data.id}`);
       })
       .catch((err) => err)
       .finally(() => setIsLoading(false));

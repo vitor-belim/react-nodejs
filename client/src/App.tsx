@@ -38,8 +38,8 @@ function App() {
 
     setIsLoading(true);
     AuthRequestsService.refresh()
-      .then((authResponse) =>
-        setAuth({ user: authResponse.user, status: true, checked: true }),
+      .then((apiResponse) =>
+        setAuth({ user: apiResponse.data.user, status: true, checked: true }),
       )
       .catch((_err) => {
         setAuth((auth) => ({ ...auth, checked: true }));

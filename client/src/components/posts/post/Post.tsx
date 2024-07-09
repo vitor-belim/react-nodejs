@@ -57,7 +57,7 @@ function Post({
       return true;
     });
 
-    LikesService.like(post.id).catch(() => {
+    LikesService.toggleLike(post.id).catch(() => {
       setLiked((liked) => !liked);
     });
   };

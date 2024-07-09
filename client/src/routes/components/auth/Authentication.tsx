@@ -1,18 +1,21 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AxiosError } from "axios";
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from "formik";
 import React, { useContext } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import * as Yup from "yup";
 import { AuthContext } from "../../../contexts/auth-context";
 import { LoadingContext } from "../../../contexts/loading-context";
+import ApiErrorResponse from "../../../models/api/api-error-response";
+import ApiResponse from "../../../models/api/api-response";
 import AuthParams from "../../../models/auth/auth-params";
 import AuthResponse from "../../../models/auth/auth-response";
 import FormPage from "../forms/form/FormPage";
 import "./Authentication.scss";
 
 interface AuthenticationProps {
-  authRequest: (authParams: AuthParams) => Promise<AuthResponse>;
+  authRequest: (authParams: AuthParams) => Promise<ApiResponse<AuthResponse>>;
   title: string;
   submitText: string;
   submitIcon: IconProp;
@@ -60,12 +63,15 @@ const Authentication = ({
     setIsLoading(true);
 
     authRequest(data)
-      .then((authResponse) => {
-        setAuth({ user: authResponse.user, status: true, checked: true });
+      .then((apiResponse) => {
+        setAuth({ user: apiResponse.data.user, status: true, checked: true });
         navigate(searchParams.get("from") || "/");
       })
-      .catch((error) => {
-        formHelpers.setFieldError("result", error.response.data.message);
+      .catch((error: AxiosError<ApiErrorResponse>) => {
+        formHelpers.setFieldError(
+          "result",
+          error.response?.data.message || error.message,
+        );
       })
       .finally(() => setIsLoading(false));
   };

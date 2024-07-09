@@ -1,4 +1,5 @@
 import { AxiosRequestConfig } from "axios";
+import ApiResponse from "../../models/api/api-response";
 import AuthParams from "../../models/auth/auth-params";
 import AuthResponse from "../../models/auth/auth-response";
 import UpdatePasswordParams from "../../models/auth/update-password-params";
@@ -8,32 +9,21 @@ import AuthStorageService from "./auth-storage-service";
 class AuthRequestsService {
   private readonly PATH = "/auth";
 
-  signUp(data: AuthParams, options: AxiosRequestConfig<AuthParams> = {}) {
-    AuthStorageService.clearAccessToken();
-
-    return ApiService.post<AuthParams, AuthResponse>(
-      `${this.PATH}/sign-up`,
-      data,
-      options,
-    ).then(this.storeAccessToken);
+  async signUp(data: AuthParams, options: AxiosRequestConfig<AuthParams> = {}) {
+    return this.authenticate(data, options, `${this.PATH}/sign-up`);
   }
 
-  login(data: AuthParams, options: AxiosRequestConfig<AuthParams> = {}) {
-    AuthStorageService.clearAccessToken();
-
-    return ApiService.post<AuthParams, AuthResponse>(
-      `${this.PATH}/login`,
-      data,
-      options,
-    ).then(this.storeAccessToken);
+  async login(data: AuthParams, options: AxiosRequestConfig<AuthParams> = {}) {
+    return this.authenticate(data, options, `${this.PATH}/login`);
   }
 
-  refresh(options: AxiosRequestConfig<void> = {}) {
-    return ApiService.get<void, AuthResponse>(
+  async refresh(options: AxiosRequestConfig<void> = {}) {
+    const apiResponse = await ApiService.get<void, AuthResponse>(
       `${this.PATH}/refresh`,
       options,
       true,
-    ).then(this.storeAccessToken);
+    );
+    return this.storeAccessToken(apiResponse);
   }
 
   updatePassword(
@@ -47,12 +37,27 @@ class AuthRequestsService {
     );
   }
 
-  private storeAccessToken(authResponse: AuthResponse) {
-    AuthStorageService.setAccessToken(
-      authResponse.accessToken,
-      authResponse.expiration,
+  private async authenticate(
+    data: AuthParams,
+    options: AxiosRequestConfig<AuthParams> = {},
+    path: string,
+  ) {
+    AuthStorageService.clearAccessToken();
+
+    const apiResponse = await ApiService.post<AuthParams, AuthResponse>(
+      path,
+      data,
+      options,
     );
-    return authResponse;
+    return this.storeAccessToken(apiResponse);
+  }
+
+  private storeAccessToken(apiResponse: ApiResponse<AuthResponse>) {
+    AuthStorageService.setAccessToken(
+      apiResponse.data.accessToken,
+      apiResponse.data.expiration,
+    );
+    return apiResponse;
   }
 }
 

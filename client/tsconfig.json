@@ -3,7 +3,7 @@
     "module": "commonjs",
     "target": "ES6",
     "allowJs": false,
-    "checkJs": true,
+    "checkJs": false,
     "jsx": "react-jsx",
     "outDir": "./build",
     "rootDir": "./src",

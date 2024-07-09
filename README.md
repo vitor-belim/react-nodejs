@@ -307,8 +307,8 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
   the application.
 - [2024-07-06] Corrected server production build.
 - [2024-07-08] Standardized API responses.
+- [2024-07-09] Adapted client code to standardized API responses.
 
 ## Ideas for the future
 
-- Standardize API responses.
 - Restyle the client.

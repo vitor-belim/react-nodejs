@@ -29,13 +29,13 @@ function EditPostPage() {
     setIsLoading(true);
 
     PostsService.getPost(id)
-      .then((dbPost) => {
-        if (!auth.user || dbPost.user.id !== auth.user.id) {
+      .then((apiResponse) => {
+        if (!auth.user || apiResponse.data.user.id !== auth.user.id) {
           navigate("/");
           return;
         }
 
-        setPost(dbPost);
+        setPost(apiResponse.data);
       })
       .catch(() => navigate("/"))
       .finally(() => setIsLoading(false));

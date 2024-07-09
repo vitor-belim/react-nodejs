@@ -27,9 +27,9 @@ function CommentAdd({ post, onAddComment = undefined }: CommentAddProps) {
     setIsLoading(true);
 
     CommentsService.addCommentToPost(post.id, comment)
-      .then((dbComment) => {
+      .then((apiResponse) => {
         setComment("");
-        onAddComment && onAddComment(dbComment);
+        onAddComment && onAddComment(apiResponse.data);
       })
       .catch((err) => err)
       .finally(() => setIsLoading(false));

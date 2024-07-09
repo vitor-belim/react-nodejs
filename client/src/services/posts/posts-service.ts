@@ -18,6 +18,13 @@ class PostsService {
     return ApiService.get<void, PostModel[]>(url, options);
   }
 
+  getPostsByUser(id: number, options: AxiosRequestConfig<void> = {}) {
+    return ApiService.get<void, PostModel[]>(
+      `${this.PATH}/by-user/${id}`,
+      options,
+    );
+  }
+
   createPost(post: PostModel, options = {}) {
     return ApiService.post<PostModel, PostModel>(this.PATH, post, options);
   }

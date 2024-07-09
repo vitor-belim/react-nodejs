@@ -8,6 +8,7 @@ import { AuthContext } from "../../../../contexts/auth-context";
 import { LoadingContext } from "../../../../contexts/loading-context";
 import PostModel from "../../../../models/post-model";
 import UserModel from "../../../../models/user-model";
+import PostsService from "../../../../services/posts/posts-service";
 import UsersService from "../../../../services/users/users-service";
 import "./ProfilePage.scss";
 
@@ -26,13 +27,13 @@ const ProfilePage = () => {
     setIsLoading(true);
 
     UsersService.getUser(userId)
-      .then((dbUser) => {
-        setUser(dbUser);
+      .then((apiResponse) => {
+        setUser(apiResponse.data);
         setIsLoadingPosts(true);
 
-        UsersService.getPostsByUser(dbUser.id)
-          .then((dbPosts) => {
-            setPosts(dbPosts);
+        PostsService.getPostsByUser(apiResponse.data.id)
+          .then((apiResponse) => {
+            setPosts(apiResponse.data);
           })
           .finally(() => setIsLoadingPosts(false));
       })

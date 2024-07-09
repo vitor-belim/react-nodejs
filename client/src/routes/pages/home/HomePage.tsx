@@ -16,9 +16,10 @@ const HomePage = () => {
     setIsLoading(true);
 
     PostsService.getAllPosts()
-      .then((dbPosts) => {
-        setPosts(dbPosts);
+      .then((apiResponse) => {
+        setPosts(apiResponse.data);
       })
+      .catch((err) => err)
       .finally(() => {
         setIsReady(true);
         setIsLoading(false);

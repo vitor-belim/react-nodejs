@@ -26,19 +26,19 @@ function DetailsPostPage() {
     setIsLoading(true);
 
     PostsService.getPost(id)
-      .then((dbPost) => {
-        setPost(dbPost);
+      .then((apiResponse) => {
+        setPost(apiResponse.data);
 
-        const commentsAreAllowed = dbPost.allowComments;
+        const commentsAreAllowed = apiResponse.data.allowComments;
         const loggedUserIsPostOwner =
-          auth.status && dbPost.user.id === auth.user?.id;
+          auth.status && apiResponse.data.user.id === auth.user?.id;
 
         if (commentsAreAllowed || loggedUserIsPostOwner) {
           setIsLoadingComments(true);
 
           CommentsService.getComments(id)
-            .then((dbComments) => {
-              setComments(dbComments);
+            .then((apiResponse) => {
+              setComments(apiResponse.data);
             })
             .finally(() => setIsLoadingComments(false));
         }

@@ -1,5 +1,6 @@
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AxiosError } from "axios";
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from "formik";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +8,7 @@ import * as Yup from "yup";
 import { Reference } from "yup";
 import Spinner from "../../../../components/spinner/Spinner";
 import { AuthContext } from "../../../../contexts/auth-context";
-import AuthResponse from "../../../../models/auth/auth-response";
+import ApiErrorResponse from "../../../../models/api/api-error-response";
 import AuthRequestsService from "../../../../services/auth/auth-requests-service";
 import FormPage from "../../../components/forms/form/FormPage";
 
@@ -62,12 +63,15 @@ const UpdatePasswordPage = () => {
       password: data.oldPassword,
       newPassword: data.newPassword,
     })
-      .then((authResponse: AuthResponse) => {
+      .then((apiResponse) => {
         formHelpers.resetForm();
-        window.alert(authResponse.message);
+        window.alert(apiResponse.message);
       })
-      .catch((error) => {
-        formHelpers.setFieldError("result", error.response.data.message);
+      .catch((error: AxiosError<ApiErrorResponse>) => {
+        formHelpers.setFieldError(
+          "result",
+          error.response?.data.message || error.message,
+        );
       })
       .finally(() => setIsLoading(false));
   };

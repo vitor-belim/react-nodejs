@@ -1,4 +1,11 @@
-import axios, { AxiosRequestConfig, AxiosResponse, Method } from "axios";
+import axios, {
+  AxiosError,
+  AxiosRequestConfig,
+  AxiosResponse,
+  Method,
+} from "axios";
+import ApiErrorResponse from "../models/api/api-error-response";
+import ApiResponse from "../models/api/api-response";
 import AuthApiService from "./auth/auth-api-service";
 
 class ApiService {
@@ -9,7 +16,7 @@ class ApiService {
     path: string,
     options: AxiosRequestConfig<D>,
     prevent401Redirect: boolean = false,
-  ): Promise<T> {
+  ): Promise<ApiResponse<T>> {
     return this.request<D, T>(path, "GET", options, prevent401Redirect);
   }
 
@@ -18,7 +25,7 @@ class ApiService {
     data: D,
     options: AxiosRequestConfig<D>,
     prevent401Redirect: boolean = false,
-  ): Promise<T> {
+  ): Promise<ApiResponse<T>> {
     return this.request<D, T>(
       path,
       "POST",
@@ -32,7 +39,7 @@ class ApiService {
     data: D,
     options: AxiosRequestConfig<D>,
     prevent401Redirect: boolean = false,
-  ): Promise<T> {
+  ): Promise<ApiResponse<T>> {
     return this.request<D, T>(
       path,
       "PUT",
@@ -45,31 +52,29 @@ class ApiService {
     path: string,
     options: AxiosRequestConfig<D>,
     prevent401Redirect: boolean = false,
-  ): Promise<T> {
+  ): Promise<ApiResponse<T>> {
     return this.request<D, T>(path, "DELETE", options, prevent401Redirect);
   }
 
-  private handleError(error: any, prevent401Redirect: boolean = false) {
+  private handleError(
+    error: AxiosError<ApiErrorResponse>,
+    prevent401Redirect: boolean = false,
+  ) {
     console.error("request error", error);
 
     if (error.response && error.response.status === 401) {
       AuthApiService.handle401Error(prevent401Redirect);
     }
 
-    // Hack needed to avoid axios responses from being "T | void"
-    if (error) {
-      throw error;
-    }
-
     return error;
   }
 
-  private request<D, T>(
+  private async request<D, T>(
     path: string,
     method: Method,
     options: AxiosRequestConfig<D>,
     prevent401Redirect: boolean = false,
-  ): Promise<T> {
+  ): Promise<ApiResponse<T>> {
     let url = this.SERVER_URL + path;
     const config: AxiosRequestConfig<D> = {
       ...AuthApiService.addAuthenticationHeaders<D>(options),
@@ -77,10 +82,14 @@ class ApiService {
       method,
     };
 
-    return axios
-      .request<T, AxiosResponse<T>, D>(config)
-      .then((response): T => response.data)
-      .catch((error: any) => this.handleError(error, prevent401Redirect));
+    try {
+      const response = await axios.request<T, AxiosResponse<ApiResponse<T>>, D>(
+        config,
+      );
+      return response.data;
+    } catch (error: any) {
+      throw this.handleError(error, prevent401Redirect);
+    }
   }
 }
 
