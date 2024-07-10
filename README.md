@@ -308,7 +308,9 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
 - [2024-07-06] Corrected server production build.
 - [2024-07-08] Standardized API responses.
 - [2024-07-09] Adapted client code to standardized API responses.
+- [2024-07-10] Started implementing pagination for GET /posts request.
 
 ## Ideas for the future
 
+- Switch to a layout closer to X.
 - Restyle the client.
