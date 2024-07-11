@@ -309,6 +309,11 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
 - [2024-07-08] Standardized API responses.
 - [2024-07-09] Adapted client code to standardized API responses.
 - [2024-07-10] Started implementing pagination for GET /posts request.
+- [2024-07-11] Implemented pagination for all requests that retrieve a list of items:
+    - GET /posts
+    - GET /posts/by-user/:id
+    - GET /likes
+    - GET /comments
 
 ## Ideas for the future
 
