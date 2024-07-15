@@ -1,12 +1,13 @@
 import { AxiosRequestConfig } from "axios";
-import CommentModel from "../../models/comment-model";
+import CommentModel from "../../models/db-objects/comment-model";
+import PageI from "../../models/pagination/page-i";
 import ApiService from "../api-service";
 
 class CommentsService {
   #PATH = "/comments";
 
   getComments(postId: number, options: AxiosRequestConfig<void> = {}) {
-    return ApiService.get<void, CommentModel[]>(
+    return ApiService.get<void, PageI<CommentModel>>(
       `${this.#PATH}/${postId}`,
       options,
     );

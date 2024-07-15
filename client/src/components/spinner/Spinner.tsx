@@ -1,5 +1,5 @@
 import React, { CSSProperties } from "react";
-import SpinnerSize from "../../models/spinner-size";
+import SpinnerSize from "../../models/enums/spinner-size";
 import "./Spinner.scss";
 
 interface SpinnerProps {

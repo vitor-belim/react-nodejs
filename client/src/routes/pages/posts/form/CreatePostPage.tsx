@@ -2,7 +2,7 @@ import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../contexts/auth-context";
-import PostModel from "../../../../models/post-model";
+import PostModel from "../../../../models/db-objects/post-model";
 import PostsService from "../../../../services/posts/posts-service";
 import PostForm from "../../../components/forms/post/PostForm";
 

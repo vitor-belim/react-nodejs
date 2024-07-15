@@ -1,6 +1,6 @@
 import { FieldArray, FieldArrayRenderProps } from "formik";
 import React, { FocusEvent, KeyboardEvent } from "react";
-import TagModel from "../../../models/tag-model";
+import TagModel from "../../../models/db-objects/tag-model";
 import Tag from "../../tag/Tag";
 import "./TagsField.scss";
 

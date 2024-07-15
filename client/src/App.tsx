@@ -5,7 +5,7 @@ import Spinner from "./components/spinner/Spinner";
 import { AuthContext } from "./contexts/auth-context";
 import { LoadingContext } from "./contexts/loading-context";
 import AuthModel from "./models/auth/auth-model";
-import SpinnerSize from "./models/spinner-size";
+import SpinnerSize from "./models/enums/spinner-size";
 import LoginPage from "./routes/pages/auth/LoginPage";
 import SignUpPage from "./routes/pages/auth/SignUpPage";
 import HomePage from "./routes/pages/home/HomePage";

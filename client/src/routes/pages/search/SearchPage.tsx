@@ -1,12 +1,13 @@
 import { faBroom } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { KeyboardEvent, useEffect, useState } from "react";
+import React, { KeyboardEvent, useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import PostList from "../../../components/posts/post-list/PostList";
 import Spinner from "../../../components/spinner/Spinner";
 import Tag from "../../../components/tag/Tag";
-import PostModel from "../../../models/post-model";
-import TagModel from "../../../models/tag-model";
+import PostModel from "../../../models/db-objects/post-model";
+import TagModel from "../../../models/db-objects/tag-model";
+import PageFactory from "../../../models/pagination/page-factory";
 import PostsService from "../../../services/posts/posts-service";
 import "./SearchPage.scss";
 
@@ -14,7 +15,7 @@ const SearchPage = () => {
   const [searchOptions, setSearchOptions] = useState<Record<string, string>>(
     {},
   );
-  const [posts, setPosts] = useState<PostModel[]>([]);
+  const [postsPage, setPostsPage] = useState(PageFactory.default<PostModel>());
   const [isLoading, setIsLoading] = useState(true);
   let params = useParams();
   let [searchParams, setSearchParams] = useSearchParams();
@@ -23,10 +24,9 @@ const SearchPage = () => {
   const query = params.query;
   let timeout: number | undefined = undefined;
 
-  useEffect(() => {
-    setIsLoading(true);
-
+  const setupSearchOptions = useCallback(() => {
     const searchOptionsObj: Record<string, string> = {};
+
     if (query) {
       searchOptionsObj.query = query;
     }
@@ -34,17 +34,39 @@ const SearchPage = () => {
     if (tag) {
       searchOptionsObj.tag = tag;
     }
+
     setSearchOptions(searchOptionsObj);
 
-    PostsService.getAllPosts(searchOptionsObj)
-      .then((apiResponse) => {
-        setPosts(apiResponse.data);
-      })
-      .catch((err) => err)
-      .finally(() => {
+    return searchOptionsObj;
+  }, [query, searchParams]);
+
+  const loadPosts = useCallback(
+    async (page: number, limit: number) => {
+      setIsLoading(true);
+
+      try {
+        const { data: dbPostsPageI } = await PostsService.getAllPosts(
+          setupSearchOptions(),
+          {
+            params: { page, limit },
+          },
+        );
+        setPostsPage(postsPage.paginate(dbPostsPageI));
+      } catch (err) {
+      } finally {
         setIsLoading(false);
-      });
-  }, [query, searchParams, setIsLoading]);
+      }
+    },
+    [setupSearchOptions, postsPage],
+  );
+
+  useEffect(() => {
+    loadPosts(0, postsPage.limit).then();
+  }, [loadPosts, postsPage]);
+
+  const handleOnPaginate = () => {
+    loadPosts(postsPage.page + 1, postsPage.limit).then();
+  };
 
   const handleSearch = (e: KeyboardEvent<HTMLInputElement>) => {
     if (timeout) {
@@ -87,7 +109,7 @@ const SearchPage = () => {
         <Spinner isLoading={isLoading} height={300} />
 
         <div className="posts-results" style={{ opacity: isLoading ? 0 : 1 }}>
-          <PostList posts={posts}>
+          <PostList postsPage={postsPage} onPaginate={handleOnPaginate}>
             <p>No posts were found.</p>
             <button onClick={() => navigate("/search")}>
               <FontAwesomeIcon icon={faBroom} /> Clear filters

@@ -1,7 +1,7 @@
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { MouseEvent } from "react";
-import TagModel from "../../models/tag-model";
+import TagModel from "../../models/db-objects/tag-model";
 import "./Tag.scss";
 
 interface TagProps {

@@ -16,5 +16,11 @@
     grid-auto-rows: auto;
     grid-template-columns: repeat(auto-fit, minmax(200px, 400px));
     grid-gap: 2rem;
+
+    .paginate-button-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }

@@ -314,6 +314,7 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
     - GET /posts/by-user/:id
     - GET /likes
     - GET /comments
+- [2024-07-15] Adapted client code to new pagination standard.
 
 ## Ideas for the future
 

@@ -1,4 +1,4 @@
-import UserModel from "../user-model";
+import UserModel from "../db-objects/user-model";
 
 export default interface AuthModel {
   status: boolean;

@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from "axios";
-import UserModel from "../../models/user-model";
+import UserModel from "../../models/db-objects/user-model";
 import ApiService from "../api-service";
 
 class UsersService {

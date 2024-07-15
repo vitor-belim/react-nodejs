@@ -8,8 +8,8 @@ import TagsField from "../../../../components/form/tags-field/TagsField";
 import ToggleField from "../../../../components/form/toggle-field/ToggleField";
 import Spinner from "../../../../components/spinner/Spinner";
 import ApiResponse from "../../../../models/api/api-response";
-import PostModel from "../../../../models/post-model";
-import TagModel from "../../../../models/tag-model";
+import PostModel from "../../../../models/db-objects/post-model";
+import TagModel from "../../../../models/db-objects/tag-model";
 import FormPage from "../form/FormPage";
 
 interface PostFormProps {

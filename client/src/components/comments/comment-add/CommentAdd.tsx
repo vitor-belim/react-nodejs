@@ -1,9 +1,9 @@
 import { faMessage } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FormEvent, useState } from "react";
-import CommentModel from "../../../models/comment-model";
-import PostModel from "../../../models/post-model";
-import SpinnerSize from "../../../models/spinner-size";
+import CommentModel from "../../../models/db-objects/comment-model";
+import PostModel from "../../../models/db-objects/post-model";
+import SpinnerSize from "../../../models/enums/spinner-size";
 import CommentsService from "../../../services/comments/comments-service";
 import Spinner from "../../spinner/Spinner";
 import "./CommentAdd.scss";

@@ -1,19 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import CommentAdd from "../../../../components/comments/comment-add/CommentAdd";
 import CommentList from "../../../../components/comments/comment-list/CommentList";
 import Post from "../../../../components/posts/post/Post";
 import { AuthContext } from "../../../../contexts/auth-context";
 import { LoadingContext } from "../../../../contexts/loading-context";
-import CommentModel from "../../../../models/comment-model";
-import PostModel from "../../../../models/post-model";
+import CommentModel from "../../../../models/db-objects/comment-model";
+import PostModel from "../../../../models/db-objects/post-model";
+import PageFactory from "../../../../models/pagination/page-factory";
 import CommentsService from "../../../../services/comments/comments-service";
 import PostsService from "../../../../services/posts/posts-service";
 import "./DetailsPostPage.scss";
 
 function DetailsPostPage() {
   const [post, setPost] = useState<PostModel>();
-  const [comments, setComments] = useState<CommentModel[]>([]);
+  const [commentsPage, setCommentsPage] = useState(
+    PageFactory.default<CommentModel>(),
+  );
   const [isLoadingComments, setIsLoadingComments] = useState(false);
   const { auth } = useContext(AuthContext);
   const { isLoading, setIsLoading } = useContext(LoadingContext);
@@ -22,39 +25,59 @@ function DetailsPostPage() {
 
   const id = parseInt(params.id || "");
 
+  const loadComments = useCallback(
+    (page: number, limit: number) => {
+      setIsLoadingComments(true);
+
+      CommentsService.getComments(id, {
+        params: { page, limit },
+      })
+        .then(({ data: dbCommentsPageI }) => {
+          setCommentsPage((commentsPage) =>
+            commentsPage.paginate(dbCommentsPageI),
+          );
+        })
+        .finally(() => setIsLoadingComments(false));
+    },
+    [id],
+  );
+
+  const setupComments = useCallback(
+    (dbPost: PostModel) => {
+      const commentsAreAllowed = dbPost.allowComments;
+      const loggedUserIsPostOwner =
+        auth.status && dbPost.user.id === auth.user?.id;
+
+      if (commentsAreAllowed || loggedUserIsPostOwner) {
+        loadComments(0, commentsPage.limit);
+      }
+    },
+    [auth, loadComments, commentsPage],
+  );
+
   useEffect(() => {
     setIsLoading(true);
 
     PostsService.getPost(id)
-      .then((apiResponse) => {
-        setPost(apiResponse.data);
+      .then(({ data: dbPost }) => {
+        setPost(dbPost);
 
-        const commentsAreAllowed = apiResponse.data.allowComments;
-        const loggedUserIsPostOwner =
-          auth.status && apiResponse.data.user.id === auth.user?.id;
-
-        if (commentsAreAllowed || loggedUserIsPostOwner) {
-          setIsLoadingComments(true);
-
-          CommentsService.getComments(id)
-            .then((apiResponse) => {
-              setComments(apiResponse.data);
-            })
-            .finally(() => setIsLoadingComments(false));
-        }
+        setupComments(dbPost);
       })
       .catch(() => navigate("/"))
       .finally(() => setIsLoading(false));
-  }, [id, navigate, auth, setIsLoading]);
+  }, [id, navigate, setIsLoading, setupComments]);
 
   const handleCommentAdded = (addedComment: CommentModel) => {
-    setComments((comments) => [addedComment, ...comments]);
+    setCommentsPage((commentsPage) => commentsPage.prependItem(addedComment));
   };
 
   const handleCommentDeleted = (deletedComment: CommentModel) => {
-    setComments((comments) =>
-      comments.filter((comment) => comment.id !== deletedComment.id),
-    );
+    setCommentsPage((commentsPage) => commentsPage.deleteItem(deletedComment));
+  };
+
+  const handleOnPaginateComments = () => {
+    loadComments(commentsPage.page + 1, commentsPage.limit);
   };
 
   if (!post || isLoading) {
@@ -81,7 +104,7 @@ function DetailsPostPage() {
           ) : (
             <>
               <h3>Comments are not allowed in this post.</h3>
-              {comments.length > 0 && (
+              {commentsPage.items.length > 0 && (
                 <p>
                   Since you are the owner of this post, you can review and
                   delete existing comments.
@@ -96,9 +119,10 @@ function DetailsPostPage() {
           {(commentsAreAllowed || loggedUserIsPostOwner) && (
             <CommentList
               post={post}
-              comments={comments}
+              commentsPage={commentsPage}
               isLoading={isLoadingComments}
               onDeleteComment={handleCommentDeleted}
+              onPaginate={handleOnPaginateComments}
             />
           )}
         </div>
