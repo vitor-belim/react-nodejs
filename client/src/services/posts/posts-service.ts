@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from "axios";
 import PostModel from "../../models/db-objects/post-model";
 import PageI from "../../models/pagination/page-i";
-import ApiService from "../api-service";
+import ApiService from "../api/api-service";
 
 class PostsService {
   private readonly PATH = "/posts";

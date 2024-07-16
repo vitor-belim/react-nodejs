@@ -3,7 +3,7 @@ import ApiResponse from "../../models/api/api-response";
 import AuthParams from "../../models/auth/auth-params";
 import AuthResponse from "../../models/auth/auth-response";
 import UpdatePasswordParams from "../../models/auth/update-password-params";
-import ApiService from "../api-service";
+import ApiService from "../api/api-service";
 import AuthStorageService from "./auth-storage-service";
 
 class AuthRequestsService {

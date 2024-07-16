@@ -1,0 +1,33 @@
+@import "../../../styles/breakpoint-mixins";
+
+.side-bar-link-container {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 12px;
+  text-align: center;
+  white-space: nowrap;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: white;
+
+  @include tablet-and-larger {
+    padding: 16px 24px;
+    text-align: unset;
+  }
+
+  &.active {
+    background: var(--color2);
+  }
+
+  &:hover {
+    background: var(--color3);
+  }
+
+  .text {
+    margin-left: 12px;
+
+    @include until-tablet {
+      display: none;
+    }
+  }
+}

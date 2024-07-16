@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from "axios";
 import LikeModel from "../../models/db-objects/like-model";
-import ApiService from "../api-service";
+import ApiService from "../api/api-service";
 
 class LikesService {
   private readonly PATH = "/likes";

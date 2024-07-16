@@ -16,7 +16,7 @@ interface CommentAddProps {
   key?: string | number;
 }
 
-const CommentAdd = ({ post, comment, onDelete }: CommentAddProps) => {
+const Comment = ({ post, comment, onDelete }: CommentAddProps) => {
   const [showViewMoreBtn, setShowViewMoreBtn] = useState(false);
   const [viewMore, setViewMore] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -83,4 +83,4 @@ const CommentAdd = ({ post, comment, onDelete }: CommentAddProps) => {
   );
 };
 
-export default CommentAdd;
+export default Comment;

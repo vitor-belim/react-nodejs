@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import NavBar from "./components/navbar/NavBar";
+import SideBar from "./components/side-bar/SideBar";
 import Spinner from "./components/spinner/Spinner";
 import { AuthContext } from "./contexts/auth-context";
 import { LoadingContext } from "./contexts/loading-context";
 import AuthModel from "./models/auth/auth-model";
 import SpinnerSize from "./models/enums/spinner-size";
-import LoginPage from "./routes/pages/auth/LoginPage";
-import SignUpPage from "./routes/pages/auth/SignUpPage";
-import HomePage from "./routes/pages/home/HomePage";
-import NotFoundPage from "./routes/pages/not-found/NotFoundPage";
-import DetailsPostPage from "./routes/pages/posts/details/DetailsPostPage";
-import CreatePostPage from "./routes/pages/posts/form/CreatePostPage";
-import EditPostPage from "./routes/pages/posts/form/EditPostPage";
-import SearchPage from "./routes/pages/search/SearchPage";
-import ProfilePage from "./routes/pages/users/profile/ProfilePage";
-import UpdatePasswordPage from "./routes/pages/users/update-password/UpdatePasswordPage";
+import LoginPage from "./routes/auth/LoginPage";
+import SignUpPage from "./routes/auth/SignUpPage";
+import HomePage from "./routes/home/HomePage";
+import NotFoundPage from "./routes/not-found/NotFoundPage";
+import DetailsPostPage from "./routes/posts/details/DetailsPostPage";
+import CreatePostPage from "./routes/posts/form/CreatePostPage";
+import EditPostPage from "./routes/posts/form/EditPostPage";
+import SearchPage from "./routes/search/SearchPage";
+import ProfilePage from "./routes/users/profile/ProfilePage";
+import UpdatePasswordPage from "./routes/users/update-password/UpdatePasswordPage";
 import AuthRequestsService from "./services/auth/auth-requests-service";
 import AuthStorageService from "./services/auth/auth-storage-service";
 import "./App.scss";
@@ -69,7 +69,7 @@ function App() {
               <Spinner isLoading={isLoading} size={SpinnerSize.FULL_PAGE} />
             </div>
 
-            <NavBar />
+            <SideBar />
           </BrowserRouter>
         </AuthContext.Provider>
       </LoadingContext.Provider>

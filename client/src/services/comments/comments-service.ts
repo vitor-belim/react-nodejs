@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from "axios";
 import CommentModel from "../../models/db-objects/comment-model";
 import PageI from "../../models/pagination/page-i";
-import ApiService from "../api-service";
+import ApiService from "../api/api-service";
 
 class CommentsService {
   #PATH = "/comments";

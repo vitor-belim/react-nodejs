@@ -14,9 +14,10 @@
 
   &.full-page {
     position: fixed;
-    top: var(--nav-bar-height);
+    top: 0;
     bottom: unset;
-    height: calc(100vh - var(--nav-bar-height));
+    left: var(--side-bar-width);
+    height: 100vh;
     background: #d4d4d4;
   }
 

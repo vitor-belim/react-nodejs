@@ -315,8 +315,8 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
     - GET /likes
     - GET /comments
 - [2024-07-15] Adapted client code to new pagination standard.
+- [2024-07-16] Switched to a side navigation bar + reorganized folder structure.
 
 ## Ideas for the future
 
-- Switch to a layout closer to X.
 - Restyle the client.
