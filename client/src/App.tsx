@@ -61,7 +61,7 @@ function App() {
                 <Route path="/sign-up" Component={SignUpPage} />
                 <Route path="/login" Component={LoginPage} />
                 <Route path="/profile/:id" Component={ProfilePage} />
-                <Route path="/search/:query?" Component={SearchPage} />
+                <Route path="/search" Component={SearchPage} />
                 <Route path="/change-password" Component={UpdatePasswordPage} />
                 <Route path="*" Component={NotFoundPage} />
               </Routes>

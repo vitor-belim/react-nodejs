@@ -88,7 +88,6 @@ const TagsField = ({ name }: TagsFieldProps) => {
               <Tag
                 key={index}
                 tag={tag}
-                canRemove={true}
                 onRemove={() => handleTagDelete(index, arrayHelpers)}
               />
             ),

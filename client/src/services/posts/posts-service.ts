@@ -6,17 +6,8 @@ import ApiService from "../api/api-service";
 class PostsService {
   private readonly PATH = "/posts";
 
-  getAllPosts(
-    search: Record<string, string> | null = null,
-    options: AxiosRequestConfig<void> = {},
-  ) {
-    let url = this.PATH;
-
-    if (search) {
-      url += "?" + new URLSearchParams(search).toString();
-    }
-
-    return ApiService.get<void, PageI<PostModel>>(url, options);
+  getAllPosts(options: AxiosRequestConfig<void> = {}) {
+    return ApiService.get<void, PageI<PostModel>>(this.PATH, options);
   }
 
   getPostsByUser(id: number, options: AxiosRequestConfig<void> = {}) {

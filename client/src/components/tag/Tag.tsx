@@ -1,32 +1,25 @@
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { MouseEvent } from "react";
+import React from "react";
 import TagModel from "../../models/db-objects/tag-model";
 import "./Tag.scss";
 
 interface TagProps {
   tag: TagModel;
-  canRemove?: boolean;
-  onRemove?: (e: MouseEvent<SVGElement>, tag: TagModel) => void;
+  onRemove?: (tag: TagModel) => void;
   key?: string | number;
 }
 
-const Tag = ({ tag, canRemove = false, onRemove = undefined }: TagProps) => {
-  const handleOnClick = (e: MouseEvent<SVGElement>) => {
-    if (canRemove && onRemove) {
-      onRemove(e, tag);
-    }
-  };
-
+const Tag = ({ tag, onRemove = undefined }: TagProps) => {
   return (
     <div className="tag-container">
       <span className="tag-text">{tag.name}</span>
 
-      {canRemove && (
+      {onRemove && (
         <FontAwesomeIcon
           icon={faClose}
           className="tag-icon"
-          onClick={handleOnClick}
+          onClick={() => onRemove(tag)}
         />
       )}
     </div>

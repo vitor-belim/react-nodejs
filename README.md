@@ -316,7 +316,11 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
     - GET /comments
 - [2024-07-15] Adapted client code to new pagination standard.
 - [2024-07-16] Switched to a side navigation bar + reorganized folder structure.
+- [2024-07-17] Implemented search by multiple tags.
 
 ## Ideas for the future
 
+- Add back button in inner-level pages.
+- Add autofocus in forms.
+- Add button to shorten/lengthen side nav.
 - Restyle the client.

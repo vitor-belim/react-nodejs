@@ -1,6 +1,6 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { MouseEvent } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./SideBarLink.scss";
 
@@ -8,7 +8,7 @@ interface SideBarLinkProps {
   link: string;
   icon: IconProp;
   text: string;
-  onClick?: () => void;
+  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
 }
 
 const SideBarLink = ({

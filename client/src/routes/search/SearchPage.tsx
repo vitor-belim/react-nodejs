@@ -1,64 +1,74 @@
 import { faBroom } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { KeyboardEvent, useCallback, useEffect, useState } from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import PostList from "../../components/posts/post-list/PostList";
 import Spinner from "../../components/spinner/Spinner";
 import Tag from "../../components/tag/Tag";
+import useMultiItemSearch from "../../hooks/multi-item-search-hook";
 import PostModel from "../../models/db-objects/post-model";
 import TagModel from "../../models/db-objects/tag-model";
 import PageFactory from "../../models/pagination/page-factory";
 import PostsService from "../../services/posts/posts-service";
 import "./SearchPage.scss";
 
+interface SearchRequestParams {
+  page?: number;
+  limit?: number;
+  query?: string;
+  tags?: string | string[];
+}
+
 const SearchPage = () => {
-  const [searchOptions, setSearchOptions] = useState<Record<string, string>>(
-    {},
-  );
   const [postsPage, setPostsPage] = useState(PageFactory.default<PostModel>());
+  const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  let params = useParams();
+  const [timeoutId, setTimeoutId] = useState<number | undefined>();
   let [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
+  let { items: tags, removeItem: removeTag } = useMultiItemSearch("tags");
 
-  const query = params.query;
-  let timeout: number | undefined = undefined;
+  const setupRequestParams = useCallback(
+    (page: number, limit: number) => {
+      const params: SearchRequestParams = {
+        page,
+        limit,
+      };
 
-  const setupSearchOptions = useCallback(() => {
-    const searchOptionsObj: Record<string, string> = {};
+      const q = searchParams.get("q");
+      if (q) {
+        params.query = q;
+      }
 
-    if (query) {
-      searchOptionsObj.query = query;
-    }
-    let tag = searchParams.get("tag");
-    if (tag) {
-      searchOptionsObj.tag = tag;
-    }
+      const t = searchParams.getAll("tags");
+      if (t) {
+        params.tags = t;
+      }
 
-    setSearchOptions(searchOptionsObj);
-
-    return searchOptionsObj;
-  }, [query, searchParams]);
+      return params;
+    },
+    [searchParams],
+  );
 
   const loadPosts = useCallback(
     async (page: number, limit: number) => {
       setIsLoading(true);
 
       try {
-        const { data: dbPostsPageI } = await PostsService.getAllPosts(
-          setupSearchOptions(),
-          {
-            params: { page, limit },
-          },
-        );
+        const { data: dbPostsPageI } = await PostsService.getAllPosts({
+          params: setupRequestParams(page, limit),
+        });
         setPostsPage(postsPage.paginate(dbPostsPageI));
       } catch (err) {
       } finally {
         setIsLoading(false);
       }
     },
-    [setupSearchOptions, postsPage],
+    [setupRequestParams, postsPage],
   );
+
+  useEffect(() => {
+    setQuery(searchParams.get("q") || "");
+  }, [searchParams]);
 
   useEffect(() => {
     loadPosts(0, postsPage.limit).then();
@@ -69,19 +79,32 @@ const SearchPage = () => {
   };
 
   const handleSearch = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (timeout) {
-      clearTimeout(timeout);
+    if (timeoutId) {
+      clearTimeout(timeoutId);
     }
 
-    timeout = window.setTimeout(() => {
-      const target = e.target as HTMLInputElement;
+    setTimeoutId(
+      window.setTimeout(() => {
+        const target = e.target as HTMLInputElement;
 
-      navigate({
-        pathname: `/search/${target.value}`,
-        search: searchParams.toString(),
-      });
-    }, 600);
+        if (target.value) {
+          searchParams.set("q", target.value);
+        } else {
+          searchParams.delete("q");
+        }
+
+        setSearchParams(searchParams);
+        setTimeoutId(undefined);
+      }, 600),
+    );
   };
+
+  function handleClearFilters() {
+    for (const key of searchParams.keys()) {
+      searchParams.delete(key);
+    }
+    setSearchParams(searchParams);
+  }
 
   return (
     <div className="search-page">
@@ -91,17 +114,22 @@ const SearchPage = () => {
         <input
           type="text"
           placeholder="Search for something..."
-          defaultValue={query}
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
           onKeyUp={handleSearch}
           autoFocus
         />
 
-        {searchOptions?.tag && (
-          <Tag
-            tag={{ name: searchOptions.tag } as TagModel}
-            canRemove={true}
-            onRemove={() => setSearchParams({})}
-          />
+        {tags.length > 0 && (
+          <div className="tags-container">
+            {tags.map((tag, index) => (
+              <Tag
+                key={index}
+                tag={{ name: tag } as TagModel}
+                onRemove={() => removeTag(tag)}
+              />
+            ))}
+          </div>
         )}
       </div>
 
@@ -111,7 +139,7 @@ const SearchPage = () => {
         <div className="posts-results" style={{ opacity: isLoading ? 0 : 1 }}>
           <PostList postsPage={postsPage} onPaginate={handleOnPaginate}>
             <p>No posts were found.</p>
-            <button onClick={() => navigate("/search")}>
+            <button onClick={handleClearFilters}>
               <FontAwesomeIcon icon={faBroom} /> Clear filters
             </button>
           </PostList>

@@ -18,7 +18,7 @@ const HomePage = () => {
       setIsLoading(true);
 
       try {
-        const { data: dbPostsPageI } = await PostsService.getAllPosts(null, {
+        const { data: dbPostsPageI } = await PostsService.getAllPosts({
           params: { page, limit },
         });
         setPostsPage(postsPage.paginate(dbPostsPageI));

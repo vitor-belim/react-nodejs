@@ -5,7 +5,7 @@ import {
   faSquarePlus,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import React, { useContext } from "react";
+import React, { MouseEvent, useContext } from "react";
 import { AuthContext } from "../../contexts/auth-context";
 import AuthStorageService from "../../services/auth/auth-storage-service";
 import SideBarLink from "./side-bar-link/SideBarLink";
@@ -14,7 +14,8 @@ import "./SideBar.scss";
 const SideBar = () => {
   const { auth, setAuth } = useContext(AuthContext);
 
-  const logout = () => {
+  const logout = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
     AuthStorageService.clearAccessToken();
     setAuth({ status: false, checked: true });
   };
@@ -49,7 +50,7 @@ const SideBar = () => {
           <>
             <SideBarLink
               onClick={logout}
-              link="/"
+              link="/logout"
               icon={faArrowRightFromBracket}
               text="Logout"
             />

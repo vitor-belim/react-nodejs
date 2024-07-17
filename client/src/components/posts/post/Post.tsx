@@ -5,9 +5,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { MouseEvent, useContext, useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../contexts/auth-context";
 import { LoadingContext } from "../../../contexts/loading-context";
+import useMultiItemSearch from "../../../hooks/multi-item-search-hook";
 import LikeModel from "../../../models/db-objects/like-model";
 import PostModel from "../../../models/db-objects/post-model";
 import TagModel from "../../../models/db-objects/tag-model";
@@ -33,8 +34,8 @@ function Post({
   const [liked, setLiked] = useState(false);
   const { auth } = useContext(AuthContext);
   const { setIsLoading } = useContext(LoadingContext);
-  let [searchParams, setSearchParams] = useSearchParams();
   let navigate = useNavigate();
+  let { addItem } = useMultiItemSearch("tags");
 
   useEffect(() => {
     setLiked(
@@ -93,12 +94,7 @@ function Post({
 
   const handleTagClick = (e: MouseEvent<HTMLSpanElement>, tag: TagModel) => {
     e.stopPropagation();
-
-    if (window.location.pathname.startsWith("/search")) {
-      setSearchParams({ ...searchParams, tag: tag.name });
-    } else {
-      navigate(`/search?tag=${tag.name}`);
-    }
+    addItem(tag.name);
   };
 
   return (
