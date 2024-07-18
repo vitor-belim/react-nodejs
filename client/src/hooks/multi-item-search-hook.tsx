@@ -8,7 +8,7 @@ const useMultiItemSearch = (queryParam: string) => {
   let location = useLocation();
 
   useEffect(() => {
-    setItems([...searchParams.getAll(queryParam)]);
+    setItems(searchParams.getAll(queryParam));
   }, [searchParams, queryParam]);
 
   const updateRoute = (updatedItems: string[]) => {

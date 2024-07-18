@@ -3,12 +3,22 @@
 .side-bar-link-container {
   font-size: 18px;
   font-weight: bold;
-  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 55px;
+  padding: 16px 24px;
   text-align: center;
   white-space: nowrap;
   text-decoration: none;
   text-transform: uppercase;
   color: white;
+
+  .side-bar.closed & {
+    .text {
+      opacity: 0;
+    }
+  }
 
   @include tablet-and-larger {
     padding: 16px 24px;
@@ -27,7 +37,7 @@
     margin-left: 12px;
 
     @include until-tablet {
-      display: none;
+      opacity: 0;
     }
   }
 }

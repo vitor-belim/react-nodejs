@@ -11,8 +11,21 @@
   justify-content: space-between;
   width: var(--side-bar-width);
   height: 100vh;
+  white-space: nowrap;
   color: white;
   background-color: var(--color1);
+
+  &.closed {
+    .bottom .welcome-msg {
+      opacity: 0;
+    }
+
+    .toggle-button {
+      svg {
+        transform: rotate(180deg);
+      }
+    }
+  }
 
   .top, .bottom {
     display: flex;
@@ -20,12 +33,31 @@
     width: 100%;
 
     .welcome-msg {
-      display: none;
+      display: flex;
       margin: 16px 24px;
+      opacity: 0;
 
       @include tablet-and-larger {
-        display: flex;
+        opacity: 1;
       }
+    }
+  }
+
+  .toggle-button {
+    font-size: 16px;
+    position: absolute;
+    bottom: 10%;
+    left: 100%;
+    padding: 8px 8px 8px 4px;
+    border-radius: 0 50% 50% 0;
+    background-color: var(--color1);
+
+    &:hover {
+      background-color: var(--color3);
+    }
+
+    @include until-tablet {
+      opacity: 0;
     }
   }
 }

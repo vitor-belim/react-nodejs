@@ -5,7 +5,7 @@
   --color2: #1d5190;
   --color3: #5a81af;
 
-  --side-bar-width: 72px;
+  --side-bar-width: 68px;
 }
 
 @include tablet-and-larger {
@@ -16,6 +16,7 @@
 
 * {
   box-sizing: border-box;
+  transition: all 600ms;
 }
 
 html {
