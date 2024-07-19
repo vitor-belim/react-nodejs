@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import CommentAdd from "../../../components/comments/comment-add/CommentAdd";
 import CommentList from "../../../components/comments/comment-list/CommentList";
+import Header from "../../../components/header/Header";
 import Post from "../../../components/posts/post/Post";
 import { AuthContext } from "../../../contexts/auth-context";
 import { LoadingContext } from "../../../contexts/loading-context";
@@ -89,42 +90,47 @@ function DetailsPostPage() {
 
   return (
     <div className="details-post-page">
-      <div className="column">
-        <Post
-          post={post}
-          canNavigate={false}
-          large
-          onDelete={() => navigate("/")}
-        />
-      </div>
-      <div className="column">
-        <div className="comments-container">
-          {commentsAreAllowed ? (
-            <CommentAdd post={post} onAddComment={handleCommentAdded} />
-          ) : (
-            <>
-              <h3>Comments are not allowed in this post.</h3>
-              {commentsPage.items.length > 0 && (
-                <p>
-                  Since you are the owner of this post, you can review and
-                  delete existing comments.
-                  <br />
-                  Other users won't be able to see these comments unless the
-                  "Allow Comments" option is turned back on.
-                </p>
-              )}
-            </>
-          )}
+      <Header title="Post Details" />
 
-          {(commentsAreAllowed || loggedUserIsPostOwner) && (
-            <CommentList
-              post={post}
-              commentsPage={commentsPage}
-              isLoading={isLoadingComments}
-              onDeleteComment={handleCommentDeleted}
-              onPaginate={handleOnPaginateComments}
-            />
-          )}
+      <div className="columns">
+        <div className="column">
+          <Post
+            post={post}
+            canNavigate={false}
+            large
+            onDelete={() => navigate("/")}
+          />
+        </div>
+
+        <div className="column">
+          <div className="comments-container">
+            {commentsAreAllowed ? (
+              <CommentAdd post={post} onAddComment={handleCommentAdded} />
+            ) : (
+              <>
+                <h3>Comments are not allowed in this post.</h3>
+                {commentsPage.items.length > 0 && (
+                  <p>
+                    Since you are the owner of this post, you can review and
+                    delete existing comments.
+                    <br />
+                    Other users won't be able to see these comments unless the
+                    "Allow Comments" option is turned back on.
+                  </p>
+                )}
+              </>
+            )}
+
+            {(commentsAreAllowed || loggedUserIsPostOwner) && (
+              <CommentList
+                post={post}
+                commentsPage={commentsPage}
+                isLoading={isLoadingComments}
+                onDeleteComment={handleCommentDeleted}
+                onPaginate={handleOnPaginateComments}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>

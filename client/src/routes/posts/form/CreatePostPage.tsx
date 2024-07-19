@@ -24,6 +24,7 @@ function CreatePostPage() {
       submitText="Create Post"
       submitIcon={faSquarePlus}
       onSubmit={handleSubmit}
+      withBackButton={false}
     />
   );
 }

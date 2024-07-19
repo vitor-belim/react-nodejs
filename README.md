@@ -319,9 +319,9 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
 - [2024-07-17] Implemented search by multiple tags.
 - [2024-07-18] Implemented open/close side navigation bar when using a tablet or larger device + added transitions to
   side navigation bar.
+- [2024-07-19] Implemented Header component.
 
 ## Ideas for the future
 
-- Add back button in inner-level pages.
 - Add autofocus in forms.
 - Restyle the client.

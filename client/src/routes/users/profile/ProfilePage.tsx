@@ -2,6 +2,7 @@ import { faKey } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Header from "../../../components/header/Header";
 import PostList from "../../../components/posts/post-list/PostList";
 import Spinner from "../../../components/spinner/Spinner";
 import { AuthContext } from "../../../contexts/auth-context";
@@ -76,7 +77,7 @@ const ProfilePage = () => {
 
   return (
     <div className="profile-page">
-      <h1>Profile Page</h1>
+      <Header title="Profile" withBackButton={false} />
 
       <div className="basic-info">
         <h2>Basic Info</h2>

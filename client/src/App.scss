@@ -16,7 +16,11 @@
 
 * {
   box-sizing: border-box;
-  transition: all 600ms;
+
+  &:not(svg):not(path) {
+    // transitions on svg and path elements lag in Chrome: https://stackoverflow.com/a/40512935/12690669
+    transition: all 600ms;
+  }
 }
 
 html {
@@ -29,7 +33,7 @@ html {
 
     .app {
       display: flex;
-      align-items: stretch;
+      align-items: center;
       flex-direction: column;
       width: 100%;
       height: auto;
@@ -38,6 +42,8 @@ html {
 
       .content {
         position: relative;
+        width: 100%;
+        padding: 24px;
       }
     }
   }

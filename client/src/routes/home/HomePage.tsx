@@ -1,5 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Header from "../../components/header/Header";
 import PostList from "../../components/posts/post-list/PostList";
 import { AuthContext } from "../../contexts/auth-context";
 import { LoadingContext } from "../../contexts/loading-context";
@@ -45,6 +46,8 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
+      <Header title="Home" withBackButton={false} />
+
       <PostList postsPage={postsPage} onPaginate={handleOnPaginate}>
         {isReady && !isLoading && (
           <>

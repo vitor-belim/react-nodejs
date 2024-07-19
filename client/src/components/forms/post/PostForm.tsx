@@ -18,6 +18,7 @@ interface PostFormProps {
   submitIcon: IconProp;
   onSubmit: (post: PostModel) => Promise<ApiResponse<PostModel>>;
   post?: PostModel;
+  withBackButton?: boolean;
 }
 
 interface PostFormValues {
@@ -33,6 +34,7 @@ const PostForm = ({
   submitIcon,
   onSubmit,
   post = undefined,
+  withBackButton = true,
 }: PostFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -96,7 +98,7 @@ const PostForm = ({
   };
 
   return (
-    <FormPage title={title}>
+    <FormPage title={title} withBackButton={withBackButton}>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}

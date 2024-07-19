@@ -7,10 +7,10 @@ button {
   color: white;
   border: none;
   border-radius: 5px;
-  background-color: var(--color2);
+  background: var(--color2);
 
   &:hover {
-    background-color: var(--color1);
+    background: var(--color1);
   }
 
   &.secondary {
@@ -19,22 +19,35 @@ button {
     background: none;
 
     &:hover {
-      color: white;
+      color: #ffffff;
       border: 1px solid var(--color3);
-      background-color: var(--color3);
+      background: var(--color3);
     }
   }
 
   &[disabled] {
     color: #d2d2d2;
     border: none;
-    background-color: dimgray;
+    background: dimgray;
 
     &:hover {
       cursor: not-allowed;
       color: #d2d2d2;
       border: none;
-      background-color: dimgray;
+      background: dimgray;
     }
+  }
+
+  &.round {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+  }
+
+  &.no-border {
+    border: none !important;
   }
 }

@@ -2,6 +2,7 @@ import { faBroom } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { KeyboardEvent, useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import Header from "../../components/header/Header";
 import PostList from "../../components/posts/post-list/PostList";
 import Spinner from "../../components/spinner/Spinner";
 import Tag from "../../components/tag/Tag";
@@ -108,7 +109,7 @@ const SearchPage = () => {
 
   return (
     <div className="search-page">
-      <h1>Search</h1>
+      <Header title="Search" withBackButton={false} />
 
       <div className="search-container">
         <input

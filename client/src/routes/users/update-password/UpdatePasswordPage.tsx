@@ -1,4 +1,4 @@
-import { faArrowLeft, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AxiosError } from "axios";
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from "formik";
@@ -77,7 +77,7 @@ const UpdatePasswordPage = () => {
   };
 
   return (
-    <FormPage title="Change password">
+    <FormPage title="Change Password">
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
@@ -119,7 +119,7 @@ const UpdatePasswordPage = () => {
           />
 
           <button type="submit">
-            <FontAwesomeIcon icon={faUser} /> Update Password
+            <FontAwesomeIcon icon={faUser} /> Change Password
           </button>
 
           <ErrorMessage name="result" component="span" className="error" />
