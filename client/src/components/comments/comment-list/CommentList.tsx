@@ -2,8 +2,9 @@ import React from "react";
 import CommentModel from "../../../models/db-objects/comment-model";
 import PostModel from "../../../models/db-objects/post-model";
 import Page from "../../../models/pagination/page";
+import PageHelper from "../../../models/pagination/page-helper";
 import Spinner from "../../spinner/Spinner";
-import CommentAdd from "../comment/Comment";
+import Comment from "../comment/Comment";
 import "./CommentList.scss";
 
 interface CommentListProps {
@@ -24,7 +25,7 @@ const CommentList = ({
   return (
     <div className="comment-list-container">
       {commentsPage.items.map((comment) => (
-        <CommentAdd
+        <Comment
           key={comment.id}
           post={post}
           comment={comment}
@@ -32,7 +33,7 @@ const CommentList = ({
         />
       ))}
 
-      {!isLoading && commentsPage.canPaginate() && (
+      {!isLoading && PageHelper.canPaginate(commentsPage) && (
         <button
           className="paginate-button secondary"
           onClick={() => onPaginate?.()}

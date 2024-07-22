@@ -17,9 +17,11 @@
     grid-gap: 2rem;
 
     .paginate-button-container {
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
+      min-height: 120px;
     }
   }
 }

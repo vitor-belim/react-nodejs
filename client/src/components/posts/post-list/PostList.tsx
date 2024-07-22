@@ -1,12 +1,15 @@
 import React, { ReactNode } from "react";
 import PostModel from "../../../models/db-objects/post-model";
 import Page from "../../../models/pagination/page";
+import PageHelper from "../../../models/pagination/page-helper";
+import Spinner from "../../spinner/Spinner";
 import Post from "../post/Post";
 import "./PostList.scss";
 
 interface PostListProps {
   postsPage: Page<PostModel>;
   onPaginate?: () => void;
+  paginating?: boolean;
   onDelete?: (post: PostModel) => void;
   children?: ReactNode;
 }
@@ -15,6 +18,7 @@ function PostList({
   postsPage,
   onPaginate = undefined,
   onDelete = undefined,
+  paginating = true,
   children = <p>No posts were found.</p>,
 }: PostListProps) {
   return (
@@ -33,14 +37,18 @@ function PostList({
             ></Post>
           ))}
 
-          {onPaginate && postsPage.canPaginate() && (
+          {onPaginate && PageHelper.canPaginate(postsPage) && (
             <div className="paginate-button-container">
-              <button
-                className="paginate-button secondary"
-                onClick={() => onPaginate()}
-              >
-                Load More
-              </button>
+              {paginating ? (
+                <Spinner isLoading={true} />
+              ) : (
+                <button
+                  className="paginate-button secondary"
+                  onClick={() => onPaginate()}
+                >
+                  Load More
+                </button>
+              )}
             </div>
           )}
         </div>

@@ -1,15 +1,23 @@
 import { faBroom } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { KeyboardEvent, useCallback, useEffect, useState } from "react";
+import React, {
+  KeyboardEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useSearchParams } from "react-router-dom";
 import Header from "../../components/header/Header";
 import PostList from "../../components/posts/post-list/PostList";
 import Spinner from "../../components/spinner/Spinner";
 import Tag from "../../components/tag/Tag";
+import { LoadingContext } from "../../contexts/loading-context";
 import useMultiItemSearch from "../../hooks/multi-item-search-hook";
 import PostModel from "../../models/db-objects/post-model";
 import TagModel from "../../models/db-objects/tag-model";
-import PageFactory from "../../models/pagination/page-factory";
+import SpinnerSize from "../../models/enums/spinner-size";
+import PageHelper from "../../models/pagination/page-helper";
 import PostsService from "../../services/posts/posts-service";
 import "./SearchPage.scss";
 
@@ -21,18 +29,23 @@ interface SearchRequestParams {
 }
 
 const SearchPage = () => {
-  const [postsPage, setPostsPage] = useState(PageFactory.default<PostModel>());
+  const [postsPage, setPostsPage] = useState(PageHelper.emptyPage<PostModel>());
   const [query, setQuery] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isPaginating, setIsPaginating] = useState(false);
   const [timeoutId, setTimeoutId] = useState<number | undefined>();
+  const [firstLoad, setFirstLoad] = useState(true);
   let [searchParams, setSearchParams] = useSearchParams();
   let { items: tags, removeItem: removeTag } = useMultiItemSearch("tags");
 
+  let { isLoading: isLoadingPage, setIsLoading: setIsLoadingPage } =
+    useContext(LoadingContext);
+
   const setupRequestParams = useCallback(
-    (page: number, limit: number) => {
+    (page: number) => {
       const params: SearchRequestParams = {
         page,
-        limit,
+        limit: postsPage.limit,
       };
 
       const q = searchParams.get("q");
@@ -47,24 +60,41 @@ const SearchPage = () => {
 
       return params;
     },
-    [searchParams],
+    [searchParams, postsPage.limit],
   );
 
+  const setLoaders = (state: boolean, page: number) => {
+    if (firstLoad) {
+      setIsLoadingPage(state);
+    } else if (page === 0) {
+      setIsLoading(state);
+    } else {
+      setIsPaginating(state);
+    }
+  };
+
   const loadPosts = useCallback(
-    async (page: number, limit: number) => {
-      setIsLoading(true);
+    async (page: number) => {
+      setLoaders(true, page);
 
       try {
-        const { data: dbPostsPageI } = await PostsService.getAllPosts({
-          params: setupRequestParams(page, limit),
+        const { data: dbPostsPage } = await PostsService.getAllPosts({
+          params: setupRequestParams(page),
         });
-        setPostsPage(postsPage.paginate(dbPostsPageI));
+        if (page === 0) {
+          setPostsPage(dbPostsPage);
+        } else {
+          setPostsPage((_postsPage) =>
+            PageHelper.paginate(_postsPage, dbPostsPage),
+          );
+        }
       } catch (err) {
       } finally {
-        setIsLoading(false);
+        setFirstLoad(false);
+        setLoaders(false, page);
       }
     },
-    [setupRequestParams, postsPage],
+    [setupRequestParams, setIsLoadingPage, firstLoad],
   );
 
   useEffect(() => {
@@ -72,11 +102,11 @@ const SearchPage = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    loadPosts(0, postsPage.limit).then();
-  }, [loadPosts, postsPage]);
+    loadPosts(0).then();
+  }, [loadPosts]);
 
   const handleOnPaginate = () => {
-    loadPosts(postsPage.page + 1, postsPage.limit).then();
+    loadPosts(postsPage.page + 1).then();
   };
 
   const handleSearch = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -107,6 +137,10 @@ const SearchPage = () => {
     setSearchParams(searchParams);
   }
 
+  function handleOnDelete(deletedPost: PostModel) {
+    setPostsPage(PageHelper.removeItem(postsPage, deletedPost));
+  }
+
   return (
     <div className="search-page">
       <Header title="Search" withBackButton={false} />
@@ -132,17 +166,26 @@ const SearchPage = () => {
             ))}
           </div>
         )}
+
+        <Spinner isLoading={isLoading} height={48} size={SpinnerSize.SMALL} />
       </div>
 
       <div className="results-container">
-        <Spinner isLoading={isLoading} height={300} />
-
-        <div className="posts-results" style={{ opacity: isLoading ? 0 : 1 }}>
-          <PostList postsPage={postsPage} onPaginate={handleOnPaginate}>
-            <p>No posts were found.</p>
-            <button onClick={handleClearFilters}>
-              <FontAwesomeIcon icon={faBroom} /> Clear filters
-            </button>
+        <div className="posts-results">
+          <PostList
+            postsPage={postsPage}
+            paginating={isPaginating}
+            onPaginate={handleOnPaginate}
+            onDelete={handleOnDelete}
+          >
+            {!isLoading && !isPaginating && !isLoadingPage && (
+              <>
+                <p>No posts were found.</p>
+                <button onClick={handleClearFilters}>
+                  <FontAwesomeIcon icon={faBroom} /> Clear filters
+                </button>
+              </>
+            )}
           </PostList>
         </div>
       </div>

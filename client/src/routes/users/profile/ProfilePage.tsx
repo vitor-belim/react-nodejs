@@ -9,14 +9,14 @@ import { AuthContext } from "../../../contexts/auth-context";
 import { LoadingContext } from "../../../contexts/loading-context";
 import PostModel from "../../../models/db-objects/post-model";
 import UserModel from "../../../models/db-objects/user-model";
-import PageFactory from "../../../models/pagination/page-factory";
+import PageHelper from "../../../models/pagination/page-helper";
 import PostsService from "../../../services/posts/posts-service";
 import UsersService from "../../../services/users/users-service";
 import "./ProfilePage.scss";
 
 const ProfilePage = () => {
   const [user, setUser] = useState<UserModel>();
-  const [postsPage, setPostsPage] = useState(PageFactory.default<PostModel>());
+  const [postsPage, setPostsPage] = useState(PageHelper.emptyPage<PostModel>());
   const [isLoadingPosts, setIsLoadingPosts] = useState(true);
   let { auth } = useContext(AuthContext);
   const { isLoading, setIsLoading } = useContext(LoadingContext);
@@ -26,21 +26,29 @@ const ProfilePage = () => {
   const userId = parseInt(params.id || "");
 
   const loadPosts = useCallback(
-    async (userId: number, page: number, limit: number) => {
+    async (userId: number, page: number) => {
       setIsLoadingPosts(true);
 
       try {
-        const { data: dbPostsPageI } = await PostsService.getPostsByUser(
+        const { data: dbPostsPage } = await PostsService.getPostsByUser(
           userId,
-          { params: { page, limit } },
+          {
+            params: { page, limit: postsPage.limit },
+          },
         );
 
-        setPostsPage(postsPage.paginate(dbPostsPageI));
+        if (page === 0) {
+          setPostsPage(dbPostsPage);
+        } else {
+          setPostsPage((_postsPage) =>
+            PageHelper.paginate(_postsPage, dbPostsPage),
+          );
+        }
       } finally {
         setIsLoadingPosts(false);
       }
     },
-    [postsPage],
+    [postsPage.limit],
   );
 
   const loadUser = useCallback(async () => {
@@ -59,16 +67,16 @@ const ProfilePage = () => {
 
   useEffect(() => {
     loadUser().then(() => {
-      loadPosts(userId, 0, postsPage.limit).then();
+      loadPosts(userId, 0).then();
     });
-  }, [loadUser, loadPosts, userId, postsPage]);
+  }, [loadUser, loadPosts, userId]);
 
   const handlePostDelete = (deletedPost: PostModel) => {
-    setPostsPage(postsPage.deleteItem(deletedPost));
+    setPostsPage(PageHelper.removeItem(postsPage, deletedPost));
   };
 
   const handleOnPaginate = () => {
-    loadPosts(userId, postsPage.page + 1, postsPage.limit).then();
+    loadPosts(userId, postsPage.page + 1).then();
   };
 
   if (!user || isLoading) {
@@ -105,17 +113,15 @@ const ProfilePage = () => {
           <h2>Posts by {user.username}</h2>
         )}
 
-        {isLoadingPosts ? (
-          <Spinner isLoading={true} height={200} />
-        ) : (
-          <PostList
-            postsPage={postsPage}
-            onDelete={handlePostDelete}
-            onPaginate={handleOnPaginate}
-          >
-            <p>This user hasn't made any posts yet.</p>
-          </PostList>
-        )}
+        <PostList
+          postsPage={postsPage}
+          onDelete={handlePostDelete}
+          onPaginate={handleOnPaginate}
+        >
+          {!isLoadingPosts && <p>This user hasn't made any posts yet.</p>}
+        </PostList>
+
+        <Spinner isLoading={isLoadingPosts} height={200} />
       </div>
     </div>
   );

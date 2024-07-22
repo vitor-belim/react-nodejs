@@ -1,17 +1,17 @@
 import { AxiosRequestConfig } from "axios";
 import PostModel from "../../models/db-objects/post-model";
-import PageI from "../../models/pagination/page-i";
+import Page from "../../models/pagination/page";
 import ApiService from "../api/api-service";
 
 class PostsService {
   private readonly PATH = "/posts";
 
   getAllPosts(options: AxiosRequestConfig<void> = {}) {
-    return ApiService.get<void, PageI<PostModel>>(this.PATH, options);
+    return ApiService.get<void, Page<PostModel>>(this.PATH, options);
   }
 
   getPostsByUser(id: number, options: AxiosRequestConfig<void> = {}) {
-    return ApiService.get<void, PageI<PostModel>>(
+    return ApiService.get<void, Page<PostModel>>(
       `${this.PATH}/by-user/${id}`,
       options,
     );

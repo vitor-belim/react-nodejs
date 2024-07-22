@@ -8,7 +8,7 @@ import { AuthContext } from "../../../contexts/auth-context";
 import { LoadingContext } from "../../../contexts/loading-context";
 import CommentModel from "../../../models/db-objects/comment-model";
 import PostModel from "../../../models/db-objects/post-model";
-import PageFactory from "../../../models/pagination/page-factory";
+import PageHelper from "../../../models/pagination/page-helper";
 import CommentsService from "../../../services/comments/comments-service";
 import PostsService from "../../../services/posts/posts-service";
 import "./DetailsPostPage.scss";
@@ -16,7 +16,7 @@ import "./DetailsPostPage.scss";
 function DetailsPostPage() {
   const [post, setPost] = useState<PostModel>();
   const [commentsPage, setCommentsPage] = useState(
-    PageFactory.default<CommentModel>(),
+    PageHelper.emptyPage<CommentModel>(),
   );
   const [isLoadingComments, setIsLoadingComments] = useState(false);
   const { auth } = useContext(AuthContext);
@@ -27,33 +27,24 @@ function DetailsPostPage() {
   const id = parseInt(params.id || "");
 
   const loadComments = useCallback(
-    (page: number, limit: number) => {
+    (page: number) => {
       setIsLoadingComments(true);
 
       CommentsService.getComments(id, {
-        params: { page, limit },
+        params: { page, limit: commentsPage.limit },
       })
-        .then(({ data: dbCommentsPageI }) => {
-          setCommentsPage((commentsPage) =>
-            commentsPage.paginate(dbCommentsPageI),
-          );
+        .then(({ data: dbCommentsPage }) => {
+          if (page === 0) {
+            setCommentsPage(dbCommentsPage);
+          } else {
+            setCommentsPage((_commentsPage) =>
+              PageHelper.paginate(_commentsPage, dbCommentsPage),
+            );
+          }
         })
         .finally(() => setIsLoadingComments(false));
     },
-    [id],
-  );
-
-  const setupComments = useCallback(
-    (dbPost: PostModel) => {
-      const commentsAreAllowed = dbPost.allowComments;
-      const loggedUserIsPostOwner =
-        auth.status && dbPost.user.id === auth.user?.id;
-
-      if (commentsAreAllowed || loggedUserIsPostOwner) {
-        loadComments(0, commentsPage.limit);
-      }
-    },
-    [auth, loadComments, commentsPage],
+    [id, commentsPage.limit],
   );
 
   useEffect(() => {
@@ -63,23 +54,17 @@ function DetailsPostPage() {
       .then(({ data: dbPost }) => {
         setPost(dbPost);
 
-        setupComments(dbPost);
+        const commentsAreAllowed = dbPost.allowComments;
+        const loggedUserIsPostOwner =
+          auth.status && dbPost.user.id === auth.user?.id;
+
+        if (commentsAreAllowed || loggedUserIsPostOwner) {
+          loadComments(0);
+        }
       })
       .catch(() => navigate("/"))
       .finally(() => setIsLoading(false));
-  }, [id, navigate, setIsLoading, setupComments]);
-
-  const handleCommentAdded = (addedComment: CommentModel) => {
-    setCommentsPage((commentsPage) => commentsPage.prependItem(addedComment));
-  };
-
-  const handleCommentDeleted = (deletedComment: CommentModel) => {
-    setCommentsPage((commentsPage) => commentsPage.deleteItem(deletedComment));
-  };
-
-  const handleOnPaginateComments = () => {
-    loadComments(commentsPage.page + 1, commentsPage.limit);
-  };
+  }, [id, navigate, setIsLoading, auth, loadComments]);
 
   if (!post || isLoading) {
     return null;
@@ -105,7 +90,7 @@ function DetailsPostPage() {
         <div className="column">
           <div className="comments-container">
             {commentsAreAllowed ? (
-              <CommentAdd post={post} onAddComment={handleCommentAdded} />
+              <CommentAdd post={post} onAddComment={() => loadComments(0)} />
             ) : (
               <>
                 <h3>Comments are not allowed in this post.</h3>
@@ -126,8 +111,8 @@ function DetailsPostPage() {
                 post={post}
                 commentsPage={commentsPage}
                 isLoading={isLoadingComments}
-                onDeleteComment={handleCommentDeleted}
-                onPaginate={handleOnPaginateComments}
+                onDeleteComment={() => loadComments(0)}
+                onPaginate={() => loadComments(commentsPage.page + 1)}
               />
             )}
           </div>

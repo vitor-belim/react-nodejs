@@ -320,8 +320,18 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
 - [2024-07-18] Implemented open/close side navigation bar when using a tablet or larger device + added transitions to
   side navigation bar.
 - [2024-07-19] Implemented Header component.
+- [2024-07-22] Refactored pagination.
 
 ## Ideas for the future
 
+- Paginate likes?
+- When searching for tags, define colors and highlight them in the posts
 - Add autofocus in forms.
-- Restyle the client.
+- Restyle the client:
+    - Side bar as black
+    - no border-radius
+    - text-color can be green or blue, but light in both cases
+    - cards with different colors
+    - background color same as side-bar text
+    - font-family sans-serif
+    - move post actions to footer

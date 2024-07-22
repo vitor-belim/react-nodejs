@@ -5,6 +5,7 @@
   justify-content: center;
 
   .search-container {
+    position: relative;
     display: flex;
     align-items: stretch;
     flex-direction: column;
@@ -12,10 +13,20 @@
     max-width: 400px;
     margin-bottom: 24px;
 
+    input {
+      padding-right: 40px;
+    }
+
     .tags-container {
       display: flex;
       align-self: center;
       margin-top: 8px;
+    }
+
+    .spinner-container {
+      right: 5px;
+      left: unset;
+      min-height: unset;
     }
   }
 
