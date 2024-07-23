@@ -23,11 +23,13 @@ const Comment = ({ post, comment, onDelete }: CommentAddProps) => {
   let { auth } = useContext(AuthContext);
   const ref = useRef<HTMLDivElement | null>(null);
 
+  const viewMoreHeight = 100;
+
   useEffect(() => {
     setShowViewMoreBtn(
-      !!ref.current?.clientHeight && ref.current?.clientHeight > 96,
+      !!ref.current?.clientHeight && ref.current?.clientHeight > viewMoreHeight,
     );
-  }, []);
+  }, [viewMoreHeight]);
 
   const deleteHandler = () => {
     let confirmation = window.confirm(
@@ -50,27 +52,25 @@ const Comment = ({ post, comment, onDelete }: CommentAddProps) => {
     setViewMore((val) => !val);
   };
 
-  const loggedUserOwnsPostOrComment =
-    auth.status &&
-    (post.user.id === auth.user?.id || comment.user.id === auth.user?.id);
-
   return (
     <div
       className="comment-container"
       ref={ref}
       style={{
-        maxHeight: showViewMoreBtn && !viewMore ? "72px" : "",
+        maxHeight: showViewMoreBtn && !viewMore ? `${viewMoreHeight}px` : "",
         paddingBottom: showViewMoreBtn && viewMore ? "50px" : "",
       }}
     >
       <span className="body">{comment.commentBody}</span>
       <span className="author">@{comment.user.username}</span>
 
-      {loggedUserOwnsPostOrComment && (
-        <div className="delete" onClick={deleteHandler}>
-          <FontAwesomeIcon icon={faTrash} />
-        </div>
-      )}
+      {auth.status &&
+        (auth.user?.id === post.user.id ||
+          auth.user?.id === comment.user.id) && (
+          <div className="delete" onClick={deleteHandler}>
+            <FontAwesomeIcon icon={faTrash} />
+          </div>
+        )}
 
       {showViewMoreBtn && (
         <div className="view-more" onClick={viewMoreHandler}>

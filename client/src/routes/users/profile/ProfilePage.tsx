@@ -16,7 +16,7 @@ import "./ProfilePage.scss";
 
 const ProfilePage = () => {
   const [user, setUser] = useState<UserModel>();
-  const [postsPage, setPostsPage] = useState(PageHelper.emptyPage<PostModel>());
+  const [postsPage, setPostsPage] = useState(PageHelper.empty<PostModel>());
   const [isLoadingPosts, setIsLoadingPosts] = useState(true);
   let { auth } = useContext(AuthContext);
   const { isLoading, setIsLoading } = useContext(LoadingContext);

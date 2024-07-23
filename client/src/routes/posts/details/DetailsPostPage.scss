@@ -1,5 +1,4 @@
 .details-post-page {
-
   .columns {
     display: flex;
     flex-wrap: wrap;
@@ -14,14 +13,6 @@
       justify-content: center;
       min-width: 300px;
       margin-bottom: 48px;
-
-      .comments-container {
-        display: grid;
-        align-items: flex-start;
-        flex: 20%;
-        width: 100%;
-        place-items: center;
-      }
     }
   }
 }

@@ -2,7 +2,7 @@ import DbItem from "../api/db-item";
 import Page from "./page";
 
 class PageHelper {
-  emptyPage<T extends DbItem>(limit?: number): Page<T> {
+  empty<T extends DbItem>(limit?: number): Page<T> {
     return {
       page: 0,
       limit: limit || 5,
@@ -12,24 +12,21 @@ class PageHelper {
     };
   }
 
-  paginate<T extends DbItem>(
-    currentItemPage: Page<T>,
-    newItemPage: Page<T>,
-  ): Page<T> {
+  paginate<T extends DbItem>(currentPage: Page<T>, newPage: Page<T>): Page<T> {
     return {
-      ...newItemPage,
-      items: [...currentItemPage.items, ...newItemPage.items],
+      ...newPage,
+      items: [...currentPage.items, ...newPage.items],
     };
   }
 
-  canPaginate<T extends DbItem>(itemPage: Page<T>): boolean {
-    return itemPage.page < itemPage.pages - 1;
+  canPaginate<T extends DbItem>(page: Page<T>): boolean {
+    return page.page < page.pages - 1;
   }
 
-  removeItem<T extends DbItem>(itemPage: Page<T>, item: T): Page<T> {
+  removeItem<T extends DbItem>(page: Page<T>, item: T): Page<T> {
     return {
-      ...itemPage,
-      items: itemPage.items.filter((_item) => _item.id !== item.id),
+      ...page,
+      items: page.items.filter((_item) => _item.id !== item.id),
     };
   }
 }

@@ -1,0 +1,21 @@
+.comments-container {
+  display: grid;
+  align-items: flex-start;
+  flex: 20%;
+  width: 100%;
+  place-items: center;
+
+  .comment-list-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 80%;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px 0;
+
+    .paginate-button {
+      margin-top: 20px;
+    }
+  }
+}

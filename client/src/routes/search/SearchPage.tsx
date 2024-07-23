@@ -28,18 +28,24 @@ interface SearchRequestParams {
   tags?: string | string[];
 }
 
+interface SearchLoaders {
+  loadingPage: boolean;
+  loadingPosts: boolean;
+  paginatingPosts: boolean;
+}
+
 const SearchPage = () => {
-  const [postsPage, setPostsPage] = useState(PageHelper.emptyPage<PostModel>());
+  const [postsPage, setPostsPage] = useState(PageHelper.empty<PostModel>());
+  const [loaders, setLoaders] = useState<SearchLoaders>({
+    loadingPage: true,
+    loadingPosts: false,
+    paginatingPosts: false,
+  });
   const [query, setQuery] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [isPaginating, setIsPaginating] = useState(false);
   const [timeoutId, setTimeoutId] = useState<number | undefined>();
-  const [firstLoad, setFirstLoad] = useState(true);
+  let { setIsLoading } = useContext(LoadingContext);
   let [searchParams, setSearchParams] = useSearchParams();
   let { items: tags, removeItem: removeTag } = useMultiItemSearch("tags");
-
-  let { isLoading: isLoadingPage, setIsLoading: setIsLoadingPage } =
-    useContext(LoadingContext);
 
   const setupRequestParams = useCallback(
     (page: number) => {
@@ -54,7 +60,7 @@ const SearchPage = () => {
       }
 
       const t = searchParams.getAll("tags");
-      if (t) {
+      if (t.length > 0) {
         params.tags = t;
       }
 
@@ -63,19 +69,13 @@ const SearchPage = () => {
     [searchParams, postsPage.limit],
   );
 
-  const setLoaders = (state: boolean, page: number) => {
-    if (firstLoad) {
-      setIsLoadingPage(state);
-    } else if (page === 0) {
-      setIsLoading(state);
-    } else {
-      setIsPaginating(state);
-    }
-  };
-
   const loadPosts = useCallback(
     async (page: number) => {
-      setLoaders(true, page);
+      setLoaders((_loaders) => ({
+        ..._loaders,
+        loadingPosts: page === 0,
+        paginatingPosts: page > 0,
+      }));
 
       try {
         const { data: dbPostsPage } = await PostsService.getAllPosts({
@@ -90,16 +90,23 @@ const SearchPage = () => {
         }
       } catch (err) {
       } finally {
-        setFirstLoad(false);
-        setLoaders(false, page);
+        setLoaders({
+          loadingPage: false,
+          loadingPosts: false,
+          paginatingPosts: false,
+        });
       }
     },
-    [setupRequestParams, setIsLoadingPage, firstLoad],
+    [setupRequestParams],
   );
 
   useEffect(() => {
     setQuery(searchParams.get("q") || "");
   }, [searchParams]);
+
+  useEffect(() => {
+    setIsLoading(loaders.loadingPage);
+  }, [setIsLoading, loaders.loadingPage]);
 
   useEffect(() => {
     loadPosts(0).then();
@@ -141,6 +148,10 @@ const SearchPage = () => {
     setPostsPage(PageHelper.removeItem(postsPage, deletedPost));
   }
 
+  if (loaders.loadingPage) {
+    return null;
+  }
+
   return (
     <div className="search-page">
       <Header title="Search" withBackButton={false} />
@@ -167,18 +178,22 @@ const SearchPage = () => {
           </div>
         )}
 
-        <Spinner isLoading={isLoading} height={48} size={SpinnerSize.SMALL} />
+        <Spinner
+          isLoading={loaders.loadingPosts}
+          height={48}
+          size={SpinnerSize.SMALL}
+        />
       </div>
 
       <div className="results-container">
         <div className="posts-results">
           <PostList
             postsPage={postsPage}
-            paginating={isPaginating}
+            paginating={loaders.paginatingPosts}
             onPaginate={handleOnPaginate}
             onDelete={handleOnDelete}
           >
-            {!isLoading && !isPaginating && !isLoadingPage && (
+            {!loaders.loadingPosts && !loaders.paginatingPosts && (
               <>
                 <p>No posts were found.</p>
                 <button onClick={handleClearFilters}>

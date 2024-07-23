@@ -9,9 +9,7 @@ import PageHelper from "../../models/pagination/page-helper";
 import PostsService from "../../services/posts/posts-service";
 
 const HomePage = () => {
-  const [postsPage, setPostsPage] = useState(
-    PageHelper.emptyPage<PostModel>(8),
-  );
+  const [postsPage, setPostsPage] = useState(PageHelper.empty<PostModel>(8));
   const [isReady, setIsReady] = useState(false);
   const { auth } = useContext(AuthContext);
   const { isLoading, setIsLoading } = useContext(LoadingContext);
