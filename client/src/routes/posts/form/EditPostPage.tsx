@@ -50,7 +50,7 @@ function EditPostPage() {
   return (
     <PostForm
       post={post}
-      title="Edit your post"
+      title="Edit Post"
       submitText="Save Post"
       submitIcon={faFloppyDisk}
       onSubmit={handleSubmit}

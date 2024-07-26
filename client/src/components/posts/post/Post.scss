@@ -1,20 +1,19 @@
 .post-container {
-  font-family: monospace;
   display: flex;
   overflow: hidden;
   flex-direction: column;
   width: 100%;
   max-width: 400px;
   word-break: break-word;
-  border-radius: 10px;
+  border-radius: 16px;
   box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
 
   &:hover {
-    cursor: pointer;
     box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
   }
 
   .title {
+    font-size: 26px;
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -22,47 +21,37 @@
     flex-grow: 0;
     flex-shrink: 0;
     justify-content: space-between;
-    padding: 4px 8px;
-    text-transform: uppercase;
-    background-color: var(--color1);
+    padding: 8px 12px;
+    text-transform: capitalize;
 
     span {
-      color: white;
-    }
-
-    .actions {
-      display: flex;
-      align-items: center;
-
-      .action {
-        width: 24px;
-        height: 24px;
-        padding: 4px;
-        text-align: center;
-        color: white;
-        border-radius: 50%;
-
-        &:hover {
-          background-color: var(--color2);
-        }
-      }
+      color: var(--color1);
     }
   }
 
   .body {
-    font-family: fantasy;
     display: flex;
-    align-items: center;
     flex: 100% 1;
     flex-direction: column;
     justify-content: center;
-    padding: 20px;
+    padding: 0 12px;
     white-space: pre-wrap;
 
+    .username {
+      margin-bottom: 16px;
+
+      a {
+        text-decoration: underline;
+        color: var(--color1);
+      }
+    }
+
     .post-text {
+      font-family: fantasy;
       display: flex;
       align-items: center;
       flex: 100% 1;
+      margin-bottom: 8px;
 
       p {
         margin: 0;
@@ -72,14 +61,15 @@
     .tags {
       display: flex;
       align-items: center;
-      justify-content: center;
+      flex-wrap: wrap;
       width: 100%;
-      margin-top: 10px;
-      gap: 12px;
+      margin-bottom: 8px;
+      row-gap: 4px;
+      column-gap: 8px;
 
       .tag {
-        text-decoration: none;
         font-weight: bold;
+        text-decoration: none;
         color: var(--color1);
 
         &:hover {
@@ -91,18 +81,73 @@
   }
 
   .footer {
+    font-size: 16px;
     display: flex;
     align-items: center;
     flex-basis: 24px;
     flex-grow: 0;
     flex-shrink: 0;
     justify-content: space-between;
-    padding: 4px 8px;
+    padding: 8px 12px;
     color: white;
     background-color: var(--color3);
 
-    .likes {
-      &.active {
+    .actions {
+      display: flex;
+      margin-right: 20px;
+      grid-gap: 4px;
+
+      .action {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        padding: 6px;
+        cursor: pointer;
+        text-align: center;
+        color: white;
+        border-radius: 50%;
+
+        &:hover {
+          background-color: var(--color2);
+        }
+
+        &.active {
+          background-color: var(--color1);
+        }
+
+        .fa-layers .fa-layers-counter {
+          top: 75%;
+          right: -6px;
+          transform: scale(0.55);
+          color: white;
+          background-color: var(--color2);
+        }
+      }
+    }
+
+    .details {
+      font-size: 20px;
+      padding: 2px 8px;
+      transform: translateX(-2px);
+      text-decoration: none;
+      color: white;
+
+      @keyframes move-left-right-animation {
+        0% {
+          transform: translateX(-2px);
+        }
+        50% {
+          transform: translateX(2px);
+        }
+        100% {
+          transform: translateX(-2px);
+        }
+      }
+
+      &:hover {
+        animation: 1s infinite linear alternate move-left-right-animation;
         color: var(--color1);
       }
     }
@@ -139,8 +184,23 @@
     min-height: 400px;
 
     .title {
-      font-size: 28px;
+      font-size: 40px;
       flex-basis: 50px;
+      flex-grow: 0;
+      flex-shrink: 0;
+    }
+
+    .body {
+      font-size: 25px;
+
+      .tags {
+        margin-bottom: 12px;
+      }
+    }
+
+    .footer {
+      font-size: 28px;
+      flex-basis: 30px;
       flex-grow: 0;
       flex-shrink: 0;
 
@@ -152,21 +212,6 @@
           margin-left: 4px;
           padding: 10px;
         }
-      }
-    }
-
-    .body {
-      font-size: 25px;
-    }
-
-    .footer {
-      font-size: 28px;
-      flex-basis: 30px;
-      flex-grow: 0;
-      flex-shrink: 0;
-
-      .likes {
-        font-size: 20px;
       }
     }
   }

@@ -18,7 +18,7 @@ function PostList({
   postsPage,
   onPaginate = undefined,
   onDelete = undefined,
-  paginating = true,
+  paginating = false,
   children = <p>No posts were found.</p>,
 }: PostListProps) {
   return (

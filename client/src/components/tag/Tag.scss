@@ -2,15 +2,24 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 4px 4px 4px 0;
-  padding: 4px 8px 4px 12px;
+  padding: 4px 12px;
+  cursor: pointer;
   border-radius: 16px;
   background: var(--color3);
+
+  &:hover {
+    background: var(--color1);
+  }
+
+  &.active {
+    background: var(--color2);
+  }
 
   .tag-text {
     color: white;
 
     & + .tag-icon {
+      margin-right: -4px;
       margin-left: 4px;
       padding: 2px 2px;
       color: black;

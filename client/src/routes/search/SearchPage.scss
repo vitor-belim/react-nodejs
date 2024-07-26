@@ -20,7 +20,9 @@
     .tags-container {
       display: flex;
       align-self: center;
+      flex-wrap: wrap;
       margin-top: 8px;
+      gap: 8px;
     }
 
     .spinner-container {

@@ -322,6 +322,7 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
 - [2024-07-19] Implemented Header component.
 - [2024-07-22] Refactored pagination.
 - [2024-07-23] Refactored Search and Post Details pages.
+- [2024-07-26] Started restyling client.
 
 ## Ideas for the future
 

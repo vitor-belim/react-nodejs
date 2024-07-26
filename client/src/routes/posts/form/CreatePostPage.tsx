@@ -20,7 +20,7 @@ function CreatePostPage() {
 
   return (
     <PostForm
-      title="Create a new post"
+      title="Create Post"
       submitText="Create Post"
       submitIcon={faSquarePlus}
       onSubmit={handleSubmit}

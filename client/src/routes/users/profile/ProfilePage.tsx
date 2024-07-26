@@ -14,10 +14,18 @@ import PostsService from "../../../services/posts/posts-service";
 import UsersService from "../../../services/users/users-service";
 import "./ProfilePage.scss";
 
+interface ProfileLoaders {
+  loadingPosts: boolean;
+  paginatingPosts: boolean;
+}
+
 const ProfilePage = () => {
   const [user, setUser] = useState<UserModel>();
   const [postsPage, setPostsPage] = useState(PageHelper.empty<PostModel>());
-  const [isLoadingPosts, setIsLoadingPosts] = useState(true);
+  const [loadingLoaders, setLoadingLoaders] = useState<ProfileLoaders>({
+    loadingPosts: true,
+    paginatingPosts: false,
+  });
   let { auth } = useContext(AuthContext);
   const { isLoading, setIsLoading } = useContext(LoadingContext);
   let params = useParams();
@@ -27,7 +35,10 @@ const ProfilePage = () => {
 
   const loadPosts = useCallback(
     async (userId: number, page: number) => {
-      setIsLoadingPosts(true);
+      setLoadingLoaders({
+        loadingPosts: page === 0,
+        paginatingPosts: page > 0,
+      });
 
       try {
         const { data: dbPostsPage } = await PostsService.getPostsByUser(
@@ -45,7 +56,10 @@ const ProfilePage = () => {
           );
         }
       } finally {
-        setIsLoadingPosts(false);
+        setLoadingLoaders({
+          loadingPosts: false,
+          paginatingPosts: false,
+        });
       }
     },
     [postsPage.limit],
@@ -117,11 +131,12 @@ const ProfilePage = () => {
           postsPage={postsPage}
           onDelete={handlePostDelete}
           onPaginate={handleOnPaginate}
+          paginating={loadingLoaders.paginatingPosts}
         >
-          {!isLoadingPosts && <p>This user hasn't made any posts yet.</p>}
+          {!loadingLoaders && <p>This user hasn't made any posts yet.</p>}
         </PostList>
 
-        <Spinner isLoading={isLoadingPosts} height={200} />
+        <Spinner isLoading={loadingLoaders.loadingPosts} height={200} />
       </div>
     </div>
   );

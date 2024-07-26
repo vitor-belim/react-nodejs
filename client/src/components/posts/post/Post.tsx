@@ -1,19 +1,20 @@
 import {
+  faArrowRightLong,
   faPencil,
   faThumbsUp,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { MouseEvent, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../../contexts/auth-context";
 import { LoadingContext } from "../../../contexts/loading-context";
 import useMultiItemSearch from "../../../hooks/multi-item-search-hook";
 import LikeModel from "../../../models/db-objects/like-model";
 import PostModel from "../../../models/db-objects/post-model";
-import TagModel from "../../../models/db-objects/tag-model";
 import LikesService from "../../../services/likes/likes-service";
 import PostsService from "../../../services/posts/posts-service";
+import Tag from "../../tag/Tag";
 import "./Post.scss";
 
 interface PostProps {
@@ -34,7 +35,6 @@ function Post({
   const [liked, setLiked] = useState(false);
   const { auth } = useContext(AuthContext);
   const { setIsLoading } = useContext(LoadingContext);
-  let navigate = useNavigate();
   let { addItem } = useMultiItemSearch("tags");
 
   useEffect(() => {
@@ -63,9 +63,7 @@ function Post({
     });
   };
 
-  const handleDelete = (e: MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-
+  const handleDelete = () => {
     const confirmation = window.confirm(
       "Are you sure you want to delete this post?",
     );
@@ -82,41 +80,17 @@ function Post({
     }
   };
 
-  const handleProfileClick = (e: MouseEvent<HTMLSpanElement>) => {
-    e.stopPropagation();
-    navigate(`/profile/${post.user.id}`);
-  };
-
-  const handleEdit = (e: MouseEvent<HTMLDivElement>) => {
-    e.stopPropagation();
-    navigate(`/posts/${post.id}/edit`);
-  };
-
-  const handleTagClick = (e: MouseEvent<HTMLSpanElement>, tag: TagModel) => {
-    e.stopPropagation();
-    addItem(tag.name);
-  };
-
   return (
-    <div
-      className={`post-container ${large && "large"}`}
-      onClick={() => canNavigate && navigate(`/posts/${post.id}`)}
-    >
+    <div className={`post-container ${large && "large"}`}>
       <div className="title">
         <span>{post.title}</span>
-        {auth.status && auth.user?.id === post.user.id && (
-          <div className="actions">
-            <div className="action" onClick={handleEdit}>
-              <FontAwesomeIcon icon={faPencil} />
-            </div>
-            <div className="action" onClick={handleDelete}>
-              <FontAwesomeIcon icon={faTrash} />
-            </div>
-          </div>
-        )}
       </div>
 
       <div className="body">
+        <span className="username">
+          by <Link to={`/profile/${post.user.id}`}>{post.user.username}</Link>
+        </span>
+
         <div className="post-text">
           <p className={post.tags.length > 0 ? "has-tags" : ""}>
             {post.postText}
@@ -126,26 +100,42 @@ function Post({
         {post.tags.length > 0 && (
           <div className="tags">
             {post.tags.map((tag) => (
-              <span
-                onClick={(e) => handleTagClick(e, tag)}
-                key={tag.id}
-                className="tag"
-              >
-                #{tag.name}
-              </span>
+              <Tag tag={tag} key={tag.id} onClick={() => addItem(tag.name)} />
             ))}
           </div>
         )}
       </div>
 
       <div className="footer">
-        <span onClick={handleProfileClick}>@{post.user.username}</span>
-        <div
-          className={"likes" + (liked ? " active" : "")}
-          onClick={handleLike}
-        >
-          <FontAwesomeIcon icon={faThumbsUp} /> {likes.length}
+        <div className="actions">
+          <div
+            className={"action" + (liked ? " active" : "")}
+            onClick={handleLike}
+          >
+            <span className="fa-layers fa-fw">
+              <FontAwesomeIcon icon={faThumbsUp} />
+              <span className="fa-layers-counter">{likes.length}</span>
+            </span>
+          </div>
+
+          {auth.status && auth.user?.id === post.user.id && (
+            <>
+              <Link to={`/posts/${post.id}/edit`} className="action">
+                <FontAwesomeIcon icon={faPencil} />
+              </Link>
+
+              <div className="action" onClick={handleDelete}>
+                <FontAwesomeIcon icon={faTrash} />
+              </div>
+            </>
+          )}
         </div>
+
+        {canNavigate && (
+          <Link to={`/posts/${post.id}`} className="details">
+            <FontAwesomeIcon icon={faArrowRightLong} />
+          </Link>
+        )}
       </div>
     </div>
   );
