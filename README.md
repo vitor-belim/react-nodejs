@@ -327,7 +327,6 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
 ## Ideas for the future
 
 - Paginate likes?
-- When searching for tags, define colors and highlight them in the posts
 - Add autofocus in forms.
 - Restyle the client:
     - Side bar as black
@@ -336,4 +335,3 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
     - cards with different colors
     - background color same as side-bar text
     - font-family sans-serif
-    - move post actions to footer

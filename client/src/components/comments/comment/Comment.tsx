@@ -1,6 +1,7 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../../contexts/auth-context";
 import CommentModel from "../../../models/db-objects/comment-model";
 import PostModel from "../../../models/db-objects/post-model";
@@ -62,7 +63,9 @@ const Comment = ({ post, comment, onDelete }: CommentAddProps) => {
       }}
     >
       <span className="body">{comment.commentBody}</span>
-      <span className="author">@{comment.user.username}</span>
+      <Link to={`/profile/${comment.user.id}`} className="author">
+        {comment.user.username}
+      </Link>
 
       {auth.status &&
         (auth.user?.id === post.user.id ||

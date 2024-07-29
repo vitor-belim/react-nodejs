@@ -13,30 +13,43 @@ interface CommentListProps {
   post: PostModel;
 }
 
+interface CommentListLoaders {
+  loadingComments: boolean;
+  paginatingComments: boolean;
+}
+
 const CommentsContainer = ({ post }: CommentListProps) => {
   const [commentsPage, setCommentsPage] = useState(
     PageHelper.empty<CommentModel>(),
   );
-  const [isLoading, setIsLoading] = useState(false);
+  const [loaders, setLoaders] = useState<CommentListLoaders>({
+    loadingComments: true,
+    paginatingComments: false,
+  });
   const { auth } = useContext(AuthContext);
 
   const loadComments = useCallback(
     (page: number) => {
-      setIsLoading(true);
+      setLoaders({
+        loadingComments: page === 0,
+        paginatingComments: page > 0,
+      });
 
       CommentsService.getComments(post.id, {
         params: { page, limit: commentsPage.limit },
       })
         .then(({ data: dbCommentsPage }) => {
           if (page === 0) {
-            setCommentsPage(dbCommentsPage);
+            setCommentsPage((_commentsPage) => dbCommentsPage);
           } else {
             setCommentsPage((_commentsPage) =>
               PageHelper.paginate(_commentsPage, dbCommentsPage),
             );
           }
         })
-        .finally(() => setIsLoading(false));
+        .finally(() =>
+          setLoaders({ loadingComments: false, paginatingComments: false }),
+        );
     },
     [post.id, commentsPage.limit],
   );
@@ -45,7 +58,13 @@ const CommentsContainer = ({ post }: CommentListProps) => {
     if (post.allowComments || (auth.status && post.user.id === auth.user?.id)) {
       loadComments(0);
     }
-  }, [post, auth, loadComments]);
+  }, [
+    post.allowComments,
+    auth.status,
+    post.user.id,
+    auth.user?.id,
+    loadComments,
+  ]);
 
   return (
     <div className="comments-container">
@@ -77,16 +96,23 @@ const CommentsContainer = ({ post }: CommentListProps) => {
           />
         ))}
 
-        {!isLoading && PageHelper.canPaginate(commentsPage) && (
-          <button
-            className="paginate-button secondary"
-            onClick={() => loadComments(commentsPage.page + 1)}
-          >
-            Load more
-          </button>
+        {!loaders.loadingComments && PageHelper.canPaginate(commentsPage) && (
+          <div className="pagination-container">
+            {loaders.paginatingComments ? (
+              <Spinner isLoading={true} />
+            ) : (
+              <button
+                style={{ opacity: loaders.paginatingComments ? 0 : 1 }}
+                className="paginate-button secondary"
+                onClick={() => loadComments(commentsPage.page + 1)}
+              >
+                Load more
+              </button>
+            )}
+          </div>
         )}
 
-        <Spinner isLoading={isLoading} height={250} />
+        <Spinner isLoading={loaders.loadingComments} height={250} />
       </div>
     </div>
   );

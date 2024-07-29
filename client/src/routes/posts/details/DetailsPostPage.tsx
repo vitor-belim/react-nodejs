@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import CommentsContainer from "../../../components/comments/comments-container/CommentsContainer";
 import Header from "../../../components/header/Header";
 import Post from "../../../components/posts/post/Post";
-import { AuthContext } from "../../../contexts/auth-context";
 import { LoadingContext } from "../../../contexts/loading-context";
 import PostModel from "../../../models/db-objects/post-model";
 import PostsService from "../../../services/posts/posts-service";
@@ -12,7 +11,6 @@ import "./DetailsPostPage.scss";
 function DetailsPostPage() {
   const [post, setPost] = useState<PostModel>();
   const { isLoading, setIsLoading } = useContext(LoadingContext);
-  const { auth } = useContext(AuthContext);
   const params = useParams();
   let navigate = useNavigate();
 
@@ -27,7 +25,7 @@ function DetailsPostPage() {
       })
       .catch(() => navigate("/"))
       .finally(() => setIsLoading(false));
-  }, [id, navigate, setIsLoading, auth]);
+  }, [id, navigate, setIsLoading]);
 
   if (!post || isLoading) {
     return null;
