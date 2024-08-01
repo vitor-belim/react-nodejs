@@ -324,10 +324,10 @@ This lesson focused on deploying the client code to `Netlify` and the server cod
 - [2024-07-23] Refactored Search and Post Details pages.
 - [2024-07-26] Started restyling client.
 - [2024-07-29] Continued restyling client.
+- [2024-08-01] Corrected Comment's "view more/less" animation.
 
 ## Ideas for the future
 
-- Correct height animation on "view more/less" (comments).
 - Paginate likes?
 - Add autofocus in forms.
 - Restyle the client:

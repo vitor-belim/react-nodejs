@@ -18,18 +18,28 @@ interface CommentAddProps {
 }
 
 const Comment = ({ post, comment, onDelete }: CommentAddProps) => {
+  const [containerHeight, setContainerHeight] = useState(""); // Start height as empty (i.e. 'auto')
   const [showViewMoreBtn, setShowViewMoreBtn] = useState(false);
-  const [viewMore, setViewMore] = useState(false);
+  const [viewMoreIsOpen, setViewMoreIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   let { auth } = useContext(AuthContext);
   const ref = useRef<HTMLDivElement | null>(null);
 
-  const viewMoreHeight = 100;
+  const viewMoreHeight = 115;
+  const viewMorePaddingBottom = 50;
 
   useEffect(() => {
-    setShowViewMoreBtn(
-      !!ref.current?.clientHeight && ref.current?.clientHeight > viewMoreHeight,
-    );
+    let measured = ref.current?.clientHeight || 0;
+
+    const showViewMoreBtn = measured > viewMoreHeight;
+
+    if (showViewMoreBtn) {
+      measured += 30; // Extra padding - padding bottom grows from 20px to 50px = 30px
+      measured += 2; // Extra borders - 1px top and 1px bottom = 2px
+    }
+
+    setShowViewMoreBtn(showViewMoreBtn);
+    setContainerHeight(`${measured}px`);
   }, [viewMoreHeight]);
 
   const deleteHandler = () => {
@@ -49,8 +59,8 @@ const Comment = ({ post, comment, onDelete }: CommentAddProps) => {
     }
   };
 
-  const viewMoreHandler = () => {
-    setViewMore((val) => !val);
+  const handleViewMoreToggle = () => {
+    setViewMoreIsOpen((val) => !val);
   };
 
   return (
@@ -58,8 +68,12 @@ const Comment = ({ post, comment, onDelete }: CommentAddProps) => {
       className="comment-container"
       ref={ref}
       style={{
-        maxHeight: showViewMoreBtn && !viewMore ? `${viewMoreHeight}px` : "",
-        paddingBottom: showViewMoreBtn && viewMore ? "50px" : "",
+        height:
+          showViewMoreBtn && !viewMoreIsOpen
+            ? `${viewMoreHeight}px`
+            : containerHeight,
+        paddingBottom:
+          showViewMoreBtn && viewMoreIsOpen ? `${viewMorePaddingBottom}px` : "",
       }}
     >
       <span className="body">{comment.commentBody}</span>
@@ -76,8 +90,8 @@ const Comment = ({ post, comment, onDelete }: CommentAddProps) => {
         )}
 
       {showViewMoreBtn && (
-        <div className="view-more" onClick={viewMoreHandler}>
-          <span>{!viewMore ? "View more" : "View less"}</span>
+        <div className="view-more" onClick={handleViewMoreToggle}>
+          <span>{viewMoreIsOpen ? "View less" : "View more"}</span>
         </div>
       )}
 
